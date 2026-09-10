@@ -20,7 +20,7 @@ const menuItems = [
   { name: "Inicio", href: "/" },
   { name: "ERP's", href: "/erps" }, // <-- Ruta corregida
   { name: "Metodología", href: "/#metodologia" }, // <-- '/' agregada
-  { name: "Casos de éxito", href: "/#casos-de-exito" },
+  { name: "Casos de éxito", href: "/casos-de-exito" },
   { name: "Nosotros", href: "/#nosotros" },
   { name: "Contacto", href: "/contacto" },
 ];
