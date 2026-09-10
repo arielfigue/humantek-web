@@ -1,8 +1,6 @@
 import Link from "next/link";
 
 export default function Home() {
-  const youtubeVideoId = "aYYVUMy-KLE";
-
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
       {/* --- HERO SECTION --- */}
@@ -16,7 +14,6 @@ export default function Home() {
           
           {/* COLUMNA IZQUIERDA: Textos institucionales */}
           <div className="flex flex-col items-start text-left">
-
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
               Productividad es el acto de{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
@@ -49,26 +46,23 @@ export default function Home() {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: Video de YouTube Protegido */}
+          {/* COLUMNA DERECHA: Reproductor de Video Local */}
           <div className="relative w-full">
             <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-500 opacity-25 blur-2xl -z-10"></div>
             
             <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-2 shadow-2xl backdrop-blur-xl">
               <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950">
-                
-                {/* CAPA PROTECTORA SUPERIOR */}
-                <div className="absolute top-0 inset-x-0 h-16 z-20 bg-transparent" />
-                
-                {/* CAPA PROTECTORA INFERIOR DERECHA */}
-                <div className="absolute bottom-0 right-0 w-28 h-12 z-20 bg-transparent" />
-
-                <iframe
-                  className="absolute inset-0 h-full w-full border-0"
-                  src={`https://www.youtube-nocookie.com/embed/${youtubeVideoId}?rel=0&modestbranding=1&iv_load_policy=3&disablekb=1`}
-                  title="Video institucional Humanytek"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  className="h-full w-full object-cover rounded-lg"
+                >
+                  <source src="/humanytek-video.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
               </div>
             </div>
           </div>
