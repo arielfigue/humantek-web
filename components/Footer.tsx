@@ -6,7 +6,7 @@ export default function Footer() {
   const menuItems = [
     { name: "Inicio", href: "/" },
     { name: "ERP's", href: "/erps" },
-    { name: "Metodología", href: "/#metodologia" },
+    { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" }, // <-- Ruta ya actualizada
     { name: "Industria 4.0", href: "/#industria-40" },
     { name: "Nosotros", href: "/#nosotros" },
