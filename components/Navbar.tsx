@@ -15,17 +15,15 @@ export default function Navbar() {
     }
   }, [isOpen]);
 
-  const menuItems = [
-    { name: "Inicio", href: "/" },
-    { name: "ERP's", href: "#erps" },
-    { name: "Casos de éxito", href: "#casos-de-exito" },
-    { name: "Metodología", href: "#metodologia" },
-    { name: "Industria 4.0", href: "#industria-40" },
-    { name: "VMI", href: "#vmi" },
-    { name: "Inteligencia Artificial", href: "#inteligencia-artificial" },
-    { name: "Nosotros", href: "#nosotros" },
-    { name: "Contacto", href: "/contacto" },
-  ];
+// Asegúrate de usar este nombre de variable para que el .map() de abajo funcione
+const menuItems = [
+  { name: "Inicio", href: "/" },
+  { name: "ERP's", href: "/erps" }, // <-- Ruta corregida
+  { name: "Metodología", href: "/#metodologia" }, // <-- '/' agregada
+  { name: "Casos de éxito", href: "/#casos-de-exito" },
+  { name: "Nosotros", href: "/#nosotros" },
+  { name: "Contacto", href: "/contacto" },
+];
 
   return (
     <>

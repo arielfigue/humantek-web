@@ -3,13 +3,14 @@ import Link from "next/link";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  // Enlaces globales actualizados para sitios multi-página
   const menuItems = [
     { name: "Inicio", href: "/" },
-    { name: "ERP's", href: "#erps" },
-    { name: "Metodología", href: "#metodologia" },
-    { name: "Casos de éxito", href: "#casos-de-exito" },
-    { name: "Industria 4.0", href: "#industria-40" },
-    { name: "Nosotros", href: "#nosotros" },
+    { name: "ERP's", href: "/erps" }, // <-- Apuntando a la nueva página
+    { name: "Metodología", href: "/#metodologia" }, // <-- Agregada la '/' para volver a la Home
+    { name: "Casos de éxito", href: "/#casos-de-exito" },
+    { name: "Industria 4.0", href: "/#industria-40" },
+    { name: "Nosotros", href: "/#nosotros" },
     { name: "Contacto", href: "/contacto" },
     { name: "Aviso de privacidad", href: "/aviso-de-privacidad" },
   ];
