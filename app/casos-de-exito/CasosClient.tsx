@@ -11,12 +11,27 @@ export interface CaseStudy {
   logoUrl?: string;
   description: string;
   tamano: string;
-  giro: string;
+  giro: string[];
   tipo: string;
 }
 
 interface CasosClientProps {
   initialCases: CaseStudy[];
+}
+
+function getValidLogoUrl(url?: string): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (!trimmed || trimmed.toLowerCase() === 'undefined' || trimmed.toLowerCase() === 'null') {
+    return null;
+  }
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    return trimmed;
+  }
+  if (trimmed.startsWith('/')) {
+    return trimmed;
+  }
+  return `/${trimmed}`;
 }
 
 export default function CasosClient({ initialCases }: CasosClientProps) {
@@ -28,7 +43,10 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
 
   const isMatch = (item: CaseStudy) => {
     if (selectedTamano && item.tamano !== selectedTamano) return false;
-    if (selectedGiro.length > 0 && !selectedGiro.includes(item.giro)) return false;
+    if (selectedGiro.length > 0) {
+      const hasGiroMatch = item.giro.some((g) => selectedGiro.includes(g));
+      if (!hasGiroMatch) return false;
+    }
     if (selectedTipo && item.tipo !== selectedTipo) return false;
     return true;
   };
@@ -100,13 +118,13 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                 </div>
 
                 <div className="space-y-3">
-                  {/* Categoría: Tamaño (Selección Simple) */}
+                  {/* Categoría: Tamaño */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
                       Tamaño:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {['Grande', 'Mediana', 'Pequeña'].map((item) => (
+                      {['Grande', 'Medianas', 'Pequeñas'].map((item) => (
                         <button
                           key={item}
                           onClick={() => toggleSingleFilter(selectedTamano, setSelectedTamano, item)}
@@ -122,13 +140,13 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                     </div>
                   </div>
 
-                  {/* Categoría: Giro (Selección Múltiple) */}
+                  {/* Categoría: Giro (Selección Múltiple con Distribución incluida) */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
                       Giro:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {['Servicios', 'Manufactura', 'Comercialización', 'Retail'].map((item) => (
+                      {['Servicios', 'Manufactura', 'Comercialización', 'Retail', 'Distribución'].map((item) => (
                         <button
                           key={item}
                           onClick={() => toggleGiroFilter(item)}
@@ -144,7 +162,7 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                     </div>
                   </div>
 
-                  {/* Categoría: Tipo (Selección Simple) */}
+                  {/* Categoría: Tipo */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
                       Tipo:
@@ -177,6 +195,7 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
         <div className="space-y-8">
           {sortedCases.map((item) => {
             const matches = hasActiveFilters && isMatch(item);
+            const validLogoUrl = getValidLogoUrl(item.logoUrl);
 
             return (
               <div
@@ -200,9 +219,9 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                 <div className="lg:col-span-6 space-y-4 flex flex-col justify-between h-full">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between gap-4">
-                      {item.logoUrl && item.logoUrl.trim() !== '' ? (
+                      {validLogoUrl ? (
                         <div className="relative h-10 w-32">
-                          <Image src={item.logoUrl} alt={item.title} fill className="object-contain object-left" />
+                          <Image src={validLogoUrl} alt={item.title} fill className="object-contain object-left" />
                         </div>
                       ) : (
                         <span className="text-xl font-bold text-white tracking-tight">{item.title}</span>
@@ -220,7 +239,11 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
 
                   <div className="pt-2 flex flex-wrap gap-2 text-[11px]">
                     <span className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">{item.tamano}</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">{item.giro}</span>
+                    {item.giro.map((g) => (
+                      <span key={g} className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">
+                        {g}
+                      </span>
+                    ))}
                     <span className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">{item.tipo}</span>
                   </div>
                 </div>
