@@ -31,7 +31,7 @@ export default function Footer() {
 
           <div className="flex gap-3 shrink-0">
             <a
-              href="https://youtube.com"
+              href="https://www.youtube.com/@humanytek"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-colors"
@@ -42,7 +42,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/humanytek/?viewAsMember=true"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded bg-sky-600 hover:bg-sky-500 text-white flex items-center justify-center transition-colors"
