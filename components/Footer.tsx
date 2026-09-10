@@ -3,12 +3,11 @@ import Link from "next/link";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Enlaces globales actualizados para sitios multi-página
   const menuItems = [
     { name: "Inicio", href: "/" },
-    { name: "ERP's", href: "/erps" }, // <-- Apuntando a la nueva página
-    { name: "Metodología", href: "/#metodologia" }, // <-- Agregada la '/' para volver a la Home
-    { name: "Casos de éxito", href: "/casos-de-exito" },
+    { name: "ERP's", href: "/erps" },
+    { name: "Metodología", href: "/#metodologia" },
+    { name: "Casos de éxito", href: "/casos-de-exito" }, // <-- Ruta ya actualizada
     { name: "Industria 4.0", href: "/#industria-40" },
     { name: "Nosotros", href: "/#nosotros" },
     { name: "Contacto", href: "/contacto" },
@@ -23,10 +22,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800/80 pb-3">
           <div className="max-w-3xl space-y-1 text-xs leading-relaxed text-slate-400">
             <p>
-              Lo que nos destaca no es el software sino el proceso enfocado en las personas que tendrán que aprovecharlo, nuestra metodología está totalmente centrada en el usuario.
-            </p>
-            <p>
-              De nada sirve conocer un software si no logras que las personas que lo tienen que saber usar lo puedan aprovechar al máximo y como la empresa lo necesita.
+              Lo que nos destaca no es el software sino el proceso enfocado en las personas que tendrán que aprovecharlo, nuestra metodología está totalmente centrada en el usuario. De nada sirve conocer un software si no logras que las personas que lo tienen que saber usar lo puedan aprovechar al máximo y como la empresa lo necesita.
             </p>
           </div>
 
