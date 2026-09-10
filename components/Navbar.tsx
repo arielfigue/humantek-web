@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,10 +31,20 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 h-20 flex items-center">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-8">
-          <Link href="/" className="z-50 relative" onClick={() => setIsOpen(false)}>
-            <span className="text-2xl font-black text-blue-600 tracking-tighter">Humanytek.</span>
+          
+          {/* Logotipo en Imagen */}
+          <Link href="/" className="z-50 relative flex items-center" onClick={() => setIsOpen(false)}>
+            <Image
+              src="/cropped-Logo-Humanytek-Cool-5-153x53.png"
+              alt="Humanytek Logo"
+              width={153}
+              height={53}
+              className="h-11 w-auto object-contain"
+              priority
+            />
           </Link>
 
+          {/* Botón Menú */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none group"
@@ -46,6 +57,7 @@ export default function Navbar() {
         </div>
       </header>
 
+      {/* Menú desplegable */}
       <div
         className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-xl flex flex-col justify-center items-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isOpen ? 'translate-y-0' : '-translate-y-full'
