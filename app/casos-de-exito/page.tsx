@@ -2,43 +2,68 @@ import fs from 'fs';
 import path from 'path';
 import CasosClient, { CaseStudy } from './CasosClient';
 
+// Lector de líneas CSV que respeta campos vacíos y comillas
+function parseCSVLine(line: string): string[] {
+  const fields: string[] = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      fields.push(current.trim());
+      current = '';
+      continue;
+    }
+    current += char;
+  }
+  fields.push(current.trim());
+
+  return fields.map((field) => {
+    let clean = field;
+    if (clean.startsWith('"') && clean.endsWith('"')) {
+      clean = clean.slice(1, -1).replace(/""/g, '"');
+    }
+    return clean.trim();
+  });
+}
+
 function parseCSV(text: string): CaseStudy[] {
-  const result: any[] = [];
-  const lines = text.split(/\r?\n/);
-  
+  const lines = text.split(/\r?\n/).filter((l) => l.trim() !== '');
   if (lines.length === 0) return [];
 
-  const headers = lines[0].split(',').map((h) => h.trim());
+  const headers = parseCSVLine(lines[0]);
+  const result: CaseStudy[] = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const line = lines[i];
-    if (!line.trim()) continue;
+    const values = parseCSVLine(lines[i]);
+    if (values.length === 0) continue;
 
-    // Separa por comas respetando comillas
-    const matches = line.match(/(\\.|[^",]+|"[^"]*")+/g);
-    
-    if (matches) {
-      const obj: any = {};
-      headers.forEach((header, index) => {
-        let val = matches[index] || '';
-        if (val.startsWith('"') && val.endsWith('"')) {
-          val = val.slice(1, -1).replace(/""/g, '"');
-        }
-        obj[header] = val.trim();
-      });
+    const obj: any = {};
+    headers.forEach((header, index) => {
+      obj[header] = values[index] || '';
+    });
 
-      // Transforma el giro en un arreglo borrando corchetes [ ]
-      const rawGiro = obj.giro || '';
-      const cleanedGiro = rawGiro.replace(/[\[\]]/g, '');
-      obj.giro = cleanedGiro
-        ? cleanedGiro.split(',').map((g: string) => g.trim()).filter(Boolean)
-        : [];
+    // Procesa giros como arreglo
+    const rawGiro = obj.giro || '';
+    const cleanedGiro = rawGiro.replace(/[\[\]]/g, '');
+    obj.giro = cleanedGiro
+      ? cleanedGiro.split(',').map((g: string) => g.trim()).filter(Boolean)
+      : [];
 
-      result.push(obj);
-    }
+    // Procesa tipos como arreglo
+    const rawTipo = obj.tipo || '';
+    const cleanedTipo = rawTipo.replace(/[\[\]]/g, '');
+    obj.tipo = cleanedTipo
+      ? cleanedTipo.split(',').map((t: string) => t.trim()).filter(Boolean)
+      : [];
+
+    result.push(obj as CaseStudy);
   }
 
-  return result as CaseStudy[];
+  return result;
 }
 
 export default async function CasosDeExitoPage() {
