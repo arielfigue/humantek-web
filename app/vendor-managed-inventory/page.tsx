@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
 
 const VMI_BENEFICIOS = [
@@ -33,7 +32,7 @@ export default function VMIPage() {
         <ScrollReveal>
           <div className="text-center max-w-4xl mx-auto space-y-6">
             <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-              Modelo de Negocio Disruptivo
+              En vez de vender solo un producto, ofrece un servicio para vender mucho más de tu producto
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
               Vendor Managed <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">Inventory (VMI)</span>
@@ -44,16 +43,19 @@ export default function VMIPage() {
           </div>
         </ScrollReveal>
 
-        {/* --- ILUSTRACIÓN DEL MODELO VMI --- */}
+        {/* --- VIDEO DEL MODELO VMI --- */}
         <ScrollReveal>
-          <div className="max-w-4xl mx-auto relative rounded-2xl border border-slate-800 bg-slate-900/50 p-4 sm:p-6 backdrop-blur-xl shadow-2xl overflow-hidden group">
-            <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-slate-950 border border-slate-800/80">
-              <Image
-                src="/images/vmi_model-768x461.jpg"
-                alt="Modelo Vendor Managed Inventory (VMI)"
-                fill
-                className="object-contain p-2 sm:p-4 transition-transform duration-500 group-hover:scale-105"
-                priority
+          <div className="max-w-4xl mx-auto relative rounded-2xl border border-slate-800 bg-slate-900/50 p-4 sm:p-6 backdrop-blur-xl shadow-2xl overflow-hidden">
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-slate-950 border border-slate-800/80">
+              <video
+                src="/vmi.mp4"
+                controls
+                controlsList="novolume"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-contain [&::-webkit-media-controls-volume-slider]:hidden [&::-webkit-media-controls-mute-button]:hidden"
               />
             </div>
             <p className="text-center text-xs text-slate-400 font-light mt-3">

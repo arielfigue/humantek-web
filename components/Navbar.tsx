@@ -21,7 +21,7 @@ const menuItems = [
   { name: "ERP's", href: "/erps" }, // <-- Ruta corregida
   { name: "Metodología", href: "/metodologia" }, // <-- '/' agregada
   { name: "Casos de éxito", href: "/casos-de-exito" },
-  { name: "VMI", href: "/vendor-managed-inventory" },
+  { name: "Vendor Managed Inventory", href: "/vendor-managed-inventory" },
   { name: "Nosotros", href: "/#nosotros" },
   { name: "Contacto", href: "/contacto" },
 ];
