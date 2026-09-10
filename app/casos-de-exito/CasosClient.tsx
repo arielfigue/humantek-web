@@ -11,8 +11,8 @@ export interface CaseStudy {
   logoUrl?: string;
   description: string;
   tamano: string;
-  giro: string[];
-  tipo: string;
+  giro: string[] | string;
+  tipo: string[] | string;
 }
 
 interface CasosClientProps {
@@ -37,25 +37,72 @@ function getValidLogoUrl(url?: string): string | null {
 export default function CasosClient({ initialCases }: CasosClientProps) {
   const [selectedTamano, setSelectedTamano] = useState<string | null>(null);
   const [selectedGiro, setSelectedGiro] = useState<string[]>([]);
-  const [selectedTipo, setSelectedTipo] = useState<string | null>(null);
+  const [selectedTipo, setSelectedTipo] = useState<string[]>([]);
 
-  const hasActiveFilters = Boolean(selectedTamano || selectedGiro.length > 0 || selectedTipo);
+  const hasActiveFilters = Boolean(selectedTamano || selectedGiro.length > 0 || selectedTipo.length > 0);
 
-  const isMatch = (item: CaseStudy) => {
-    if (selectedTamano && item.tamano !== selectedTamano) return false;
-    if (selectedGiro.length > 0) {
-      const hasGiroMatch = item.giro.some((g) => selectedGiro.includes(g));
-      if (!hasGiroMatch) return false;
+  // Cálculo de puntos de coincidencia flexible
+  const getMatchScore = (item: CaseStudy): number => {
+    let score = 0;
+
+    // 1. Tamaño (compatible con singular y plural: Mediana / Medianas, etc.)
+    if (selectedTamano) {
+      const itemTamano = (item.tamano || '').trim().toLowerCase();
+      const selTamano = selectedTamano.trim().toLowerCase();
+
+      if (
+        itemTamano === selTamano ||
+        (selTamano.startsWith('mediana') && itemTamano.startsWith('mediana')) ||
+        (selTamano.startsWith('grande') && itemTamano.startsWith('grande')) ||
+        (selTamano.startsWith('pequeña') && itemTamano.startsWith('pequeña'))
+      ) {
+        score += 1;
+      }
     }
-    if (selectedTipo && item.tipo !== selectedTipo) return false;
-    return true;
+
+    // 2. Giro (normaliza arreglos y texto separado por comas)
+    if (selectedGiro.length > 0) {
+      const itemGiros = Array.isArray(item.giro)
+        ? item.giro
+        : typeof item.giro === 'string'
+        ? (item.giro as string).replace(/[\[\]]/g, '').split(',').map((s) => s.trim())
+        : [];
+
+      const hasGiroMatch = itemGiros.some((g) =>
+        selectedGiro.some((sel) => sel.trim().toLowerCase() === g.trim().toLowerCase())
+      );
+
+      if (hasGiroMatch) {
+        score += 1;
+      }
+    }
+
+    // 3. Tipo (normaliza arreglos y texto separado por comas)
+    if (selectedTipo.length > 0) {
+      const itemTipos = Array.isArray(item.tipo)
+        ? item.tipo
+        : typeof item.tipo === 'string'
+        ? (item.tipo as string).replace(/[\[\]]/g, '').split(',').map((s) => s.trim())
+        : [];
+
+      const hasTipoMatch = itemTipos.some((t) =>
+        selectedTipo.some((sel) => sel.trim().toLowerCase() === t.trim().toLowerCase())
+      );
+
+      if (hasTipoMatch) {
+        score += 1;
+      }
+    }
+
+    return score;
   };
 
+  // Reordenamiento dinámico: las coincidencias siempre flotan a la parte superior
   const sortedCases = [...initialCases].sort((a, b) => {
     if (!hasActiveFilters) return 0;
-    const matchA = isMatch(a) ? 1 : 0;
-    const matchB = isMatch(b) ? 1 : 0;
-    return matchB - matchA;
+    const scoreA = getMatchScore(a);
+    const scoreB = getMatchScore(b);
+    return scoreB - scoreA;
   });
 
   const toggleSingleFilter = (current: string | null, setter: (val: string | null) => void, value: string) => {
@@ -68,10 +115,16 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
     );
   };
 
+  const toggleTipoFilter = (value: string) => {
+    setSelectedTipo((prev) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    );
+  };
+
   const clearAllFilters = () => {
     setSelectedTamano(null);
     setSelectedGiro([]);
-    setSelectedTipo(null);
+    setSelectedTipo([]);
   };
 
   return (
@@ -140,13 +193,13 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                     </div>
                   </div>
 
-                  {/* Categoría: Giro (Selección Múltiple con Distribución incluida) */}
+                  {/* Categoría: Giro */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
                       Giro:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {['Servicios', 'Manufactura', 'Comercialización', 'Retail', 'Distribución'].map((item) => (
+                      {['Servicios', 'Manufactura', 'Comercialización', 'Retail', 'Distribución', 'Metalmecánica'].map((item) => (
                         <button
                           key={item}
                           onClick={() => toggleGiroFilter(item)}
@@ -171,9 +224,9 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                       {['Implementación', 'Rescatado', 'Mejora de Resultados'].map((item) => (
                         <button
                           key={item}
-                          onClick={() => toggleSingleFilter(selectedTipo, setSelectedTipo, item)}
+                          onClick={() => toggleTipoFilter(item)}
                           className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all duration-200 ${
-                            selectedTipo === item
+                            selectedTipo.includes(item)
                               ? 'bg-blue-600 border-blue-400 text-white shadow-lg shadow-blue-500/30 scale-105'
                               : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
                           }`}
@@ -194,8 +247,21 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
         {/* --- LISTADO DE CASOS DE ÉXITO --- */}
         <div className="space-y-8">
           {sortedCases.map((item) => {
-            const matches = hasActiveFilters && isMatch(item);
+            const matchScore = getMatchScore(item);
+            const matches = hasActiveFilters && matchScore > 0;
             const validLogoUrl = getValidLogoUrl(item.logoUrl);
+
+            const girosList = Array.isArray(item.giro)
+              ? item.giro
+              : typeof item.giro === 'string'
+              ? (item.giro as string).replace(/[\[\]]/g, '').split(',').map((s) => s.trim()).filter(Boolean)
+              : [];
+
+            const tiposList = Array.isArray(item.tipo)
+              ? item.tipo
+              : typeof item.tipo === 'string'
+              ? (item.tipo as string).replace(/[\[\]]/g, '').split(',').map((s) => s.trim()).filter(Boolean)
+              : [];
 
             return (
               <div
@@ -238,13 +304,21 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                   </div>
 
                   <div className="pt-2 flex flex-wrap gap-2 text-[11px]">
-                    <span className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">{item.tamano}</span>
-                    {item.giro.map((g) => (
+                    {item.tamano && (
+                      <span className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">
+                        {item.tamano}
+                      </span>
+                    )}
+                    {girosList.map((g) => (
                       <span key={g} className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">
                         {g}
                       </span>
                     ))}
-                    <span className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">{item.tipo}</span>
+                    {tiposList.map((t) => (
+                      <span key={t} className="px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-slate-400">
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
