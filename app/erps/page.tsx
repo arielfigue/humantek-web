@@ -19,13 +19,17 @@ export default function ErpsPage() {
             {/* TARJETA ODOO */}
             <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between space-y-6">
               <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950 border border-slate-800">
-                <iframe
-                  className="w-full h-full"
-                  src="https://www.youtube.com/embed/1Z_xT9uB4wI"
-                  title="Meet Odoo 18: All the new features"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  className="h-full w-full object-cover rounded-lg"
+                >
+                  <source src="/odoo_es_video.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
               </div>
 
               <div className="space-y-3">
@@ -45,13 +49,17 @@ export default function ErpsPage() {
             {/* TARJETA SAP BUSINESS BYDESIGN */}
             <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between space-y-6">
               <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950 border border-slate-800">
-                <iframe
-                  className="w-full h-full"
-                  src="https://www.youtube.com/embed/5a2g3kM6tYQ"
-                  title="SAP Business ByDesign"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  className="h-full w-full object-cover rounded-lg"
+                >
+                  <source src="/sap_Business_ByDesign.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
               </div>
 
               <div className="space-y-3">
@@ -181,28 +189,6 @@ export default function ErpsPage() {
             </div>
           </ScrollReveal>
         </section>
-
-        {/* --- CALL TO ACTION INFERIOR --- */}
-        <ScrollReveal>
-          <div className="overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900/90 to-blue-950/40 p-8 sm:p-12 text-center shadow-2xl relative">
-            <div className="max-w-2xl mx-auto space-y-6">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-                ¿Desea evaluar el ERP ideal para su organización?
-              </h3>
-              <p className="text-slate-300 text-sm sm:text-base font-light">
-                Analizamos su modelo de negocio actual y le guiamos hacia la mejor alternativa tecnológica.
-              </p>
-              <div>
-                <Link
-                  href="/contacto"
-                  className="inline-block rounded-full bg-blue-600 px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:scale-105 transition-all duration-200"
-                >
-                  Solicitar Asesoría
-                </Link>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
 
       </div>
     </main>
