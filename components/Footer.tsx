@@ -9,6 +9,7 @@ export default function Footer() {
     { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "Industria 4.0", href: "/#industria-40" },
+    { name: "VMI", href: "/vendor-managed-inventory" },
     { name: "Nosotros", href: "/#nosotros" },
     { name: "Contacto", href: "/contacto" },
     { name: "Aviso de privacidad", href: "/aviso-de-privacidad" },
