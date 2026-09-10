@@ -234,16 +234,10 @@ export default function MetodologiaPage() {
 
       <div className="mx-auto max-w-7xl space-y-16">
         
-        {/* --- CABECERA Y CITA DE ALBERT EINSTEIN --- */}
+        {/* --- CITA DE ALBERT EINSTEIN Y CONCEPTO --- */}
         <ScrollReveal>
           <div className="text-center max-w-4xl mx-auto space-y-6">
-            <span className="inline-block rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-400">
-              Transformación sin Rodeos
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              Nuestra <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">Metodología</span>
-            </h1>
-
+            
             {/* Cita en tarjeta Glassmorphism */}
             <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 backdrop-blur-xl shadow-2xl relative">
               <span className="text-6xl text-blue-500/20 font-serif absolute top-2 left-4 select-none">“</span>
@@ -257,7 +251,7 @@ export default function MetodologiaPage() {
 
             {/* Definición del Éxito según Humanytek */}
             <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-3xl mx-auto pt-2">
-              Para nosotros el éxito de un proyecto es que concluya en el <strong className="text-white font-medium">tiempo original planificado</strong>, que <strong className="text-white font-medium">no cueste ni un centavo extra</strong> y cumpla el alcance total; pero además, que el sistema <strong className="text-white font-medium">permanezca en la empresa por muchos años</strong> de manera totalmente autosuficiente.
+              Para nosotros el éxito de un proyecto es que concluya en el <strong className="text-white font-medium">tiempo original planificado</strong>, que <strong className="text-white font-medium">no cueste ni un centavo extra</strong> y cumpla el alcance total; pero además, que el sistema <strong className="text-white font-medium">permanezca en la empresa por muchos años y el cliente sosteniéndolo de manera totalmente autosuficiente</strong>.
             </p>
           </div>
         </ScrollReveal>
@@ -379,7 +373,6 @@ export default function MetodologiaPage() {
                   {/* Resumen de Títulos e Información Desplegable */}
                   <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-0 space-y-4">
                     
-                    {/* Grid de Títulos / Contenido */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       
                       {/* LADO TRADICIONAL */}
@@ -399,7 +392,6 @@ export default function MetodologiaPage() {
                             {item.tradicional.titulo}
                           </h3>
 
-                          {/* Descripción explicativa (visible solo cuando se abre) */}
                           {isOpen && (
                             <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed pt-2 border-t border-red-500/20 animate-fadeIn">
                               {item.tradicional.descripcion}
@@ -425,7 +417,6 @@ export default function MetodologiaPage() {
                             {item.humanytek.titulo}
                           </h3>
 
-                          {/* Descripción explicativa (visible solo cuando se abre) */}
                           {isOpen && (
                             <p className="text-xs sm:text-sm text-slate-200 font-light leading-relaxed pt-2 border-t border-cyan-500/20 animate-fadeIn">
                               {item.humanytek.descripcion}
