@@ -32,7 +32,7 @@ export default function Home() {
 
             <div className="mt-8 flex flex-wrap gap-4 items-center">
               <Link
-                href="#erps"
+                href="#nosotros"
                 className="rounded-full bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:scale-105 transition-all duration-200"
               >
                 Saber más
@@ -67,6 +67,16 @@ export default function Home() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* SECCIÓN NOSOTROS (Para ancla del botón 'Saber más') */}
+      <section id="nosotros" className="py-24 px-6 lg:px-12 border-t border-slate-800/80">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-white mb-6">Sobre Nosotros</h2>
+          <p className="text-slate-300 leading-relaxed text-lg">
+            En Humanytek acompañamos a las empresas en su proceso de digitalización y optimización operativa, garantizando soluciones tecnológicas robustas orientadas a resultados reales.
+          </p>
         </div>
       </section>
     </main>
