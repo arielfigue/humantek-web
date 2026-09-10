@@ -15,12 +15,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-900 border-t border-slate-800 text-slate-300">
-      <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+    <footer className="sticky bottom-0 w-full z-40 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 text-slate-300 shadow-2xl">
+      <div className="mx-auto max-w-7xl px-6 py-4 lg:px-8">
         
-        {/* Fila superior: Descripción institucional y Redes Sociales */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-slate-800/80 pb-6">
-          <div className="max-w-3xl space-y-1.5 text-xs leading-relaxed text-slate-400">
+        {/* Fila superior: Descripción e iconos */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800/80 pb-3">
+          <div className="max-w-3xl space-y-1 text-xs leading-relaxed text-slate-400">
             <p>
               Lo que nos destaca no es el software sino el proceso enfocado en las personas que tendrán que aprovecharlo, nuestra metodología está totalmente centrada en el usuario.
             </p>
@@ -55,8 +55,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Fila inferior: Menú horizontal con separadores (-) */}
-        <div className="pt-6 flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-xs">
+        {/* Fila inferior: Menú horizontal */}
+        <div className="pt-3 flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-xs">
           {menuItems.map((item, index) => (
             <div key={item.name} className="flex items-center gap-x-3">
               <Link href={item.href} className="hover:text-blue-400 transition-colors">
@@ -70,7 +70,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="pt-4 text-center text-xs text-slate-500">
+        <div className="pt-2 text-center text-[10px] text-slate-500">
           Copyright © {currentYear} Humanytek
         </div>
       </div>
