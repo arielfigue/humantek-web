@@ -11,7 +11,6 @@ export default function WhatsAppWidget() {
   useEffect(() => {
     const checkOnlineStatus = () => {
       const now = new Date();
-      // Formatear la hora local a la zona horaria 'America/Mexico_City'
       const formatter = new Intl.DateTimeFormat('en-US', {
         timeZone: 'America/Mexico_City',
         weekday: 'short',
@@ -28,7 +27,6 @@ export default function WhatsAppWidget() {
         if (part.type === 'hour') hour = parseInt(part.value, 10);
       });
 
-      // Validar: Lunes a Viernes (Mon-Fri) de 9:00 a 17:59 hrs
       const isWeekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day);
       const isWorkingHours = hour >= 9 && hour < 18;
 
@@ -53,7 +51,7 @@ export default function WhatsAppWidget() {
       {isOpen && (
         <div className="mb-4 w-80 sm:w-96 rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl overflow-hidden transition-all duration-300">
           
-          {/* Encabezado dinámico */}
+          {/* Encabezado */}
           <div className={`p-4 text-white flex items-center justify-between ${isOnline ? 'bg-emerald-600' : 'bg-slate-800'}`}>
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-lg">
@@ -75,7 +73,7 @@ export default function WhatsAppWidget() {
             </button>
           </div>
 
-          {/* Cuerpo del Mensaje segun horario */}
+          {/* Mensaje según disponibilidad */}
           <div className="p-4 bg-slate-950/90 min-h-[140px] flex flex-col justify-end space-y-3">
             {isOnline ? (
               <div className="bg-slate-800 text-slate-100 p-3 rounded-2xl rounded-tl-none text-sm max-w-[90%] shadow-md">
@@ -104,7 +102,7 @@ export default function WhatsAppWidget() {
             )}
           </div>
 
-          {/* Formulario/Acción final */}
+          {/* Pie de ventana / Formulario */}
           {isOnline ? (
             <form onSubmit={handleSend} className="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
               <input
@@ -139,16 +137,16 @@ export default function WhatsAppWidget() {
         </div>
       )}
 
-      {/* Botón Burbuja */}
+      {/* Botón Burbuja con Vector Corregido */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`${
           isOnline ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-slate-700 hover:bg-slate-600'
-        } text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center relative`}
+        } text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center`}
         aria-label="Contacto por WhatsApp"
       >
-        <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.636-.916-2.233-.242-.581-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        <svg className="w-8 h-8 fill-current text-white" viewBox="0 0 24 24">
+          <path d="M12.012 2c-5.508 0-9.989 4.481-9.989 9.989 0 1.764.459 3.486 1.332 5.006l-1.415 5.171 5.291-1.388c1.468.802 3.129 1.222 4.781 1.222 5.508 0 9.989-4.481 9.989-9.989s-4.481-9.99-9.989-9.99zm5.952 14.185c-.25.702-1.442 1.337-2.013 1.423-.52.078-1.168.113-1.882-.114-.492-.156-1.127-.361-1.957-.719-3.454-1.488-5.711-4.992-5.885-5.223-.173-.231-1.41-1.877-1.41-3.58 0-1.703.892-2.54 1.209-2.887.317-.347.692-.433.923-.433.231 0 .462.002.664.012.214.01.501-.081.785.6.288.692.98 2.398 1.066 2.571.087.173.144.375.029.605-.115.231-.173.375-.346.577-.173.202-.364.452-.52.606-.173.173-.354.361-.152.708.202.347.898 1.48 1.927 2.397 1.325 1.181 2.443 1.547 2.79 1.72.347.173.549.144.751-.087.202-.231.865-1.01 1.096-1.356.231-.347.462-.288.779-.173.317.115 2.019.952 2.365 1.125.347.173.577.26.664.404.087.144.087.837-.163 1.539z"/>
         </svg>
       </button>
     </div>
