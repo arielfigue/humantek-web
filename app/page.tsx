@@ -29,7 +29,7 @@ export default function Home() {
 
             <div className="mt-8 flex flex-wrap gap-4 items-center">
               <Link
-                href="#nosotros"
+                href="#erps"
                 className="rounded-full bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:scale-105 transition-all duration-200"
               >
                 Saber más
@@ -258,7 +258,6 @@ export default function Home() {
 
       {/* --- SECCIÓN PRODUCTIVIDAD Y ANALOGÍA FÓRMULA 1 --- */}
       <section className="relative py-24 px-6 lg:px-12 border-t border-slate-800/80 overflow-hidden">
-        {/* Imagen de fondo panorámica con superposición oscura */}
         <div className="absolute inset-0 -z-10">
           <img
             src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
@@ -269,14 +268,12 @@ export default function Home() {
         </div>
 
         <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Columna Izquierda: Encabezado conceptual */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Creer que con solo implementar un ERP es suficiente para mejorar sus resultados ...
             </h2>
           </div>
 
-          {/* Columna Derecha: Analogía F1 y compromiso de Productividad */}
           <div className="lg:col-span-6 space-y-6 lg:border-l lg:border-slate-800 lg:pl-10">
             <p className="text-lg sm:text-xl text-blue-200 font-medium leading-relaxed">
               Es como creer que se puede participar en la Fórmula 1 solo por tener el auto de carreras.
@@ -299,16 +296,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* --- SECCIÓN NOSOTROS --- */}
-      <section id="nosotros" className="py-24 px-6 lg:px-12 border-t border-slate-800/80">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">Sobre Nosotros</h2>
-          <p className="text-slate-300 leading-relaxed text-lg">
-            En Humanytek acompañamos a las empresas en su proceso de digitalización y optimización operativa, garantizando soluciones tecnológicas robustas orientadas a resultados reales.
-          </p>
         </div>
       </section>
     </main>
