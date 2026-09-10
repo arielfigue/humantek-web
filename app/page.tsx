@@ -1,57 +1,80 @@
 import Link from "next/link";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col bg-white">
-      {/* --- HERO SECTION --- */}
-      <section className="relative flex flex-col items-center justify-center px-6 py-32 text-center sm:py-40 lg:px-8 overflow-hidden">
-        
-        {/* Fondo decorativo sutil (Gradiente borroso) */}
-        <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-          <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-100 to-blue-500 opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
-        </div>
+  const youtubeVideoId = "aYYVUMy-KLE";
 
-        <div className="mx-auto max-w-3xl">
-          {/* Etiqueta superior opcional (Badge) */}
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 transition-all">
-              Preparando la nueva versión de Humanytek.{' '}
-              <span className="font-semibold text-blue-600">
-                Próximamente
+  return (
+    <main className="min-h-screen bg-slate-950 text-slate-100">
+      {/* --- HERO SECTION --- */}
+      <section className="relative flex min-h-[90vh] items-center justify-center px-6 pt-28 pb-16 lg:px-12 overflow-hidden">
+        
+        {/* Fondo con degradado y rejilla tecnológica */}
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.20),rgba(255,255,255,0))]"></div>
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-25"></div>
+
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* COLUMNA IZQUIERDA: Textos institucionales */}
+          <div className="flex flex-col items-start text-left">
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
+              Productividad es el acto de{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
+                acercar a la empresa a su meta.
               </span>
+            </h1>
+
+            <div className="mt-6 space-y-2 text-base sm:text-lg text-slate-300 leading-relaxed font-light border-l-2 border-blue-500/50 pl-4">
+              <p>
+                Un buen sistema no hace una buena implementación... Una buena implementación no hace una empresa más rentable...
+              </p>
+              <p className="font-medium text-white">
+                ¿Estás abierto a aprender como mejorar tu empresa?
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-4 items-center">
+              <Link
+                href="#erps"
+                className="rounded-full bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:scale-105 transition-all duration-200"
+              >
+                Saber más
+              </Link>
+              <Link
+                href="/contacto"
+                className="rounded-full border border-slate-700 bg-slate-900/60 px-7 py-3.5 text-sm font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all duration-200"
+              >
+                Contactar
+              </Link>
             </div>
           </div>
 
-          {/* Título Principal */}
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-            Tecnología que impulsa el <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">potencial humano</span>
-          </h1>
-          
-          {/* Propuesta de valor (Subtítulo) */}
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Modernizamos tu empresa con soluciones digitales a la medida. 
-            Desarrollo de software, automatización y diseño enfocado en escalar el crecimiento de tu negocio.
-          </p>
-          
-          {/* Botones de acción */}
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href="/contacto"
-              className="rounded-full bg-blue-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 hover:scale-105 transition-all duration-200"
-            >
-              Contáctanos
-            </Link>
-            <Link
-              href="#servicios"
-              className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors"
-            >
-              Ver servicios <span aria-hidden="true">→</span>
-            </Link>
+          {/* COLUMNA DERECHA: Video de YouTube Protegido */}
+          <div className="relative w-full">
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-500 opacity-25 blur-2xl -z-10"></div>
+            
+            <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-2 shadow-2xl backdrop-blur-xl">
+              <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950">
+                
+                {/* CAPA PROTECTORA SUPERIOR */}
+                <div className="absolute top-0 inset-x-0 h-16 z-20 bg-transparent" />
+                
+                {/* CAPA PROTECTORA INFERIOR DERECHA */}
+                <div className="absolute bottom-0 right-0 w-28 h-12 z-20 bg-transparent" />
+
+                <iframe
+                  className="absolute inset-0 h-full w-full border-0"
+                  src={`https://www.youtube-nocookie.com/embed/${youtubeVideoId}?rel=0&modestbranding=1&iv_load_policy=3&disablekb=1`}
+                  title="Video institucional Humanytek"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
-      
-      {/* Aquí abajo agregaremos las siguientes secciones después */}
     </main>
   );
 }
