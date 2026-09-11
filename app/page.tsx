@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -56,7 +58,9 @@ export default function Home() {
                     loop
                     playsInline
                     controls
-                    className="h-full w-full object-cover rounded-lg"
+                    controlsList="nodownload novolume"
+                    onContextMenu={(e) => e.preventDefault()}
+                    className="h-full w-full object-cover rounded-lg [&::-webkit-media-controls-volume-slider]:hidden [&::-webkit-media-controls-mute-button]:hidden"
                   >
                     <source src="/humanytek-video.mp4" type="video/mp4" />
                     Tu navegador no soporta el elemento de video.

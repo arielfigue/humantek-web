@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 
@@ -50,7 +52,8 @@ export default function VMIPage() {
               <video
                 src="/vmi.mp4"
                 controls
-                controlsList="novolume"
+                controlsList="novolume nodownload" // <- nodownload ocultará el botón de descarga
+                onContextMenu={(e) => e.preventDefault()} // <- Evitará clic derecho > Guardar video como
                 autoPlay
                 muted
                 loop
