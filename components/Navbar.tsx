@@ -1,82 +1,90 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isOpen]);
-
-// Asegúrate de usar este nombre de variable para que el .map() de abajo funcione
-const menuItems = [
-  { name: "Inicio", href: "/" },
-  { name: "ERP's", href: "/erps" }, // <-- Ruta corregida
-  { name: "Metodología", href: "/metodologia" }, // <-- '/' agregada
-  { name: "Casos de éxito", href: "/casos-de-exito" },
-  { name: "Vendor Managed Inventory", href: "/vendor-managed-inventory" },
-  { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
-  { name: "Nosotros", href: "/#nosotros" },
-  { name: "Contacto", href: "/contacto" },
-];
+  const navLinks = [
+    { name: "Inicio", href: "/" },
+    { name: "ERP's", href: "/erps" },
+    { name: "Metodología", href: "/metodologia" },
+    { name: "Casos de éxito", href: "/casos-de-exito" },
+    { name: "Industria 4.0", href: "/#industria-40" },
+    { name: "VMI", href: "/vendor-managed-inventory" },
+    { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
+    { name: "Nosotros", href: "/#nosotros" },
+    { name: "Contacto", href: "/contacto" },
+  ];
 
   return (
-    <>
-      <header className="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 h-20 flex items-center">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
           
-          {/* Logotipo en Imagen */}
-          <Link href="/" className="z-50 relative flex items-center" onClick={() => setIsOpen(false)}>
-            <Image
-              src="/cropped-Logo-Humanytek-Cool-5-153x53.png"
-              alt="Humanytek Logo"
-              width={153}
-              height={53}
-              className="h-11 w-auto object-contain"
-              priority
-            />
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3">
+            <div className="relative h-10 w-36">
+              <Image
+                src="/images/cropped-Logo-Humanytek-Cool-5-153x53.png"
+                alt="Humanytek Logo"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
           </Link>
 
-          {/* Botón Menú */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none group"
-            aria-label="Alternar menú"
-          >
-            <span className={`block w-7 h-0.5 bg-gray-900 rounded-full transition-all duration-300 ease-out ${isOpen ? 'translate-y-2 rotate-45' : 'group-hover:w-8'}`} />
-            <span className={`block w-7 h-0.5 bg-gray-900 rounded-full transition-all duration-300 ease-out ${isOpen ? 'opacity-0 translate-x-3' : 'opacity-100'}`} />
-            <span className={`block w-7 h-0.5 bg-gray-900 rounded-full transition-all duration-300 ease-out ${isOpen ? '-translate-y-2 -rotate-45' : 'group-hover:w-6'}`} />
-          </button>
-        </div>
-      </header>
+          {/* Menú Desktop */}
+          <div className="hidden lg:flex items-center gap-x-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-xs font-medium text-slate-300 hover:text-cyan-400 transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
 
-      {/* Menú desplegable */}
-      <div
-        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-xl flex flex-col justify-center items-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen ? 'translate-y-0' : '-translate-y-full'
-        }`}
-      >
-        <nav className="flex flex-col space-y-3 sm:space-y-4 text-center w-full px-6 max-h-screen overflow-y-auto py-24">
-          {menuItems.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200"
-              style={{ transitionDelay: isOpen ? `${index * 30}ms` : '0ms' }}
+          {/* Botón Hamburguesa Móvil */}
+          <div className="lg:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-slate-300 hover:text-white p-2"
+              aria-label="Abrir menú"
             >
-              {item.name}
+              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                {isOpen ? (
+                  <path fillRule="evenodd" clipRule="evenodd" d="M18.278 16.864a1 1 0 01-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 01-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 011.414-1.414l4.829 4.828 4.828-4.828a1 1 0 111.414 1.414l-4.828 4.829 4.828 4.828z" />
+                ) : (
+                  <path fillRule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Menú Desplegable Móvil */}
+      {isOpen && (
+        <div className="lg:hidden bg-slate-900/95 border-b border-slate-800 px-6 pt-4 pb-6 space-y-3">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="block text-sm font-medium text-slate-200 hover:text-cyan-400 py-1"
+            >
+              {link.name}
             </Link>
           ))}
-        </nav>
-      </div>
-    </>
+        </div>
+      )}
+    </nav>
   );
 }
