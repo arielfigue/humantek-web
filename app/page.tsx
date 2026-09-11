@@ -58,9 +58,9 @@ export default function Home() {
                     loop
                     playsInline
                     controls
-                    controlsList="nodownload novolume"
+                    controlsList="nodownload" // <-- Solo bloqueamos la descarga, permitiendo el volumen
                     onContextMenu={(e) => e.preventDefault()}
-                    className="h-full w-full object-cover rounded-lg [&::-webkit-media-controls-volume-slider]:hidden [&::-webkit-media-controls-mute-button]:hidden"
+                    className="h-full w-full object-cover rounded-lg" // <-- Eliminadas las clases que ocultaban el volumen
                   >
                     <source src="/humanytek-video.mp4" type="video/mp4" />
                     Tu navegador no soporta el elemento de video.
