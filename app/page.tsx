@@ -9,12 +9,12 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
       {/* --- HERO SECTION --- */}
-      <section className="relative flex min-h-[90vh] items-center justify-center px-6 pt-28 pb-16 lg:px-12 overflow-hidden">
+      <section className="relative flex items-center justify-center px-6 pt-20 pb-12 lg:px-12 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.20),rgba(255,255,255,0))]"></div>
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-25"></div>
 
         <ScrollReveal>
-          <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div className="flex flex-col items-start text-left">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
                 Productividad es el acto de{" "}
@@ -23,7 +23,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              <div className="mt-6 space-y-2 text-base sm:text-lg text-slate-300 leading-relaxed font-light border-l-2 border-blue-500/50 pl-4">
+              <div className="mt-5 space-y-2 text-base sm:text-lg text-slate-300 leading-relaxed font-light border-l-2 border-blue-500/50 pl-4">
                 <p>
                   Un buen sistema no hace una buena implementación... Una buena implementación no hace una empresa más rentable...
                 </p>
@@ -32,7 +32,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-4 items-center">
+              <div className="mt-6 flex flex-wrap gap-4 items-center">
                 <Link
                   href="#erps"
                   className="rounded-full bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:scale-105 transition-all duration-200"
@@ -277,17 +277,14 @@ export default function Home() {
 
       {/* --- SECCIÓN PRODUCTIVIDAD Y ANALOGÍA FÓRMULA 1 --- */}
       <section className="relative py-24 px-6 lg:px-12 border-t border-slate-800/80 overflow-hidden bg-slate-950">
-        {/* Imagen de fondo superpuesta directamente */}
         <img
           src="/images/f1-productividad-bg.jpg"
           alt="Navegación y Productividad Humanytek"
           className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
         />
         
-        {/* Degradado para mantener el contraste del texto */}
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/30 pointer-events-none"></div>
 
-        {/* Contenido visible en primer plano */}
         <div className="relative z-10">
           <ScrollReveal>
             <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
