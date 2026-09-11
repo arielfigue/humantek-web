@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.name, url: SITE_URL }],
   creator: SITE.name,
   publisher: SITE.legalName,
-  // El canonical de cada página lo sobrescribe pageMetadata(); éste cubre la raíz.
+  // El canonical de cada página lo sobrescribe pageMetadata(); éste cubre la raíz..
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Humanytek | Consultoría e Implementación de ERP',
