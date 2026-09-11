@@ -12,7 +12,6 @@ export default function Navbar() {
     { name: "ERP's", href: "/erps" },
     { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" },
-    { name: "Industria 4.0", href: "/#industria-40" },
     { name: "VMI", href: "/vendor-managed-inventory" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
     { name: "Nosotros", href: "/#nosotros" },
