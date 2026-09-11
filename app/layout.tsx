@@ -9,8 +9,8 @@ import WhatsAppWidget from "@/components/WhatsAppWidget";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Humanytek | Tecnología y Soluciones Digitales",
-  description: "Modernizamos tu empresa con soluciones digitales a la medida.",
+  title: "Humanytek | Primero la gente, despues las herramientas",
+  description: "Trabajamos con personas para una adopción tecnológica efectiva.",
 };
 
 export default function RootLayout({
