@@ -28,7 +28,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3">
             <div className="relative h-10 w-36">
               <Image
-                src="/images/cropped-Logo-Humanytek-Cool-5-153x53.png"
+                src="/cropped-Logo-Humanytek-Cool-5-153x53.png"
                 alt="Humanytek Logo"
                 fill
                 className="object-contain object-left"
