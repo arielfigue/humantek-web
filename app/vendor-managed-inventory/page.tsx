@@ -67,10 +67,9 @@ export default function VMIPage() {
             <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-slate-950 border border-slate-800/80">
               <VideoPlayer
                 src="/vmi.mp4"
+                poster="/posters/vmi.jpg"
                 label="Modelo Vendor Managed Inventory explicado en video"
                 controlsList="novolume nodownload"
-                autoPlay
-                loop
                 className="w-full h-full object-contain [&::-webkit-media-controls-volume-slider]:hidden [&::-webkit-media-controls-mute-button]:hidden"
               />
             </div>

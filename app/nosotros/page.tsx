@@ -41,9 +41,8 @@ export default function NosotrosPage() {
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950">
                   <VideoPlayer
                     src="/Institucional.mp4"
+                    poster="/posters/Institucional.jpg"
                     label="Video institucional de Humanytek"
-                    autoPlay
-                    loop
                     className="h-full w-full object-contain"
                   />
                 </div>

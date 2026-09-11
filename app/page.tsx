@@ -91,6 +91,7 @@ export default function Home() {
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950">
                   <VideoPlayer
                     src="/humanytek-video.mp4"
+                    poster="/posters/humanytek-video.jpg"
                     label="Video de presentación de Humanytek"
                     autoPlay
                     loop

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
+import YouTubeFacade from '@/components/YouTubeFacade';
 
 export interface CaseStudy {
   id: string;
@@ -97,13 +98,12 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
     return score;
   };
 
-  // Reordenamiento dinámico: las coincidencias siempre flotan a la parte superior
-  const sortedCases = [...initialCases].sort((a, b) => {
-    if (!hasActiveFilters) return 0;
-    const scoreA = getMatchScore(a);
-    const scoreB = getMatchScore(b);
-    return scoreB - scoreA;
-  });
+  // Reordenamiento dinámico: las coincidencias flotan a la parte superior.
+  // El score se calcula UNA vez por caso; antes se recalculaba dentro del
+  // comparador (O(n log n) llamadas) y otra vez al pintar cada tarjeta.
+  const sortedCases = initialCases
+    .map((item) => ({ item, score: hasActiveFilters ? getMatchScore(item) : 0 }))
+    .sort((a, b) => b.score - a.score);
 
   const toggleSingleFilter = (current: string | null, setter: (val: string | null) => void, value: string) => {
     setter(current === value ? null : value);
@@ -246,9 +246,8 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
 
         {/* --- LISTADO DE CASOS DE ÉXITO --- */}
         <div className="space-y-8">
-          {sortedCases.map((item) => {
-            const matchScore = getMatchScore(item);
-            const matches = hasActiveFilters && matchScore > 0;
+          {sortedCases.map(({ item, score }, index) => {
+            const matches = hasActiveFilters && score > 0;
             const validLogoUrl = getValidLogoUrl(item.logoUrl);
 
             const girosList = Array.isArray(item.giro)
@@ -273,12 +272,10 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                 }`}
               >
                 <div className="lg:col-span-6 relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950 border border-slate-800 shadow-inner">
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${item.youtubeId}`}
+                  <YouTubeFacade
+                    videoId={item.youtubeId}
                     title={item.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                    priority={index === 0}
                   />
                 </div>
 
@@ -287,7 +284,13 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
                     <div className="flex items-center justify-between gap-4">
                       {validLogoUrl ? (
                         <div className="relative h-10 w-32">
-                          <Image src={validLogoUrl} alt={item.title} fill className="object-contain object-left" />
+                          <Image
+                            src={validLogoUrl}
+                            alt={item.title}
+                            fill
+                            sizes="128px"
+                            className="object-contain object-left"
+                          />
                         </div>
                       ) : (
                         <span className="text-xl font-bold text-white tracking-tight">{item.title}</span>
