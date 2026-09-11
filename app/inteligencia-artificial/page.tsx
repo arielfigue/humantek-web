@@ -13,22 +13,27 @@ declare global {
 
 export default function InteligenciaArtificialPage() {
   useEffect(() => {
-    // 1. Ocultar la burbuja flotante global (pegada a document.body) mientras estemos en esta página
+    // 1. Inyectar CSS global para ocultar la burbuja flotante pegada directamente al body
     const hideFloatingStyle = document.createElement('style');
-    hideFloatingStyle.id = 'hide-floating-chat-style';
+    hideFloatingStyle.id = 'hide-floating-chat-override';
     hideFloatingStyle.innerHTML = `
-      body > #humanytek-chat {
+      body > #humanytek-chat,
+      body > div[id="humanytek-chat"] {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
       }
     `;
     document.head.appendChild(hideFloatingStyle);
 
-    // 2. Limpieza de instancias incrustadas previas
-    window.__humanytekChatLoaded = false;
-    const oldInlineHost = document.querySelector('#humanytek-chat-box > #humanytek-chat');
-    if (oldInlineHost) oldInlineHost.remove();
+    // 2. Eliminar instancias flotantes del body si ya existen
+    const clearFloatingInstances = () => {
+      document.querySelectorAll('body > #humanytek-chat').forEach((el) => el.remove());
+    };
+    clearFloatingInstances();
 
-    // 3. Configuración del chat incrustado
+    // 3. Parámetros globales del chat incrustado
     window.HUMANYTEK_CHAT = {
       target: '#humanytek-chat-box',
       height: '560px',
@@ -38,16 +43,14 @@ export default function InteligenciaArtificialPage() {
       privacyUrl: '/aviso-de-privacidad'
     };
 
-    // 4. Inicializar el widget en el contenedor central
+    // 4. Inicialización del chat dentro del contenedor principal
     const initTimer = setTimeout(() => {
-      if (window.__humanytekChatLoaded) return;
+      window.__humanytekChatLoaded = false;
 
       (function () {
         'use strict';
 
         function start() {
-          if (window.__humanytekChatLoaded) return;
-
           var CFG = Object.assign(
             {
               endpoint: 'https://humanytek-chatbot.humanytek.workers.dev',
@@ -71,7 +74,8 @@ export default function InteligenciaArtificialPage() {
           var mount = CFG.target ? document.querySelector(CFG.target) : null;
           if (!mount) return;
 
-          window.__humanytekChatLoaded = true;
+          // Limpiar contenido previo dentro de la tarjeta antes de montar
+          mount.innerHTML = '';
 
           var sessionId = (function () {
             var gen = function () {
@@ -139,7 +143,7 @@ export default function InteligenciaArtificialPage() {
           var modeCss = [
             ':host{display:block;}',
             '.wrap{height:100%;}',
-            '.launcher{display:none;}',
+            '.launcher{display:none !important;}',
             '.panel{position:relative;display:flex;flex-direction:column;width:100%;height:100%;max-height:100%;background:#fff;border:1px solid #e3e8ee;border-radius:14px;overflow:hidden;}',
             '.log{overscroll-behavior:contain;}',
             '.hdr .close{display:none;}'
@@ -161,7 +165,6 @@ export default function InteligenciaArtificialPage() {
 
           root.append(style, wrap);
 
-          var panel = root.querySelector('.panel') as HTMLElement;
           var log = root.querySelector('.log') as HTMLElement;
           var box = root.querySelector('textarea') as HTMLTextAreaElement;
           var sendBtn = root.querySelector('.send') as HTMLButtonElement;
@@ -403,12 +406,11 @@ export default function InteligenciaArtificialPage() {
       })();
     }, 100);
 
-    // 5. Restablecer la visibilidad global de la burbuja flotante al salir de la página
+    // 5. Limpieza al abandonar la página
     return () => {
       clearTimeout(initTimer);
-      window.__humanytekChatLoaded = false;
       
-      const hideStyle = document.getElementById('hide-floating-chat-style');
+      const hideStyle = document.getElementById('hide-floating-chat-override');
       if (hideStyle) hideStyle.remove();
 
       const inlineHost = document.querySelector('#humanytek-chat-box > #humanytek-chat');
@@ -464,7 +466,7 @@ export default function InteligenciaArtificialPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-cyan-400 font-bold">✓</span>
-                    <span><strong>VMI & Industria 4.0:</strong> Modelos de gestión de inventarios y automatización.</span>
+                    <span><strong>VMI:</strong> Modelos de gestión de inventarios y automatización.</span>
                   </li>
                 </ul>
               </div>
