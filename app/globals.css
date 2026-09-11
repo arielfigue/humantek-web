@@ -1,11 +1,29 @@
 @import "tailwindcss";
 
 /*
+ * Tipografía.
+ *
+ * Geist se sirve desde el paquete `geist` (archivos locales, sin llamadas a
+ * Google Fonts en build ni en runtime). next/font genera las variables
+ * --font-geist-sans y --font-geist-mono, que se declaran en <html> desde
+ * app/layout.tsx.
+ *
+ * Antes aquí había un `font-family: Arial` en el body que pisaba todo, junto a
+ * una referencia a --font-geist-sans que ningún next/font definía.
+ */
+@theme inline {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/*
  * El sitio es de tema oscuro fijo: el layout impone bg-slate-950 en <body>.
- * Aquí vivían variables de light/dark y una referencia a --font-geist-sans que
- * nunca existió (no hay ningún next/font en el proyecto). Se quedan fuera hasta
- * que se decida la tipografía; mientras tanto no hay reglas muertas fingiendo
- * que hacen algo.
+ * Por eso no hay variables de light/dark: serían reglas muertas fingiendo que
+ * hacen algo.
  */
 
 /*

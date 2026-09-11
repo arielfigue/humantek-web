@@ -1,4 +1,6 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -60,13 +62,20 @@ export const metadata: Metadata = {
   formatDetection: { telephone: true, address: true, email: true },
 };
 
+export const viewport: Viewport = {
+  themeColor: '#020617', // slate-950: tiñe la barra del navegador en móvil
+  colorScheme: 'dark',
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es-MX">
+    // Las variables de Geist se declaran en <html> para que también apliquen a
+    // los portales y a cualquier nodo montado fuera de <body>.
+    <html lang="es-MX" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="bg-slate-950 text-slate-100 antialiased">
         {/* Sin JavaScript, ScrollReveal dejaría todo el contenido en opacity-0.
             Esta anulación garantiza que la página siga siendo legible. */}
