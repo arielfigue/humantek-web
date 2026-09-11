@@ -1,6 +1,22 @@
 import fs from 'fs';
 import path from 'path';
+import type { Metadata } from 'next';
 import CasosClient, { CaseStudy } from './CasosClient';
+import JsonLd from '@/components/JsonLd';
+import { pageMetadata } from '@/lib/seo';
+import { breadcrumbSchema, itemListSchema, videoSchema } from '@/lib/schema';
+
+export const metadata: Metadata = pageMetadata({
+  title: 'Casos de éxito',
+  description:
+    'Testimonios en video de clientes reales: implementaciones de ERP y proyectos rescatados en manufactura, distribución, retail y servicios en México.',
+  path: '/casos-de-exito',
+  keywords: [
+    'casos de éxito ERP México',
+    'testimonios implementación Odoo',
+    'rescate de proyecto ERP',
+  ],
+});
 
 // Lector de líneas CSV que respeta campos vacíos y comillas
 function parseCSVLine(line: string): string[] {
@@ -41,26 +57,26 @@ function parseCSV(text: string): CaseStudy[] {
     const values = parseCSVLine(lines[i]);
     if (values.length === 0) continue;
 
-    const obj: any = {};
+    const obj: Record<string, string | string[]> = {};
     headers.forEach((header, index) => {
       obj[header] = values[index] || '';
     });
 
     // Procesa giros como arreglo
-    const rawGiro = obj.giro || '';
+    const rawGiro = typeof obj.giro === 'string' ? obj.giro : '';
     const cleanedGiro = rawGiro.replace(/[\[\]]/g, '');
     obj.giro = cleanedGiro
       ? cleanedGiro.split(',').map((g: string) => g.trim()).filter(Boolean)
       : [];
 
     // Procesa tipos como arreglo
-    const rawTipo = obj.tipo || '';
+    const rawTipo = typeof obj.tipo === 'string' ? obj.tipo : '';
     const cleanedTipo = rawTipo.replace(/[\[\]]/g, '');
     obj.tipo = cleanedTipo
       ? cleanedTipo.split(',').map((t: string) => t.trim()).filter(Boolean)
       : [];
 
-    result.push(obj as CaseStudy);
+    result.push(obj as unknown as CaseStudy);
   }
 
   return result;
@@ -78,5 +94,30 @@ export default async function CasosDeExitoPage() {
     cases = [];
   }
 
-  return <CasosClient initialCases={cases} />;
+  // VideoObject por cada testimonial: sin esto los 21 videos son invisibles
+  // para Google Video y para el carrusel de video en resultados de búsqueda.
+  const videos = cases
+    .filter((item) => item.youtubeId)
+    .map((item) =>
+      videoSchema({
+        name: item.title,
+        description: item.description,
+        youtubeId: item.youtubeId,
+      })
+    );
+
+  return (
+    <>
+      <CasosClient initialCases={cases} />
+      <JsonLd
+        data={[
+          itemListSchema(videos, 'Casos de éxito de Humanytek'),
+          breadcrumbSchema([
+            { name: 'Inicio', path: '/' },
+            { name: 'Casos de éxito', path: '/casos-de-exito' },
+          ]),
+        ]}
+      />
+    </>
+  );
 }

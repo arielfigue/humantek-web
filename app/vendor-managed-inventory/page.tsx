@@ -1,7 +1,23 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
+import VideoPlayer from '@/components/VideoPlayer';
+import JsonLd from '@/components/JsonLd';
+import { pageMetadata } from '@/lib/seo';
+import { breadcrumbSchema, serviceSchema } from '@/lib/schema';
+
+export const metadata: Metadata = pageMetadata({
+  title: 'Vendor Managed Inventory (VMI)',
+  description:
+    'Reposición automática de inventario entre proveedor y punto de venta: menos stock inmovilizado, mayor rotación y confiabilidad de inventarios superior al 95% en 4 a 5 meses.',
+  path: '/vendor-managed-inventory',
+  keywords: [
+    'Vendor Managed Inventory',
+    'VMI México',
+    'inventario administrado por el proveedor',
+    'reabastecimiento continuo',
+  ],
+});
 
 const VMI_BENEFICIOS = [
   "Reducción significativa del inventario total en la cadena.",
@@ -49,15 +65,12 @@ export default function VMIPage() {
         <ScrollReveal>
           <div className="max-w-4xl mx-auto relative rounded-2xl border border-slate-800 bg-slate-900/50 p-4 sm:p-6 backdrop-blur-xl shadow-2xl overflow-hidden">
             <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-slate-950 border border-slate-800/80">
-              <video
+              <VideoPlayer
                 src="/vmi.mp4"
-                controls
-                controlsList="novolume nodownload" // <- nodownload ocultará el botón de descarga
-                onContextMenu={(e) => e.preventDefault()} // <- Evitará clic derecho > Guardar video como
+                label="Modelo Vendor Managed Inventory explicado en video"
+                controlsList="novolume nodownload"
                 autoPlay
-                muted
                 loop
-                playsInline
                 className="w-full h-full object-contain [&::-webkit-media-controls-volume-slider]:hidden [&::-webkit-media-controls-mute-button]:hidden"
               />
             </div>
@@ -194,6 +207,22 @@ export default function VMIPage() {
         </ScrollReveal>
 
       </div>
+
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: 'Vendor Managed Inventory (VMI)',
+            description:
+              'Modelo de inventario administrado por el proveedor con reposición automática y continua entre fábrica, plataforma en la nube y punto de venta.',
+            path: '/vendor-managed-inventory',
+            serviceType: 'Gestión de cadena de suministro',
+          }),
+          breadcrumbSchema([
+            { name: 'Inicio', path: '/' },
+            { name: 'Vendor Managed Inventory', path: '/vendor-managed-inventory' },
+          ]),
+        ]}
+      />
     </main>
   );
 }

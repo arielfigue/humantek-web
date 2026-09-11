@@ -12,7 +12,7 @@ import { organizationSchema, websiteSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Humanytek | Consultoría e Implementación de ERP',
+    default: 'Humanytek | Consultoría e Implementación de ERP (Odoo y SAP)',
     template: '%s | Humanytek',
   },
   description: SITE.description,
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.name, url: SITE_URL }],
   creator: SITE.name,
   publisher: SITE.legalName,
-  // El canonical de cada página lo sobrescribe pageMetadata(); éste cubre la raíz..
+  // El canonical de cada página lo sobrescribe pageMetadata(); éste cubre la raíz.
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Humanytek | Consultoría e Implementación de ERP',

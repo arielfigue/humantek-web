@@ -1,9 +1,45 @@
-'use client';
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 import LogoCarousel from "@/components/LogoCarousel";
+import VideoPlayer from "@/components/VideoPlayer";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
+import { ORG_ID } from "@/lib/schema";
+
+// Server Component: sin 'use client' la página puede exportar su propia
+// metadata y su HTML llega completo al crawler.
+export const metadata: Metadata = {
+  // `absolute` evita que la plantilla del layout añada un segundo "| Humanytek".
+  title: {
+    absolute: "Humanytek | Implementación de ERP Odoo y SAP en México",
+  },
+  description: SITE.description,
+  keywords: [
+    "implementación Odoo México",
+    "partner Odoo México",
+    "SAP Business ByDesign México",
+    "consultoría ERP Guadalajara",
+    "rescate de proyectos ERP",
+  ],
+  alternates: { canonical: "/" },
+};
+
+function homeSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE.url}/#webpage`,
+    url: SITE.url,
+    name: "Humanytek | Implementación de ERP Odoo y SAP en México",
+    description: SITE.description,
+    inLanguage: "es-MX",
+    isPartOf: { "@id": `${SITE.url}/#website` },
+    about: { "@id": ORG_ID },
+    primaryImageOfPage: `${SITE.url}${SITE.ogImage.url}`,
+  };
+}
 
 export default function Home() {
   return (
@@ -53,19 +89,13 @@ export default function Home() {
               
               <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-2 shadow-2xl backdrop-blur-xl">
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950">
-                  <video
+                  <VideoPlayer
+                    src="/humanytek-video.mp4"
+                    label="Video de presentación de Humanytek"
                     autoPlay
-                    muted
                     loop
-                    playsInline
-                    controls
-                    controlsList="nodownload"
-                    onContextMenu={(e) => e.preventDefault()}
                     className="h-full w-full object-cover rounded-lg"
-                  >
-                    <source src="/humanytek-video.mp4" type="video/mp4" />
-                    Tu navegador no soporta el elemento de video.
-                  </video>
+                  />
                 </div>
               </div>
             </div>
@@ -97,7 +127,7 @@ export default function Home() {
 
               <div className="space-y-4 text-slate-300 text-base sm:text-lg leading-relaxed font-light">
                 <p>
-                  Las situaciones más críticas en las <strong className="text-white font-semibold">"malas implementaciones"</strong> tienen que ver con cuestiones humanas y casi nunca son tecnológicas.
+                  Las situaciones más críticas en las <strong className="text-white font-semibold">&ldquo;malas implementaciones&rdquo;</strong> tienen que ver con cuestiones humanas y casi nunca son tecnológicas.
                 </p>
                 <p>
                   Aún y con toda la abrumadora cantidad de evidencia estadística / histórica que hay de esto, los implementadores y las empresas en su mayoría le siguen prestando más atención al software ERP que al proceso humano de implementación de un software que deberá ser usado por personas.
@@ -144,7 +174,7 @@ export default function Home() {
               </h2>
 
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light">
-                En Humanytek tenemos perfecta claridad de que lo que realmente hace la diferencia es la <strong className="text-white font-semibold">"manera"</strong>, por eso hemos diseñado una metodología lógica en un proceso de implementación que asegura el éxito de su proyecto.
+                En Humanytek tenemos perfecta claridad de que lo que realmente hace la diferencia es la <strong className="text-white font-semibold">&ldquo;manera&rdquo;</strong>, por eso hemos diseñado una metodología lógica en un proceso de implementación que asegura el éxito de su proyecto.
               </p>
 
               <div className="pt-2">
@@ -202,7 +232,7 @@ export default function Home() {
                   <div>
                     <h3 className="text-base font-bold text-white tracking-wider uppercase">VALOR</h3>
                     <p className="mt-1 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                      Implementamos en los lugares de su empresa en donde realmente genera valor, nos enfocamos en el problema medular, eliminando el "ruido" en su organización.
+                      Implementamos en los lugares de su empresa en donde realmente genera valor, nos enfocamos en el problema medular, eliminando el &ldquo;ruido&rdquo; en su organización.
                     </p>
                   </div>
                 </div>
@@ -277,10 +307,14 @@ export default function Home() {
 
       {/* --- SECCIÓN PRODUCTIVIDAD Y ANALOGÍA FÓRMULA 1 --- */}
       <section className="relative py-24 px-6 lg:px-12 border-t border-slate-800/80 overflow-hidden bg-slate-950">
-        <img
+        <Image
           src="/images/f1-productividad-bg.jpg"
-          alt="Navegación y Productividad Humanytek"
-          className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
+          alt=""
+          aria-hidden="true"
+          fill
+          sizes="100vw"
+          quality={70}
+          className="object-cover opacity-40 pointer-events-none"
         />
         
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/30 pointer-events-none"></div>
@@ -320,6 +354,8 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
+
+      <JsonLd data={homeSchema()} />
     </main>
   );
 }

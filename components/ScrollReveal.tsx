@@ -11,12 +11,17 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Se copia el nodo a una variable local: en el cleanup, ref.current ya puede
+    // apuntar a otro elemento (o a null) y unobserve fallaría en silencio.
+    const node = ref.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           // Dejamos de observar una vez que ya apareció para que no parpadee al subir y bajar
-          if (ref.current) observer.unobserve(ref.current);
+          observer.unobserve(node);
         }
       },
       {
@@ -25,13 +30,9 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(node);
 
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (

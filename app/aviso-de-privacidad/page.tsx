@@ -1,4 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  ...pageMetadata({
+    title: "Aviso de privacidad",
+    description:
+      "Aviso de privacidad de Humanytek: qué datos personales recabamos, para qué los usamos y cómo ejercer sus derechos ARCO.",
+    path: "/aviso-de-privacidad",
+  }),
+  // Página legal: se indexa pero no debe competir por posiciones ni aparecer
+  // en resultados enriquecidos.
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+};
 
 export default function AvisoDePrivacidadPage() {
   const currentYear = new Date().getFullYear();
@@ -33,7 +47,7 @@ export default function AvisoDePrivacidadPage() {
               <strong> Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong> y las disposiciones que emanan de ella.
             </p>
             <p>
-              Este Aviso de Privacidad (en lo sucesivo referido como "Aviso") aplica a la información personal recopilada sobre el Titular por 
+              Este Aviso de Privacidad (en lo sucesivo referido como &ldquo;Aviso&rdquo;) aplica a la información personal recopilada sobre el Titular por 
               <strong> HUMANYTEK</strong> en su carácter de Responsable, con domicilio ubicado en:
             </p>
             

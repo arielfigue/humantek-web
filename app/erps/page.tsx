@@ -1,8 +1,23 @@
-'use client';
-
-import Link from "next/link";
+import type { Metadata } from "next";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
+import VideoPlayer from "@/components/VideoPlayer";
+import JsonLd from "@/components/JsonLd";
+import { pageMetadata } from "@/lib/seo";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+
+export const metadata: Metadata = pageMetadata({
+  title: "ERP: Odoo y SAP Business ByDesign",
+  description:
+    "Primer partner de Odoo para México e implementadores de SAP Business ByDesign. Proyectos en algunas de las empresas más grandes del país, con la experiencia que eso implica.",
+  path: "/erps",
+  keywords: [
+    "partner Odoo México",
+    "implementación Odoo",
+    "SAP Business ByDesign",
+    "ERP en la nube México",
+  ],
+});
 
 export default function ErpsPage() {
   return (
@@ -21,19 +36,13 @@ export default function ErpsPage() {
             {/* TARJETA ODOO */}
             <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between space-y-6">
               <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950 border border-slate-800">
-                <video
+                <VideoPlayer
+                  src="/odoo_es_video.mp4"
+                  label="Video de presentación de Odoo"
                   autoPlay
-                  muted
                   loop
-                  playsInline
-                  controls
-                  controlsList="nodownload"
-                  onContextMenu={(e) => e.preventDefault()}
                   className="h-full w-full object-cover rounded-lg"
-                >
-                  <source src="/odoo_es_video.mp4" type="video/mp4" />
-                  Tu navegador no soporta el elemento de video.
-                </video>
+                />
               </div>
 
               <div className="space-y-3">
@@ -53,19 +62,13 @@ export default function ErpsPage() {
             {/* TARJETA SAP BUSINESS BYDESIGN */}
             <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between space-y-6">
               <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950 border border-slate-800">
-                <video
+                <VideoPlayer
+                  src="/sap_Business_ByDesign.mp4"
+                  label="Video de presentación de SAP Business ByDesign"
                   autoPlay
-                  muted
                   loop
-                  playsInline
-                  controls
-                  controlsList="nodownload"
-                  onContextMenu={(e) => e.preventDefault()}
                   className="h-full w-full object-cover rounded-lg"
-                >
-                  <source src="/sap_Business_ByDesign.mp4" type="video/mp4" />
-                  Tu navegador no soporta el elemento de video.
-                </video>
+                />
               </div>
 
               <div className="space-y-3">
@@ -195,6 +198,29 @@ export default function ErpsPage() {
         </section>
 
       </div>
+
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Implementación de ERP Odoo",
+            description:
+              "Implementación de Odoo para empresas medianas y grandes en México, incluyendo cumplimiento fiscal mexicano y CFDI.",
+            path: "/erps",
+            serviceType: "Implementación de ERP",
+          }),
+          serviceSchema({
+            name: "Implementación de SAP Business ByDesign",
+            description:
+              "Implementación de SAP Business ByDesign, ERP en la nube para el mercado medio.",
+            path: "/erps",
+            serviceType: "Implementación de ERP",
+          }),
+          breadcrumbSchema([
+            { name: "Inicio", path: "/" },
+            { name: "ERP's", path: "/erps" },
+          ]),
+        ]}
+      />
     </main>
   );
 }

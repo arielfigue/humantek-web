@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 export default function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +41,7 @@ export default function WhatsAppWidget() {
     e.preventDefault();
     const text = message.trim() || "¡Hola! Quisiera más información sobre sus servicios.";
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(text)}`;
+    trackEvent('whatsapp_click', { origen: 'formulario_widget', dentro_de_horario: isOnline });
     window.open(url, '_blank');
     setIsOpen(false);
     setMessage('');
@@ -128,6 +130,7 @@ export default function WhatsAppWidget() {
                 href={`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent("Hola, vi que están fuera de horario pero me gustaría dejar un mensaje...")}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('whatsapp_click', { origen: 'fuera_de_horario' })}
                 className="text-xs text-slate-400 hover:text-emerald-400 underline transition-colors"
               >
                 Dejar un mensaje por WhatsApp de todos modos
