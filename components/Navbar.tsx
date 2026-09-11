@@ -14,7 +14,7 @@ export default function Navbar() {
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "VMI", href: "/vendor-managed-inventory" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
-    { name: "Nosotros", href: "/#nosotros" },
+    { name: "Nosotros", href: "/nosotros" },
     { name: "Contacto", href: "/contacto" },
   ];
 

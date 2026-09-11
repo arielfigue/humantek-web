@@ -10,7 +10,7 @@ export default function Footer() {
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "VMI", href: "/vendor-managed-inventory" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
-    { name: "Nosotros", href: "/#nosotros" },
+    { name: "Nosotros", href: "/nosotros" },
     { name: "Contacto", href: "/contacto" },
     { name: "Aviso de privacidad", href: "/aviso-de-privacidad" },
   ];
