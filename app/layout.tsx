@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ChatbotWidget from '@/components/ChatbotWidget';
+import WhatsAppWidget from '@/components/WhatsAppWidget';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://humanytek.com'),
@@ -59,6 +61,8 @@ export default function RootLayout({
       <body className="bg-slate-950 text-slate-100 antialiased">
         <Navbar />
         {children}
+        <ChatbotWidget />
+        <WhatsAppWidget />
         <Footer />
       </body>
     </html>
