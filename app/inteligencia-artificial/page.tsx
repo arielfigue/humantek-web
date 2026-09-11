@@ -303,15 +303,15 @@ export default function InteligenciaArtificialPage() {
             if (!CFG.turnstileSiteKey) return cb();
             if ((window as any).turnstile) return cb();
             var id = 'cf-turnstile-api';
-            var el = document.getElementById(id);
-            if (el) { el.addEventListener('load', cb); return; }
-            el = document.createElement('script');
-            el.id = id;
-            el.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-            el.async = true;
-            el.defer = true;
-            el.onload = cb;
-            document.head.appendChild(el);
+            var existingEl = document.getElementById(id);
+            if (existingEl) { existingEl.addEventListener('load', cb); return; }
+            var scriptEl = document.createElement('script');
+            scriptEl.id = id;
+            scriptEl.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+            scriptEl.async = true;
+            scriptEl.defer = true;
+            scriptEl.onload = cb;
+            document.head.appendChild(scriptEl);
           }
 
           leadBtn.addEventListener('click', function () {
