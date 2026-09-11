@@ -13,12 +13,22 @@ declare global {
 
 export default function InteligenciaArtificialPage() {
   useEffect(() => {
-    // 1. Limpieza de instancias y banderas de sesiones previas en navegación SPA
-    window.__humanytekChatLoaded = false;
-    const oldHost = document.getElementById('humanytek-chat');
-    if (oldHost) oldHost.remove();
+    // 1. Ocultar la burbuja flotante global (pegada a document.body) mientras estemos en esta página
+    const hideFloatingStyle = document.createElement('style');
+    hideFloatingStyle.id = 'hide-floating-chat-style';
+    hideFloatingStyle.innerHTML = `
+      body > #humanytek-chat {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(hideFloatingStyle);
 
-    // 2. Parámetros globales del chat
+    // 2. Limpieza de instancias incrustadas previas
+    window.__humanytekChatLoaded = false;
+    const oldInlineHost = document.querySelector('#humanytek-chat-box > #humanytek-chat');
+    if (oldInlineHost) oldInlineHost.remove();
+
+    // 3. Configuración del chat incrustado
     window.HUMANYTEK_CHAT = {
       target: '#humanytek-chat-box',
       height: '560px',
@@ -28,7 +38,7 @@ export default function InteligenciaArtificialPage() {
       privacyUrl: '/aviso-de-privacidad'
     };
 
-    // 3. Retardo breve para garantizar que React haya montado el div #humanytek-chat-box
+    // 4. Inicializar el widget en el contenedor central
     const initTimer = setTimeout(() => {
       if (window.__humanytekChatLoaded) return;
 
@@ -393,12 +403,16 @@ export default function InteligenciaArtificialPage() {
       })();
     }, 100);
 
-    // 4. Limpieza al desmontar el componente
+    // 5. Restablecer la visibilidad global de la burbuja flotante al salir de la página
     return () => {
       clearTimeout(initTimer);
       window.__humanytekChatLoaded = false;
-      const host = document.getElementById('humanytek-chat');
-      if (host) host.remove();
+      
+      const hideStyle = document.getElementById('hide-floating-chat-style');
+      if (hideStyle) hideStyle.remove();
+
+      const inlineHost = document.querySelector('#humanytek-chat-box > #humanytek-chat');
+      if (inlineHost) inlineHost.remove();
     };
   }, []);
 
