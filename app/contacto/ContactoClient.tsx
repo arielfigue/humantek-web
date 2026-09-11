@@ -32,14 +32,14 @@ export default function ContactoClient() {
 
         <div className="text-center space-y-4">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Hablemos de su{' '}
+            Cuéntanos de su{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
-              proyecto de ERP
+              proyecto.
             </span>
           </h1>
           <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
             Dos horas de conversación bastan para entender qué hacer y, sobre todo,
-            qué NO hacer al implementar su ERP. Escríbanos y lo contactamos.
+            qué NO hacer para lograr un resultado sobresaliente. Escríbanos y lo contactamos.
           </p>
         </div>
 
