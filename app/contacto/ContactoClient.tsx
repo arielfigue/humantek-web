@@ -49,7 +49,16 @@ export default function ContactoClient() {
           <iframe
             id="humanytek-contact-frame"
             src={FORM_ORIGIN}
-            style={{ width: '100%', height: `${frameHeight}px`, border: 'none', display: 'block' }}
+            // El documento del Worker se sirve con fondo transparente para
+            // apoyarse sobre esta tarjeta; el iframe tampoco debe pintar uno.
+            style={{
+              width: '100%',
+              height: `${frameHeight}px`,
+              border: 'none',
+              display: 'block',
+              background: 'transparent',
+              colorScheme: 'dark',
+            }}
             scrolling="no"
             title="Formulario de contacto"
           />
