@@ -103,6 +103,16 @@ export default function NosotrosPage() {
               </p>
             </div>
 
+            {/* RETO 4: GESTIÓN DE PROYECTOS */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 backdrop-blur-xl space-y-3 hover:border-cyan-500/40 transition-all">
+              <span className="text-xs font-bold uppercase tracking-widest text-cyan-400">
+                04. Gestión de Proyectos
+              </span>
+              <p className="text-slate-200 text-base sm:text-lg font-light leading-relaxed">
+                ¿Eres una empresa que hace proyectos y, a pesar de tener todo a tu alcance, entregas tarde, con sobrecostos o terminas recortando el alcance? ¿Y si te dijera que el problema no está en tu gente ni en tus recursos, sino en la forma misma en que gestionas tus proyectos? Danos la oportunidad de explicarte cómo se resuelve. Y te lo decimos con conocimiento de causa: <strong className="text-cyan-300 font-semibold">nosotros también teníamos estos problemas</strong>.
+              </p>
+            </div>
+
           </div>
         </ScrollReveal>
 
