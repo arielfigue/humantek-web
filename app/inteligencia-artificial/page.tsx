@@ -13,7 +13,12 @@ declare global {
 
 export default function InteligenciaArtificialPage() {
   useEffect(() => {
-    // Configuración global del chat
+    // 1. Limpieza de instancias y banderas de sesiones previas en navegación SPA
+    window.__humanytekChatLoaded = false;
+    const oldHost = document.getElementById('humanytek-chat');
+    if (oldHost) oldHost.remove();
+
+    // 2. Parámetros globales del chat
     window.HUMANYTEK_CHAT = {
       target: '#humanytek-chat-box',
       height: '560px',
@@ -23,14 +28,15 @@ export default function InteligenciaArtificialPage() {
       privacyUrl: '/aviso-de-privacidad'
     };
 
-    // IIFE del widget autocontenido
-    if (!window.__humanytekChatLoaded) {
+    // 3. Retardo breve para garantizar que React haya montado el div #humanytek-chat-box
+    const initTimer = setTimeout(() => {
+      if (window.__humanytekChatLoaded) return;
+
       (function () {
         'use strict';
 
         function start() {
           if (window.__humanytekChatLoaded) return;
-          window.__humanytekChatLoaded = true;
 
           var CFG = Object.assign(
             {
@@ -53,8 +59,9 @@ export default function InteligenciaArtificialPage() {
           );
 
           var mount = CFG.target ? document.querySelector(CFG.target) : null;
-          var inline = !!mount;
-          if (CFG.target && !mount && !CFG.floatingFallback) return;
+          if (!mount) return;
+
+          window.__humanytekChatLoaded = true;
 
           var sessionId = (function () {
             var gen = function () {
@@ -77,14 +84,8 @@ export default function InteligenciaArtificialPage() {
 
           var host = document.createElement('div');
           host.id = 'humanytek-chat';
-
-          if (inline) {
-            host.style.cssText = 'all:initial;display:block;width:100%;height:' + CFG.height + ';';
-            mount.appendChild(host);
-          } else {
-            host.style.cssText = 'all:initial;position:fixed;z-index:2147483000;bottom:0;right:0;';
-            document.body.appendChild(host);
-          }
+          host.style.cssText = 'all:initial;display:block;width:100%;height:' + CFG.height + ';';
+          mount.appendChild(host);
 
           var root = host.attachShadow({ mode: 'open' });
 
@@ -125,23 +126,14 @@ export default function InteligenciaArtificialPage() {
             '::slotted(div){margin:2px 0;min-height:65px;}'
           ];
 
-          var modeCss = inline
-            ? [
-                ':host{display:block;}',
-                '.wrap{height:100%;}',
-                '.launcher{display:none;}',
-                '.panel{position:relative;display:flex;flex-direction:column;width:100%;height:100%;max-height:100%;background:#fff;border:1px solid #e3e8ee;border-radius:14px;overflow:hidden;}',
-                '.log{overscroll-behavior:contain;}',
-                '.hdr .close{display:none;}'
-              ]
-            : [
-                '.launcher{position:fixed;bottom:20px;right:20px;width:58px;height:58px;border:0;border-radius:50%;background:var(--brand);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:transform .18s ease;}',
-                '.launcher:hover{transform:scale(1.06);}',
-                '.launcher svg{width:26px;height:26px;fill:currentColor;}',
-                '.panel{position:fixed;bottom:20px;right:20px;width:380px;height:min(560px,calc(100vh - 40px));background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden;}',
-                '.panel.open{display:flex;}',
-                '@media(max-width:480px){.panel{width:100vw;height:100vh;bottom:0;right:0;border-radius:0;}}'
-              ];
+          var modeCss = [
+            ':host{display:block;}',
+            '.wrap{height:100%;}',
+            '.launcher{display:none;}',
+            '.panel{position:relative;display:flex;flex-direction:column;width:100%;height:100%;max-height:100%;background:#fff;border:1px solid #e3e8ee;border-radius:14px;overflow:hidden;}',
+            '.log{overscroll-behavior:contain;}',
+            '.hdr .close{display:none;}'
+          ];
 
           var style = document.createElement('style');
           style.textContent = base.concat(modeCss).join('');
@@ -149,8 +141,7 @@ export default function InteligenciaArtificialPage() {
           var wrap = document.createElement('div');
           wrap.className = 'wrap';
           wrap.innerHTML =
-            '<button class="launcher" aria-label="Abrir chat"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg></button>' +
-            '<section class="panel' + (inline ? ' open' : '') + '" role="region">' +
+            '<section class="panel open" role="region">' +
             (CFG.showHeader ? '<div class="hdr"><h3></h3><button class="close" aria-label="Cerrar">&times;</button></div>' : '') +
             '<div class="log" role="log" aria-live="polite"></div>' +
             '<div class="bar"><button class="lead" type="button"></button><textarea rows="1" maxlength="' + CFG.maxChars + '"></textarea><button class="send">Enviar</button></div>' +
@@ -160,7 +151,6 @@ export default function InteligenciaArtificialPage() {
 
           root.append(style, wrap);
 
-          var launcher = root.querySelector('.launcher') as HTMLElement;
           var panel = root.querySelector('.panel') as HTMLElement;
           var log = root.querySelector('.log') as HTMLElement;
           var box = root.querySelector('textarea') as HTMLTextAreaElement;
@@ -195,20 +185,6 @@ export default function InteligenciaArtificialPage() {
                 }
               }
             }
-          }
-
-          if (!inline) {
-            var toggle = function (open: boolean) {
-              panel.classList.toggle('open', open);
-              launcher.style.display = open ? 'none' : 'flex';
-              if (open) setTimeout(function () { box.focus(); }, 50);
-            };
-            launcher.addEventListener('click', function () { toggle(true); });
-            (root.querySelector('.close') as HTMLElement).addEventListener('click', function () { toggle(false); });
-            document.addEventListener('keydown', function (e) {
-              if (e.key === 'Escape' && panel.classList.contains('open')) toggle(false);
-            });
-            if (CFG.autoOpen) toggle(true);
           }
 
           box.addEventListener('input', function () {
@@ -413,25 +389,26 @@ export default function InteligenciaArtificialPage() {
           bubble('bot', CFG.greeting);
         }
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', start);
-        } else {
-          start();
-        }
+        start();
       })();
-    }
+    }, 100);
+
+    // 4. Limpieza al desmontar el componente
+    return () => {
+      clearTimeout(initTimer);
+      window.__humanytekChatLoaded = false;
+      const host = document.getElementById('humanytek-chat');
+      if (host) host.remove();
+    };
   }, []);
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 pb-24 px-6 lg:px-12 relative overflow-hidden">
-      {/* Luces y ambiente de fondo */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.18),rgba(255,255,255,0))]"></div>
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-cyan-600/10 blur-[140px] rounded-full pointer-events-none -z-10"></div>
       <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none -z-10"></div>
 
       <div className="mx-auto max-w-7xl space-y-16">
-        
-        {/* --- ENCABEZADO --- */}
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
@@ -446,16 +423,12 @@ export default function InteligenciaArtificialPage() {
           </div>
         </ScrollReveal>
 
-        {/* --- INTERFAZ DEL CHAT --- */}
         <ScrollReveal>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* LADO IZQUIERDO: CONTENEDOR INCRUSTADO DEL CHATBOT */}
-            <div className="lg:col-span-8 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 sm:p-6 backdrop-blur-xl shadow-2xl overflow-hidden">
-              <div id="humanytek-chat-box" className="w-full rounded-xl overflow-hidden bg-white shadow-inner"></div>
+            <div className="lg:col-span-8 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 sm:p-6 backdrop-blur-xl shadow-2xl overflow-hidden min-h-[580px]">
+              <div id="humanytek-chat-box" className="w-full rounded-xl overflow-hidden bg-white shadow-inner min-h-[560px]"></div>
             </div>
 
-            {/* LADO DERECHO: CAPACIDADES DEL ASISTENTE */}
             <div className="lg:col-span-4 space-y-6">
               <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 backdrop-blur-xl space-y-4">
                 <h3 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
@@ -497,10 +470,8 @@ export default function InteligenciaArtificialPage() {
                 </Link>
               </div>
             </div>
-
           </div>
         </ScrollReveal>
-
       </div>
     </main>
   );
