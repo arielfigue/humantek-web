@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -25,6 +27,8 @@ export default function ErpsPage() {
                   loop
                   playsInline
                   controls
+                  controlsList="nodownload"
+                  onContextMenu={(e) => e.preventDefault()}
                   className="h-full w-full object-cover rounded-lg"
                 >
                   <source src="/odoo_es_video.mp4" type="video/mp4" />
@@ -55,6 +59,8 @@ export default function ErpsPage() {
                   loop
                   playsInline
                   controls
+                  controlsList="nodownload"
+                  onContextMenu={(e) => e.preventDefault()}
                   className="h-full w-full object-cover rounded-lg"
                 >
                   <source src="/sap_Business_ByDesign.mp4" type="video/mp4" />
@@ -130,9 +136,7 @@ export default function ErpsPage() {
         {/* --- TITULAR Y CONTEXTO --- */}
         <ScrollReveal>
           <div className="text-center max-w-4xl mx-auto space-y-6 pt-6">
-            <span className="inline-block rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-400">
-              Soluciones ERP a Medida
-            </span>
+            {/* Aquí se eliminó la etiqueta "Soluciones ERP a Medida" */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
               Decida la herramienta más conveniente de acuerdo a sus necesidades y las de su empresa.
             </h1>
