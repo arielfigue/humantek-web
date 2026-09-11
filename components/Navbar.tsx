@@ -104,20 +104,31 @@ export default function Navbar() {
             enlaces seguían siendo enfocables aunque midieran cero de alto: con
             Tab se atravesaba un menú invisible. */}
         <div className="overflow-hidden" inert={!isOpen}>
-          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 sm:py-10">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-6 sm:py-8">
+            {/* Ancho de columna FIJO (210px) en vez de 1fr: así las tarjetas no
+                se estiran para llenar el contenedor y todas miden exactamente lo
+                mismo, sin importar cuántas haya.
+
+                `ml-auto` + `w-fit` empujan el bloque al borde derecho, alineado
+                con el botón del menú.
+
+                Para agregar páginas: con 210px caben 5 columnas a partir de
+                `xl` (5x210 + 4x10 = 1090px, y ahí hay 1216 disponibles). O sea
+                que al llegar a 9 o 10 enlaces basta con añadir
+                `xl:grid-cols-[repeat(5,210px)]` y se siguen viendo en dos filas. */}
+            <div className="grid w-full grid-cols-2 gap-2.5 sm:ml-auto sm:w-fit sm:grid-cols-[repeat(2,210px)] md:grid-cols-[repeat(3,210px)] lg:grid-cols-[repeat(4,210px)]">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   // Tarjetas con un leve tinte blanco (5%) para asemejar cristal esmerilado
-                  className="p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-cyan-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-all duration-200 group flex items-center justify-between shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+                  className="group flex items-center justify-between gap-2 rounded-xl border border-white/5 bg-white/5 px-3.5 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-200 hover:border-cyan-500/50 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
-                  <span className="text-sm font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors">
+                  <span className="text-xs font-semibold leading-tight text-slate-100 transition-colors group-hover:text-cyan-400">
                     {link.name}
                   </span>
-                  <span className="text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all">
+                  <span className="shrink-0 text-sm text-slate-400 transition-all group-hover:translate-x-0.5 group-hover:text-cyan-400">
                     →
                   </span>
                 </Link>
