@@ -100,7 +100,7 @@ export default function ContactoClient() {
               </h3>
               <p className="text-xs text-slate-400">Telefono:</p>
               <p className="text-sm leading-relaxed text-slate-200 mt-1 font-medium">
-                +52 (33) 1983 1083 / 4
+                +52 (33) 1983 1083 / 4  -  +52 (33) 3641 1439
               </p>
               <p className="text-sm leading-relaxed text-slate-200 mt-4">
                 Email :{" "}
