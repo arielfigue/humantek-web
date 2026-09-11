@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatbotWidget from '@/components/ChatbotWidget';
+import ChatFlotante from '@/components/chat/ChatFlotante';
 import WhatsAppWidget from '@/components/WhatsAppWidget';
 import JsonLd from '@/components/JsonLd';
 import Analytics from '@/components/Analytics';
@@ -74,7 +74,7 @@ export default function RootLayout({
 
         <Navbar />
         {children}
-        <ChatbotWidget />
+        <ChatFlotante />
         <WhatsAppWidget />
         <Footer />
         <Analytics />
