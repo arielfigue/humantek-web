@@ -14,12 +14,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Video, posters y logos cambian muy rara vez. Un año de caché
-        // inmutable evita redescargarlos en cada visita; si se reemplaza un
-        // archivo, se sube con nombre nuevo.
         source: '/:path*.(mp4|webm|jpg|jpeg|png|webp|avif|svg)',
         headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          {
+            // Sin `immutable`: estos archivos no llevan hash en el nombre, así
+            // que reemplazar uno debe surtir efecto en horas, no en un año.
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
         ],
       },
     ];
