@@ -60,9 +60,6 @@ export default function NosotrosPage() {
         {/* --- ENCABEZADO Y VIDEO INSTITUCIONAL CENTRADO --- */}
         <ScrollReveal>
           <div className="text-center space-y-6">
-            <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-              Nuestro Manifiesto
-            </span>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
               ¿Qué <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">hacemos?</span>
