@@ -26,6 +26,7 @@ const LOGOS = [
   { src: '/logos/logo-melotraes.jpg', alt: 'Melotraes' },
   { src: '/logos/logo-noe.png', alt: 'Noe' },
   { src: '/logos/logo-paomx.png', alt: 'PaoMx' },
+  { src: '/logos/logo-interjoya.jpg', alt: 'Interjoya' },
   { src: '/logos/logo-pare.jpg', alt: 'Pare' },
   { src: '/logos/logo-pp-300x150.png', alt: 'PP' },
   { src: '/logos/logo-requiez.png', alt: 'Requiez' },
