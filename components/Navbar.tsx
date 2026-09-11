@@ -22,6 +22,7 @@ const menuItems = [
   { name: "Metodología", href: "/metodologia" }, // <-- '/' agregada
   { name: "Casos de éxito", href: "/casos-de-exito" },
   { name: "Vendor Managed Inventory", href: "/vendor-managed-inventory" },
+  { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
   { name: "Nosotros", href: "/#nosotros" },
   { name: "Contacto", href: "/contacto" },
 ];
