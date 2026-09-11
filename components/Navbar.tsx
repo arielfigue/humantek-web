@@ -1,11 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+const ID_MENU = 'menu-principal';
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const botonRef = useRef<HTMLButtonElement>(null);
 
   const navLinks = [
     { name: "Inicio", href: "/" },
@@ -18,9 +22,34 @@ export default function Navbar() {
     { name: "Contacto", href: "/contacto" },
   ];
 
+  // Escape cierra el menú y devuelve el foco al botón, que es de donde salió.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const alPresionar = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setIsOpen(false);
+      botonRef.current?.focus();
+    };
+
+    const alHacerClic = (e: MouseEvent) => {
+      if (!navRef.current?.contains(e.target as Node)) setIsOpen(false);
+    };
+
+    document.addEventListener('keydown', alPresionar);
+    document.addEventListener('mousedown', alHacerClic);
+    return () => {
+      document.removeEventListener('keydown', alPresionar);
+      document.removeEventListener('mousedown', alHacerClic);
+    };
+  }, [isOpen]);
+
   return (
     // Navbar principal también ligeramente más transparente y con menos blur
-    <nav className="fixed top-0 left-0 w-full z-50 bg-slate-950/50 backdrop-blur-md border-b border-slate-800/50">
+    <nav
+      ref={navRef}
+      className="fixed top-0 left-0 w-full z-50 bg-slate-950/50 backdrop-blur-md border-b border-slate-800/50"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           
@@ -39,11 +68,15 @@ export default function Navbar() {
 
           {/* Botón único de 3 rayas horizontales */}
           <button
+            ref={botonRef}
             onClick={() => setIsOpen(!isOpen)}
             type="button"
-            className="inline-flex items-center justify-center p-3 rounded-xl text-slate-300 hover:text-cyan-400 hover:bg-slate-900/50 focus:outline-none transition-all duration-200 border border-slate-800/40"
+            // focus:outline-none sin reemplazo dejaba a quien navega con teclado
+            // sin ninguna pista de dónde está parado.
+            className="inline-flex items-center justify-center p-3 rounded-xl text-slate-300 hover:text-cyan-400 hover:bg-slate-900/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-all duration-200 border border-slate-800/40"
             aria-expanded={isOpen}
-            aria-label="Abrir navegación"
+            aria-controls={ID_MENU}
+            aria-label={isOpen ? 'Cerrar navegación' : 'Abrir navegación'}
           >
             <svg className="w-7 h-7 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth="2">
               {isOpen ? (
@@ -59,13 +92,18 @@ export default function Navbar() {
 
       {/* Menú desplegable: Fondo muy sutil (20%) y blur medio */}
       <div
+        id={ID_MENU}
         className={`grid transition-all duration-500 ease-in-out border-b bg-slate-950/20 backdrop-blur-md shadow-2xl ${
-          isOpen 
-            ? 'grid-rows-[1fr] opacity-100 border-slate-800/30' 
+          isOpen
+            ? 'grid-rows-[1fr] opacity-100 border-slate-800/30'
             : 'grid-rows-[0fr] opacity-0 border-transparent'
         }`}
       >
-        <div className="overflow-hidden">
+        {/* `inert` saca del árbol de accesibilidad y del orden de tabulación todo
+            lo que hay dentro cuando el menú está colapsado. Antes los ocho
+            enlaces seguían siendo enfocables aunque midieran cero de alto: con
+            Tab se atravesaba un menú invisible. */}
+        <div className="overflow-hidden" inert={!isOpen}>
           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 sm:py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {navLinks.map((link) => (
@@ -74,7 +112,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   // Tarjetas con un leve tinte blanco (5%) para asemejar cristal esmerilado
-                  className="p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-cyan-500/50 transition-all duration-200 group flex items-center justify-between shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+                  className="p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-cyan-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-all duration-200 group flex items-center justify-between shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
                 >
                   <span className="text-sm font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors">
                     {link.name}

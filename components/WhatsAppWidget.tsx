@@ -3,6 +3,26 @@
 import { useState, useEffect } from 'react';
 import { trackEvent } from '@/lib/analytics';
 
+/** Lunes a viernes, 9:00-18:00, hora del centro de México. */
+function enHorarioDeAtencion(): boolean {
+  const partes = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Mexico_City',
+    weekday: 'short',
+    hour: 'numeric',
+    hour12: false,
+  }).formatToParts(new Date());
+
+  let dia = '';
+  let hora = 0;
+  for (const parte of partes) {
+    if (parte.type === 'weekday') dia = parte.value;
+    if (parte.type === 'hour') hora = parseInt(parte.value, 10);
+  }
+
+  const esDiaHabil = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(dia);
+  return esDiaHabil && hora >= 9 && hora < 18;
+}
+
 export default function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -10,31 +30,21 @@ export default function WhatsAppWidget() {
   const phoneNumber = "528148131032";
 
   useEffect(() => {
-    const checkOnlineStatus = () => {
-      const now = new Date();
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/Mexico_City',
-        weekday: 'short',
-        hour: 'numeric',
-        hour12: false,
-      });
+    const revisar = () => setIsOnline(enHorarioDeAtencion());
 
-      const parts = formatter.formatToParts(now);
-      let day = '';
-      let hour = 0;
+    revisar();
 
-      parts.forEach((part) => {
-        if (part.type === 'weekday') day = part.value;
-        if (part.type === 'hour') hour = parseInt(part.value, 10);
-      });
+    // Antes esto se calculaba una sola vez al montar. Quien dejaba la pestaña
+    // abierta cruzando las 18:00 seguía leyendo "En línea · Respuesta rápida"
+    // y escribía esperando respuesta inmediata.
+    const intervalo = setInterval(revisar, 60_000);
+    // Al volver de otra pestaña el intervalo pudo haber estado ralentizado.
+    document.addEventListener('visibilitychange', revisar);
 
-      const isWeekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day);
-      const isWorkingHours = hour >= 9 && hour < 18;
-
-      setIsOnline(isWeekday && isWorkingHours);
+    return () => {
+      clearInterval(intervalo);
+      document.removeEventListener('visibilitychange', revisar);
     };
-
-    checkOnlineStatus();
   }, []);
 
   const handleSend = (e: React.FormEvent) => {
@@ -112,7 +122,7 @@ export default function WhatsAppWidget() {
                 placeholder="Escribe tu mensaje..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="flex-1 bg-slate-800 border border-slate-700 text-white rounded-full px-4 py-2 text-sm focus:outline-none focus:border-emerald-500"
+                className="flex-1 bg-slate-800 border border-slate-700 text-white rounded-full px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus:border-emerald-500"
               />
               <button
                 type="submit"

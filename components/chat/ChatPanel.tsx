@@ -148,7 +148,7 @@ export default function ChatPanel({ variante, onCerrar }: ChatPanelProps) {
               manejarEnvio();
             }
           }}
-          className="max-h-[110px] flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500 focus:outline-none"
+          className="max-h-[110px] flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus:border-cyan-500"
         />
 
         <button

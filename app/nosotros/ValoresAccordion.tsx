@@ -67,7 +67,7 @@ export default function ValoresAccordion() {
               {/* HEADER DEL ACORDEÓN (Botón) */}
               <button
                 onClick={() => toggleAccordion(index)}
-                className="w-full flex items-center justify-between p-5 sm:p-6 text-left focus:outline-none"
+                className="w-full flex items-center justify-between rounded-2xl p-5 sm:p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 aria-expanded={isOpen}
               >
                 <h3 className="text-sm font-bold uppercase tracking-wider text-cyan-400">

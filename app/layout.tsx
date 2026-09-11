@@ -68,12 +68,27 @@ export default function RootLayout({
   return (
     <html lang="es-MX">
       <body className="bg-slate-950 text-slate-100 antialiased">
+        {/* Sin JavaScript, ScrollReveal dejaría todo el contenido en opacity-0.
+            Esta anulación garantiza que la página siga siendo legible. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+
         {/* Structured data global: se declara una vez y el resto de páginas
             referencia este nodo por @id en lugar de repetirlo. */}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
 
+        {/* Primer elemento enfocable de la página: permite a quien navega con
+            teclado saltarse el menú en cada carga. Invisible hasta recibir foco. */}
+        <a
+          href="#contenido"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-cyan-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950"
+        >
+          Saltar al contenido
+        </a>
+
         <Navbar />
-        {children}
+        <div id="contenido">{children}</div>
         <ChatFlotante />
         <WhatsAppWidget />
         <Footer />

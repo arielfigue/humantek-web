@@ -38,6 +38,10 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
   return (
     <div
       ref={ref}
+      // data-reveal permite que globals.css anule la animación cuando el
+      // usuario pidió menos movimiento, y que <noscript> la anule cuando no hay
+      // JavaScript. Sin ese escape, `opacity-0` dejaba la página en blanco.
+      data-reveal
       className={`transition-all duration-1000 ease-out transform ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
       }`}

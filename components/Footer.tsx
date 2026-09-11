@@ -16,7 +16,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="sticky bottom-0 w-full z-40 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 text-slate-300 shadow-2xl">
+    <footer className="w-full bg-slate-900/95 border-t border-slate-800 text-slate-300">
       <div className="mx-auto max-w-7xl px-6 py-4 lg:px-8">
         
         {/* Fila superior: Descripción e iconos */}
@@ -57,7 +57,10 @@ export default function Footer() {
         <div className="pt-3 flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-xs">
           {menuItems.map((item, index) => (
             <div key={item.name} className="flex items-center gap-x-3">
-              <Link href={item.href} className="hover:text-blue-400 transition-colors">
+              <Link
+                href={item.href}
+                className="rounded hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors"
+              >
                 {item.name}
               </Link>
               {index < menuItems.length - 1 && (
