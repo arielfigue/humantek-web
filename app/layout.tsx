@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css'; // O tus estilos globales
+import './globals.css';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://humanytek.com'),
@@ -55,7 +57,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="bg-slate-950 text-slate-100 antialiased">
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
