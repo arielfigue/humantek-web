@@ -40,6 +40,8 @@ export default function ErpsPage() {
                   src="/odoo_es_video.mp4"
                   poster="/posters/odoo_es_video.jpg"
                   label="Video de presentación de Odoo"
+                  autoPlay
+                  loop
                   className="h-full w-full object-cover rounded-lg"
                 />
               </div>
@@ -65,6 +67,8 @@ export default function ErpsPage() {
                   src="/sap_Business_ByDesign.mp4"
                   poster="/posters/sap_Business_ByDesign.jpg"
                   label="Video de presentación de SAP Business ByDesign"
+                  autoPlay
+                  loop
                   className="h-full w-full object-cover rounded-lg"
                 />
               </div>
