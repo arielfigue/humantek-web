@@ -33,6 +33,7 @@ const LOGOS = [
   { src: '/logos/logo-valan.jpg', alt: 'Valan' },
   { src: '/logos/logo-wholies.jpg', alt: 'Wholies' },
   { src: '/logos/rizer_logo-300x104.jpg', alt: 'Rizer' },
+  { src: '/logos/logo-elja.png', alt: 'Elja' },
 ];
 
 export default function LogoCarousel() {
