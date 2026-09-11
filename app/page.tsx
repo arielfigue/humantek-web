@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
+import LogoCarousel from "@/components/LogoCarousel";
 
 export default function Home() {
   return (
@@ -58,9 +59,9 @@ export default function Home() {
                     loop
                     playsInline
                     controls
-                    controlsList="nodownload" // <-- Solo bloqueamos la descarga, permitiendo el volumen
+                    controlsList="nodownload"
                     onContextMenu={(e) => e.preventDefault()}
-                    className="h-full w-full object-cover rounded-lg" // <-- Eliminadas las clases que ocultaban el volumen
+                    className="h-full w-full object-cover rounded-lg"
                   >
                     <source src="/humanytek-video.mp4" type="video/mp4" />
                     Tu navegador no soporta el elemento de video.
@@ -71,6 +72,9 @@ export default function Home() {
           </div>
         </ScrollReveal>
       </section>
+
+      {/* --- CARRUSEL DE LOGOS --- */}
+      <LogoCarousel />
 
       {/* --- SECCIÓN PROBLEMÁTICA ERP --- */}
       <section id="erps" className="py-20 lg:py-28 px-6 lg:px-12 border-t border-slate-800/80 relative">
@@ -272,48 +276,52 @@ export default function Home() {
       </section>
 
       {/* --- SECCIÓN PRODUCTIVIDAD Y ANALOGÍA FÓRMULA 1 --- */}
-      <section className="relative py-24 px-6 lg:px-12 border-t border-slate-800/80 overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <img
-            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
-            alt="Navegación y Productividad Humanytek"
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/80"></div>
-        </div>
+      <section className="relative py-24 px-6 lg:px-12 border-t border-slate-800/80 overflow-hidden bg-slate-950">
+        {/* Imagen de fondo superpuesta directamente */}
+        <img
+          src="/images/f1-productividad-bg.jpg"
+          alt="Navegación y Productividad Humanytek"
+          className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
+        />
+        
+        {/* Degradado para mantener el contraste del texto */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/30 pointer-events-none"></div>
 
-        <ScrollReveal>
-          <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Creer que con solo implementar un ERP es suficiente para mejorar sus resultados ...
-              </h2>
-            </div>
+        {/* Contenido visible en primer plano */}
+        <div className="relative z-10">
+          <ScrollReveal>
+            <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                  Creer que con solo implementar un ERP es suficiente para mejorar sus resultados ...
+                </h2>
+              </div>
 
-            <div className="lg:col-span-6 space-y-6 lg:border-l lg:border-slate-800 lg:pl-10">
-              <p className="text-lg sm:text-xl text-blue-200 font-medium leading-relaxed">
-                Es como creer que se puede participar en la Fórmula 1 solo por tener el auto de carreras.
-              </p>
+              <div className="lg:col-span-6 space-y-6 lg:border-l lg:border-slate-800 lg:pl-10">
+                <p className="text-lg sm:text-xl text-blue-200 font-medium leading-relaxed">
+                  Es como creer que se puede participar en la Fórmula 1 solo por tener el auto de carreras.
+                </p>
 
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light">
-                Permítanos explicarle todo lo que se requiere para implementar con éxito su ERP y <strong className="text-white font-semibold">VERDADERAMENTE</strong> incrementar su desempeño financiero.
-              </p>
+                <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light">
+                  Permítanos explicarle todo lo que se requiere para implementar con éxito su ERP y <strong className="text-white font-semibold">VERDADERAMENTE</strong> incrementar su desempeño financiero.
+                </p>
 
-              <p className="text-sm sm:text-base text-slate-400 italic">
-                Nos tomamos muy en serio el significado de la palabra «Productividad».
-              </p>
+                <p className="text-sm sm:text-base text-slate-400 italic">
+                  Nos tomamos muy en serio el significado de la palabra «Productividad».
+                </p>
 
-              <div className="pt-4">
-                <Link
-                  href="/contacto"
-                  className="inline-block rounded-full border border-blue-400/50 bg-blue-600/20 px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-blue-200 shadow-lg hover:bg-blue-600 hover:text-white hover:scale-105 transition-all duration-200"
-                >
-                  Conoce más
-                </Link>
+                <div className="pt-4">
+                  <Link
+                    href="/contacto"
+                    className="inline-block rounded-full border border-blue-400/50 bg-blue-600/20 px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-blue-200 shadow-lg hover:bg-blue-600 hover:text-white hover:scale-105 transition-all duration-200"
+                  >
+                    Conoce más
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
       </section>
     </main>
   );
