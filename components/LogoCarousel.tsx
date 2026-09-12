@@ -14,6 +14,7 @@ const LOGOS = [
   { src: '/logos/logo-empaques-nova.png',        alt: 'Empaques Nova' },  // caso
   { src: '/logos/logo-borderi.jpg',              alt: 'Borderi' },
   { src: '/logos/logo-felisa.png',               alt: 'Felisa' },  // caso
+  { src: '/logos/logo-agrobolder.jpg',           alt: 'AgroBolder' },
   { src: '/logos/logo-ferremayoreo-150x150.jpg', alt: 'Ferremayoreo' },  // caso
   { src: '/logos/logo-axtech.png',               alt: 'AXTech' },
   { src: '/logos/logo-inmeza-copia_244x.avif',   alt: 'Inmeza' },  // caso
