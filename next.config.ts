@@ -12,8 +12,11 @@ const ORIGENES = {
   youtube: 'https://www.youtube-nocookie.com https://www.youtube.com',
   miniaturas: 'https://i.ytimg.com',
   maps: 'https://www.google.com https://maps.googleapis.com https://maps.gstatic.com',
-  analytics: 'https://www.googletagmanager.com',
-  analyticsDatos: 'https://www.google-analytics.com https://*.analytics.google.com',
+  analytics: 'https://www.googletagmanager.com https://*.googletagmanager.com',
+  // GA4 no siempre manda a www.google-analytics.com: usa endpoints regionales
+  // como region1.google-analytics.com, que el comodín de abajo sí cubre.
+  analyticsDatos:
+    'https://*.google-analytics.com https://*.analytics.google.com',
 };
 
 /**
@@ -38,12 +41,13 @@ const CSP = [
   `img-src 'self' data: blob: ${ORIGENES.miniaturas} ${ORIGENES.maps} ${ORIGENES.analyticsDatos}`,
   "font-src 'self'",
   "media-src 'self'",
-  `connect-src 'self' ${ORIGENES.chatbot} ${ORIGENES.turnstile} ${ORIGENES.analyticsDatos}`,
-  `frame-src ${ORIGENES.youtube} ${ORIGENES.maps} ${ORIGENES.formulario} ${ORIGENES.turnstile}`,
+  `connect-src 'self' ${ORIGENES.chatbot} ${ORIGENES.turnstile} ${ORIGENES.analytics} ${ORIGENES.analyticsDatos}`,
+  `frame-src ${ORIGENES.youtube} ${ORIGENES.maps} ${ORIGENES.formulario} ${ORIGENES.turnstile} ${ORIGENES.analytics}`,
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
-  'upgrade-insecure-requests',
+  // `upgrade-insecure-requests` se ignora en una política Report-Only y el
+  // navegador lo avisa en consola. Se agrega al activar el modo bloqueante.
 ].join('; ');
 
 const CABECERAS_SEGURIDAD = [
