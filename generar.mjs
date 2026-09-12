@@ -3,8 +3,17 @@ import * as topojson from 'topojson-client';
 import { presimplify, simplify } from 'topojson-simplify';
 import { geoEquirectangular, geoPath, geoCentroid } from 'd3-geo';
 
-const AMERICA = new Set(['032','068','076','084','124','152','170','188','192','214','218','222','320','328','332','340','388','484','558','591','600','604','630','740','780','840','858','862']);
+const AMERICA = new Set(['032','068','076','084','124','152','170','188','192','214','218','222','320','328','332','340','388','484','558','591','600','604','630','740','780','840','858','862',
+  // Islas Malvinas. El dataset (Natural Earth) las trae como territorio
+  // aparte con código 238; no forman parte del polígono de Argentina.
+  '238']);
 const DESTACADOS = ['840','484','558','591','170','862','218','152','032'];
+
+// Territorios que se pintan igual que un país destacado pero NO llevan
+// marcador ni cuentan en el total: el marcador señala dónde hubo proyecto, y
+// el total es de países. Las Malvinas se muestran con la misma luz que
+// Argentina por decisión editorial del sitio.
+const ANEXOS = ['238'];
 const ANCHO = 760;
 
 function construir(umbral) {
@@ -40,7 +49,13 @@ function construir(umbral) {
     const d = ruta(f);
     if (!d) continue;
     const id = String(f.id);
-    const item = { id, nombre: f.properties.name, d: red(d), destacado: DESTACADOS.includes(id) };
+    const item = {
+      id,
+      nombre: f.properties.name,
+      d: red(d),
+      destacado: DESTACADOS.includes(id),
+      anexo: ANEXOS.includes(id),
+    };
     if (item.destacado) {
       const [x,y] = proyeccion(geoCentroid(f));
       item.cx = Math.round(x*10)/10; item.cy = Math.round(y*10)/10;

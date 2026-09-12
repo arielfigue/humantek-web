@@ -1,17 +1,30 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 const { ancho, alto, paises } = JSON.parse(readFileSync('paises.json', 'utf8'));
 
+// Nombres en español. El dataset viene en inglés ("Falkland Is.").
 const ES = {
+  '238': 'Islas Malvinas',
   '840': 'Estados Unidos', '484': 'México', '558': 'Nicaragua', '591': 'Panamá',
   '170': 'Colombia', '862': 'Venezuela', '218': 'Ecuador', '152': 'Chile', '032': 'Argentina',
 };
 
-const base = paises.filter(p => !p.destacado);
+const base = paises.filter(p => !p.destacado && !p.anexo);
 const dest = paises.filter(p => p.destacado);
+const anexos = paises.filter(p => p.anexo);
 // Orden geográfico de norte a sur, que es como se lee el mapa.
 dest.sort((a, b) => a.cy - b.cy);
 
-const pathsBase = base.map(p => `        <path d="${p.d}" />`).join('\n');
+// Los países de contexto no llevan etiqueta: son decorado. La excepción son
+// los que estén nombrados en ES, que se incluyeron a propósito.
+const pathsBase = base.map(p => ES[p.id]
+  ? `        <path d="${p.d}">\n          <title>${ES[p.id]}</title>\n        </path>`
+  : `        <path d="${p.d}" />`
+).join('\n');
+// Anexos: mismo relleno y trazo que un país destacado, sin marcador.
+const pathsAnexos = anexos.map(p =>
+  `        <path d="${p.d}" className="fill-[url(#gradPais)] stroke-cyan-400/70 [stroke-width:1.1]">\n          <title>${ES[p.id]}</title>\n        </path>`
+).join('\n');
+
 const pathsDest = dest.map(p =>
   `        <path d="${p.d}" className="fill-[url(#gradPais)] stroke-cyan-400/70 [stroke-width:1.1]">\n          <title>${ES[p.id]}</title>\n        </path>`
 ).join('\n');
@@ -59,9 +72,10 @@ export default function MapaProyectos() {
 ${pathsBase}
         </g>
 
-        {/* Países con proyectos. */}
+        {/* Países con proyectos, y territorios pintados con la misma luz. */}
         <g>
 ${pathsDest}
+${pathsAnexos}
         </g>
 
         {/* Marcadores. El pulso lo apaga globals.css con prefers-reduced-motion. */}
