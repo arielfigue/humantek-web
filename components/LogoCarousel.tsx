@@ -4,42 +4,42 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const LOGOS = [
-  { src: '/logos/inoquos_logo.jpg', alt: 'Inoquos' },
-  { src: '/logos/logo-121.png', alt: '121' },
-  { src: '/logos/logo-aceves-spirits.png', alt: 'Aceves Spirits' },
-  { src: '/logos/logo-afamjal.jpg', alt: 'Afamjal' },
-  { src: '/logos/logo-shimano.png', alt: 'Shimano' },
-  { src: '/logos/logo-agrobiz.png', alt: 'Agrobiz' },
-  { src: '/logos/logo-borderi.jpg', alt: 'Borderi' },
-  { src: '/logos/logo-demsa.jpg', alt: 'Demsa' },
-  { src: '/logos/logo-empaques-nova.png', alt: 'Empaques Nova' },
-  { src: '/logos/logo-axtech.png', alt: 'AXTech' },
-  { src: '/logos/logo-felisa.png', alt: 'Felisa' },
-  { src: '/logos/logo-ferremayoreo-150x150.jpg', alt: 'Ferremayoreo' },
-  { src: '/logos/logo-huizapol.png', alt: 'Huizapol' },
-  { src: '/logos/logo-inmeza-copia_244x.avif', alt: 'Inmeza' },
-  { src: '/logos/logo-intarlix.jpg', alt: 'Intarlix' },
-  { src: '/logos/logo-quipron.jpg', alt: 'Quipron' },
-  { src: '/logos/logo-itc.jpg', alt: 'ITC' },
-  { src: '/logos/logo-jacona.png', alt: 'Jacona' },
-  { src: '/logos/logo-jaguen.jpg', alt: 'Jaguen' },
-  { src: '/logos/logo-Joya_De_Nicaragua.png', alt: 'Joya De Nicaragua' },
-  { src: '/logos/logo-lycan.jpg', alt: 'Lycan' },
-  { src: '/logos/logo-scott.jpg', alt: 'Scott' },
-  { src: '/logos/logo-marvelsa.jpg', alt: 'Marvelsa' },
-  { src: '/logos/logo-mdhbikes.png', alt: 'MDH Bikes' },
-  { src: '/logos/logo-interjoya.jpg', alt: 'Interjoya' },
-  { src: '/logos/logo-melotraes.jpg', alt: 'Melotraes' },
-  { src: '/logos/logo-noe.png', alt: 'Noe' },
-  { src: '/logos/logo-paomx.png', alt: 'PaoMx' },
-  { src: '/logos/logo-pare.jpg', alt: 'Pare' },
-  { src: '/logos/logo-pp-300x150.png', alt: 'PP' },
-  { src: '/logos/logo-requiez.png', alt: 'Requiez' },
-  { src: '/logos/logo-elja.png', alt: 'Elja' },
-  { src: '/logos/logo-teknova.jpg', alt: 'Teknova' },
-  { src: '/logos/logo-valan.jpg', alt: 'Valan' },
-  { src: '/logos/logo-wholies.jpg', alt: 'Wholies' },
-  { src: '/logos/rizer_logo-300x104.jpg', alt: 'Rizer' },
+  { src: '/logos/inoquos_logo.jpg',              alt: 'Inoquos' },
+  { src: '/logos/logo-121.png',                  alt: '121' },  // caso
+  { src: '/logos/logo-afamjal.jpg',              alt: 'Afamjal' },
+  { src: '/logos/logo-aceves-spirits.png',       alt: 'Aceves Spirits' },  // caso
+  { src: '/logos/logo-shimano.png',              alt: 'Shimano' },
+  { src: '/logos/logo-demsa.jpg',                alt: 'Demsa' },  // caso
+  { src: '/logos/logo-agrobiz.png',              alt: 'Agrobiz' },
+  { src: '/logos/logo-empaques-nova.png',        alt: 'Empaques Nova' },  // caso
+  { src: '/logos/logo-borderi.jpg',              alt: 'Borderi' },
+  { src: '/logos/logo-felisa.png',               alt: 'Felisa' },  // caso
+  { src: '/logos/logo-ferremayoreo-150x150.jpg', alt: 'Ferremayoreo' },  // caso
+  { src: '/logos/logo-axtech.png',               alt: 'AXTech' },
+  { src: '/logos/logo-inmeza-copia_244x.avif',   alt: 'Inmeza' },  // caso
+  { src: '/logos/logo-huizapol.png',             alt: 'Huizapol' },
+  { src: '/logos/logo-intarlix.jpg',             alt: 'Intarlix' },  // caso
+  { src: '/logos/logo-quipron.jpg',              alt: 'Quipron' },
+  { src: '/logos/logo-itc.jpg',                  alt: 'ITC' },  // caso
+  { src: '/logos/logo-jaguen.jpg',               alt: 'Jaguen' },
+  { src: '/logos/logo-jacona.png',               alt: 'Jacona' },  // caso
+  { src: '/logos/logo-Joya_De_Nicaragua.png',    alt: 'Joya De Nicaragua' },
+  { src: '/logos/logo-lycan.jpg',                alt: 'Lycan' },  // caso
+  { src: '/logos/logo-scott.jpg',                alt: 'Scott' },
+  { src: '/logos/logo-marvelsa.jpg',             alt: 'Marvelsa' },  // caso
+  { src: '/logos/logo-interjoya.jpg',            alt: 'Interjoya' },
+  { src: '/logos/logo-mdhbikes.png',             alt: 'MDH Bikes' },  // caso
+  { src: '/logos/logo-melotraes.jpg',            alt: 'Melotraes' },
+  { src: '/logos/logo-noe.png',                  alt: 'Noe' },  // caso
+  { src: '/logos/logo-paomx.png',                alt: 'PaoMx' },  // caso
+  { src: '/logos/logo-pare.jpg',                 alt: 'Pare' },
+  { src: '/logos/logo-pp-300x150.png',           alt: 'PP' },  // caso
+  { src: '/logos/logo-elja.png',                 alt: 'Elja' },
+  { src: '/logos/logo-requiez.png',              alt: 'Requiez' },  // caso
+  { src: '/logos/logo-teknova.jpg',              alt: 'Teknova' },
+  { src: '/logos/logo-wholies.jpg',              alt: 'Wholies' },  // caso
+  { src: '/logos/logo-valan.jpg',                alt: 'Valan' },
+  { src: '/logos/rizer_logo-300x104.jpg',        alt: 'Rizer' },  // caso
 ];
 
 /** logoUrl -> caso publicado. Lo arma la home desde el CSV (ver lib/casos.ts). */
