@@ -7,6 +7,7 @@ import VideoPlayer from "@/components/VideoPlayer";
 import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
 import { ORG_ID } from "@/lib/schema";
+import { mapaLogoACaso } from "@/lib/casos";
 
 // Server Component: sin 'use client' la página puede exportar su propia
 // metadata y su HTML llega completo al crawler.
@@ -105,7 +106,7 @@ export default function Home() {
       </section>
 
       {/* --- CARRUSEL DE LOGOS --- */}
-      <LogoCarousel />
+      <LogoCarousel casos={mapaLogoACaso()} />
 
       {/* --- SECCIÓN PROBLEMÁTICA ERP --- */}
       <section id="erps" className="py-20 lg:py-28 px-6 lg:px-12 border-t border-slate-800/80 relative">

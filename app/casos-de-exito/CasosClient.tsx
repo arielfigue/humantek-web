@@ -265,6 +265,7 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
             return (
               <div
                 key={item.id}
+                id={`caso-${item.id}`}
                 className={`transition-all duration-500 rounded-2xl p-6 sm:p-8 backdrop-blur-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border ${
                   matches
                     ? 'border-cyan-400/80 bg-slate-900/90 shadow-[0_0_35px_rgba(34,211,238,0.25)] ring-1 ring-cyan-400/40 scale-[1.01]'

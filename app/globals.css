@@ -54,3 +54,20 @@ body {
 [id="contenido"] {
   scroll-margin-top: 6rem;
 }
+
+/*
+ * Anclas de los casos de éxito.
+ *
+ * El carrusel de logos de la home enlaza a /casos-de-exito#caso-N. Sin
+ * scroll-margin el navbar fijo taparía el inicio de la tarjeta, y sin el
+ * resalte de :target el visitante aterrizaría sin saber cuál de las 21 es la
+ * que venía a ver.
+ */
+[id^='caso-'] {
+  scroll-margin-top: 7rem;
+}
+
+[id^='caso-']:target {
+  outline: 2px solid rgb(34 211 238 / 0.55);
+  outline-offset: 6px;
+}
