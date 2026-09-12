@@ -25,7 +25,7 @@ const LOGOS = [
   { src: '/logos/logo-jaguen.jpg', alt: 'Jaguen' },
   { src: '/logos/logo-Joya_De_Nicaragua.png', alt: 'Joya De Nicaragua' },
   { src: '/logos/logo-lycan.jpg', alt: 'Lycan' },
-  { src: '/logos/logo-scott.jpg', alt: 'Scott' }
+  { src: '/logos/logo-scott.jpg', alt: 'Scott' },
   { src: '/logos/logo-marvelsa.jpg', alt: 'Marvelsa' },
   { src: '/logos/logo-mdhbikes.png', alt: 'MDH Bikes' },
   { src: '/logos/logo-interjoya.jpg', alt: 'Interjoya' },
