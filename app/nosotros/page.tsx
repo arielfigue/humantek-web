@@ -4,6 +4,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import VideoPlayer from '@/components/VideoPlayer';
 import JsonLd from '@/components/JsonLd';
 import ValoresAccordion from './ValoresAccordion';
+import MapaProyectos, { PAISES_CON_PROYECTOS } from '@/components/MapaProyectos';
 import { pageMetadata } from '@/lib/seo';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -148,6 +149,39 @@ export default function NosotrosPage() {
 
         {/* --- PRINCIPIOS Y FILOSOFÍA (ACORDEÓN) --- */}
         <ValoresAccordion />
+
+        {/* --- PRESENCIA EN EL CONTINENTE --- */}
+        <ScrollReveal>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-8 sm:p-10 backdrop-blur-xl space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-4">
+              <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+                Presencia
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Proyectos en{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
+                  {PAISES_CON_PROYECTOS.length} países
+                </span>{' '}
+                del continente
+              </h2>
+            </div>
+
+            <MapaProyectos />
+
+            {/* Los nombres en texto: un SVG no le dice nada a un buscador, y
+                esta lista es justamente la señal de cobertura geográfica. */}
+            <ul className="flex flex-wrap justify-center gap-2.5">
+              {PAISES_CON_PROYECTOS.map((pais) => (
+                <li
+                  key={pais}
+                  className="rounded-full border border-slate-800 bg-slate-950/60 px-4 py-1.5 text-xs font-medium text-slate-300"
+                >
+                  {pais}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </ScrollReveal>
 
       </div>
 

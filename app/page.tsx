@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 import LogoCarousel from "@/components/LogoCarousel";
-import MapaProyectos, { PAISES_CON_PROYECTOS } from "@/components/MapaProyectos";
 import VideoPlayer from "@/components/VideoPlayer";
 import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
@@ -354,50 +353,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* --- SECCIÓN PRESENCIA EN EL CONTINENTE --- */}
-      <section
-        id="presencia"
-        className="py-20 lg:py-28 px-6 lg:px-12 border-t border-slate-800/80 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_60%_at_50%_40%,rgba(14,165,233,0.10),rgba(255,255,255,0))]"></div>
-
-        <div className="mx-auto max-w-6xl space-y-12">
-          <ScrollReveal>
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-                Presencia
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Proyectos en{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
-                  {PAISES_CON_PROYECTOS.length} países
-                </span>{" "}
-                del continente
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <MapaProyectos />
-          </ScrollReveal>
-
-          <ScrollReveal>
-            {/* Los nombres en texto: un SVG no le dice nada a un buscador, y
-                esta lista es justamente la señal de cobertura geográfica. */}
-            <ul className="flex flex-wrap justify-center gap-2.5">
-              {PAISES_CON_PROYECTOS.map((pais) => (
-                <li
-                  key={pais}
-                  className="rounded-full border border-slate-800 bg-slate-900/60 px-4 py-1.5 text-xs font-medium text-slate-300"
-                >
-                  {pais}
-                </li>
-              ))}
-            </ul>
           </ScrollReveal>
         </div>
       </section>
