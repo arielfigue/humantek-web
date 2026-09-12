@@ -71,3 +71,20 @@ body {
   outline: 2px solid rgb(34 211 238 / 0.55);
   outline-offset: 6px;
 }
+
+/*
+ * Pulso de los marcadores del mapa de proyectos. Cada marcador arranca con un
+ * retraso distinto (--retraso) para que latan en cascada y no todos a la vez.
+ * La regla global de prefers-reduced-motion de más arriba lo neutraliza.
+ */
+@keyframes mapa-latido {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.22); }
+}
+
+.mapa-pulso {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mapa-latido 3s ease-in-out infinite;
+  animation-delay: var(--retraso, 0s);
+}
