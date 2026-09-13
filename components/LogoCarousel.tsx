@@ -42,6 +42,7 @@ const LOGOS = [
   { src: '/logos/logo-wholies.jpg',              alt: 'Wholies' },  // caso
   { src: '/logos/logo-valan.jpg',                alt: 'Valan' },
   { src: '/logos/rizer_logo-300x104.jpg',        alt: 'Rizer' },  // caso
+  { src: '/logos/logo-lanix.png',        alt: 'Lanix' },  // caso
 ];
 
 /** logoUrl -> caso publicado. Lo arma la home desde el CSV (ver lib/casos.ts). */
