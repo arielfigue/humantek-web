@@ -31,7 +31,8 @@ const LOGOS = [
   { src: '/logos/logo-interjoya.jpg',            alt: 'Interjoya' },
   { src: '/logos/logo-mdhbikes.png',             alt: 'MDH Bikes' },  // caso
   { src: '/logos/logo-melotraes.jpg',            alt: 'Melotraes' },
-  { src: '/logos/logo-noe.png',                  alt: 'Noe' },  // caso
+  { src: '/logos/logo-noe.png',                  alt: 'Almacen de Noe' },  // caso
+  { src: '/logos/logo-trabis.png',               alt: 'Trabis' },
   { src: '/logos/logo-paomx.png',                alt: 'PaoMx' },  // caso
   { src: '/logos/logo-pare.jpg',                 alt: 'Pare' },
   { src: '/logos/logo-pp-300x150.png',           alt: 'Pollo Pepe' },  // caso
