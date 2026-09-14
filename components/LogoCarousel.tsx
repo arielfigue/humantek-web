@@ -30,8 +30,11 @@ const LOGOS = [
   { src: '/logos/logo-empaques-nova.png',        alt: 'Empaques Nova' },  // caso
   { src: '/logos/logo-borderi.jpg',              alt: 'Borderi' },
   { src: '/logos/logo-felisa.png',               alt: 'Felisa' },  // caso
+  { src: '/logos/logo-lanix.png',                alt: 'Lanix' },
   { src: '/logos/logo-ferremayoreo-150x150.jpg', alt: 'Ferremayoreo' },  // caso
   { src: '/logos/logo-axtech.png',               alt: 'AXTech' },
+  { src: '/logos/logo-organizacion-pp.jpg',      alt: 'OrganicacionPolloPepe' }, //caso
+  { src: '/logos/logo-agrobolder.jpg',           alt: 'AgroBolder' },
   { src: '/logos/logo-inmeza-copia_244x.avif',   alt: 'Inmeza' },  // caso
   { src: '/logos/logo-huizapol.png',             alt: 'Huizapol' },
   { src: '/logos/logo-intarlix.jpg',             alt: 'Intarlix' },  // caso
@@ -47,11 +50,13 @@ const LOGOS = [
   { src: '/logos/logo-mdhbikes.png',             alt: 'MDH Bikes' },  // caso
   { src: '/logos/logo-melotraes.jpg',            alt: 'Melotraes' },
   { src: '/logos/logo-noe.png',                  alt: 'Noe' },  // caso
+  { src: '/logos/logo-trabis.png',               alt: 'Trabis' },
   { src: '/logos/logo-paomx.png',                alt: 'PaoMx' },  // caso
   { src: '/logos/logo-pare.jpg',                 alt: 'Pare' },
   { src: '/logos/logo-pp-300x150.png',           alt: 'PP' },  // caso
   { src: '/logos/logo-elja.png',                 alt: 'Elja' },
   { src: '/logos/logo-requiez.png',              alt: 'Requiez' },  // caso
+  { src: '/logos/logo-agrobolder.jpg',           alt: 'AgroBolder' },
   { src: '/logos/logo-teknova.jpg',              alt: 'Teknova' },
   { src: '/logos/logo-wholies.jpg',              alt: 'Wholies' },  // caso
   { src: '/logos/logo-valan.jpg',                alt: 'Valan' },
