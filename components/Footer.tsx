@@ -8,6 +8,7 @@ export default function Footer() {
     { name: "ERP's", href: "/erps" },
     { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" },
+    { name: "Retail", href: "/retail" },
     { name: "VMI", href: "/vendor-managed-inventory" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
     { name: "Nosotros", href: "/nosotros" },

@@ -16,6 +16,7 @@ export default function Navbar() {
     { name: "ERP's", href: "/erps" },
     { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" },
+    { name: "Retail", href: "/retail" },
     { name: "VMI", href: "/vendor-managed-inventory" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
     { name: "Nosotros", href: "/nosotros" },
@@ -112,18 +113,23 @@ export default function Navbar() {
                 `ml-auto` + `w-fit` empujan el bloque al borde derecho, alineado
                 con el botón del menú.
 
-                Para agregar páginas: con 210px caben 5 columnas a partir de
-                `xl` (5x210 + 4x10 = 1090px, y ahí hay 1216 disponibles). O sea
-                que al llegar a 9 o 10 enlaces basta con añadir
-                `xl:grid-cols-[repeat(5,210px)]` y se siguen viendo en dos filas. */}
-            <div className="grid w-full grid-cols-2 gap-2.5 sm:ml-auto sm:w-fit sm:grid-cols-[repeat(2,210px)] md:grid-cols-[repeat(3,210px)] lg:grid-cols-[repeat(4,210px)]">
+                Con 9 enlaces hacen falta 5 columnas para mantener dos filas.
+                A 210px solo caben desde `xl` (5x210 + 4x10 = 1090, hay 1216);
+                entre `lg` y `xl` el ancho baja a 184px (5x184 + 40 = 960, justo
+                el disponible). A 184px la etiqueta más larga, "Inteligencia
+                Artificial", se parte en dos líneas: por eso las tarjetas llevan
+                `min-h`, que iguala la altura de todas aunque una envuelva.
+
+                Al llegar a 11 enlaces habrá que pasar a 6 columnas en `xl`
+                (6x210 + 50 = 1310 > 1216, así que tocará bajar a 190px). */}
+            <div className="grid w-full grid-cols-2 gap-2.5 sm:ml-auto sm:w-fit sm:grid-cols-[repeat(2,210px)] md:grid-cols-[repeat(3,210px)] lg:grid-cols-[repeat(5,184px)] xl:grid-cols-[repeat(5,210px)]">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   // Tarjetas con un leve tinte blanco (5%) para asemejar cristal esmerilado
-                  className="group flex items-center justify-between gap-2 rounded-xl border border-white/5 bg-white/5 px-3.5 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-200 hover:border-cyan-500/50 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                  className="group flex items-center justify-between gap-2 rounded-xl border border-white/5 bg-white/5 px-3.5 py-2.5 min-h-[3.25rem] shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-200 hover:border-cyan-500/50 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
                   <span className="text-xs font-semibold leading-tight text-slate-100 transition-colors group-hover:text-cyan-400">
                     {link.name}

@@ -17,6 +17,7 @@ const ROUTES: {
   { path: '/erps', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/metodologia', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/casos-de-exito', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/retail', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/vendor-managed-inventory', priority: 0.8, changeFrequency: 'yearly' },
   { path: '/inteligencia-artificial', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/nosotros', priority: 0.7, changeFrequency: 'yearly' },
