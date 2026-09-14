@@ -18,6 +18,30 @@ export interface CaseStudy {
 
 interface CasosClientProps {
   initialCases: CaseStudy[];
+  /**
+   * Caso al que apuntaba el enlace del carrusel de logos. Llega como prop y no
+   * de useSearchParams para que este componente siga siendo prerenderizable:
+   * el HTML estático con los 21 casos es lo que leen los buscadores.
+   * Quien lee el parámetro es CasosConParametro.
+   */
+  casoDestacadoId?: string | null;
+}
+
+/**
+ * El CSV entrega giro y tipo como arreglo o como texto separado por comas, a
+ * veces con corchetes. Esta normalización estaba escrita tres veces dentro de
+ * getMatchScore; ahora vive en un solo lugar.
+ */
+function aLista(valor: string[] | string | undefined): string[] {
+  if (Array.isArray(valor)) return valor.map((v) => v.trim()).filter(Boolean);
+  if (typeof valor === 'string') {
+    return valor
+      .replace(/[[\]]/g, '')
+      .split(',')
+      .map((v) => v.trim())
+      .filter(Boolean);
+  }
+  return [];
 }
 
 function getValidLogoUrl(url?: string): string | null {
@@ -35,9 +59,25 @@ function getValidLogoUrl(url?: string): string | null {
   return `/${trimmed}`;
 }
 
-export default function CasosClient({ initialCases }: CasosClientProps) {
+export default function CasosClient({
+  initialCases,
+  casoDestacadoId = null,
+}: CasosClientProps) {
+  // Al llegar desde el carrusel de logos la URL trae ?caso=N. Ese caso se
+  // coloca al principio de la lista y se preseleccionan sus giros, de modo que
+  // el visitante vea el selector de criterios justo encima del video y, debajo,
+  // otros casos del mismo giro. Antes el ancla lo dejaba a media página, con el
+  // selector fuera de vista y sin pista de que hubiera casos similares.
+  const casoDestacado = casoDestacadoId
+    ? initialCases.find((c) => c.id === casoDestacadoId)
+    : undefined;
+
   const [selectedTamano, setSelectedTamano] = useState<string | null>(null);
-  const [selectedGiro, setSelectedGiro] = useState<string[]>([]);
+  // Inicialización perezosa: se resuelve en el primer render, sin efectos ni
+  // un segundo pintado con la lista en el orden equivocado.
+  const [selectedGiro, setSelectedGiro] = useState<string[]>(() =>
+    aLista(casoDestacado?.giro)
+  );
   const [selectedTipo, setSelectedTipo] = useState<string[]>([]);
 
   const hasActiveFilters = Boolean(selectedTamano || selectedGiro.length > 0 || selectedTipo.length > 0);
@@ -63,11 +103,7 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
 
     // 2. Giro (normaliza arreglos y texto separado por comas)
     if (selectedGiro.length > 0) {
-      const itemGiros = Array.isArray(item.giro)
-        ? item.giro
-        : typeof item.giro === 'string'
-        ? (item.giro as string).replace(/[\[\]]/g, '').split(',').map((s) => s.trim())
-        : [];
+      const itemGiros = aLista(item.giro);
 
       const hasGiroMatch = itemGiros.some((g) =>
         selectedGiro.some((sel) => sel.trim().toLowerCase() === g.trim().toLowerCase())
@@ -80,11 +116,7 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
 
     // 3. Tipo (normaliza arreglos y texto separado por comas)
     if (selectedTipo.length > 0) {
-      const itemTipos = Array.isArray(item.tipo)
-        ? item.tipo
-        : typeof item.tipo === 'string'
-        ? (item.tipo as string).replace(/[\[\]]/g, '').split(',').map((s) => s.trim())
-        : [];
+      const itemTipos = aLista(item.tipo);
 
       const hasTipoMatch = itemTipos.some((t) =>
         selectedTipo.some((sel) => sel.trim().toLowerCase() === t.trim().toLowerCase())
@@ -103,7 +135,13 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
   // comparador (O(n log n) llamadas) y otra vez al pintar cada tarjeta.
   const sortedCases = initialCases
     .map((item) => ({ item, score: hasActiveFilters ? getMatchScore(item) : 0 }))
-    .sort((a, b) => b.score - a.score);
+    .sort((a, b) => {
+      // El caso al que apuntaba el enlace encabeza la lista pase lo que pase;
+      // el resto se ordena por coincidencia con los criterios.
+      if (a.item.id === casoDestacadoId) return -1;
+      if (b.item.id === casoDestacadoId) return 1;
+      return b.score - a.score;
+    });
 
   const toggleSingleFilter = (current: string | null, setter: (val: string | null) => void, value: string) => {
     setter(current === value ? null : value);
@@ -245,6 +283,21 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
         </ScrollReveal>
 
         {/* --- LISTADO DE CASOS DE ÉXITO --- */}
+        {casoDestacado && (
+          <p className="-mt-6 text-sm text-slate-400">
+            Mostrando primero el caso de{' '}
+            <strong className="font-semibold text-white">{casoDestacado.title}</strong>
+            {selectedGiro.length > 0 && <> y, debajo, otros casos del mismo giro.</>}{' '}
+            <button
+              type="button"
+              onClick={clearAllFilters}
+              className="rounded underline transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+            >
+              Ver todos
+            </button>
+          </p>
+        )}
+
         <div className="space-y-8">
           {sortedCases.map(({ item, score }, index) => {
             const matches = hasActiveFilters && score > 0;
@@ -266,6 +319,7 @@ export default function CasosClient({ initialCases }: CasosClientProps) {
               <div
                 key={item.id}
                 id={`caso-${item.id}`}
+                data-destacado={item.id === casoDestacadoId || undefined}
                 className={`transition-all duration-500 rounded-2xl p-6 sm:p-8 backdrop-blur-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border ${
                   matches
                     ? 'border-cyan-400/80 bg-slate-900/90 shadow-[0_0_35px_rgba(34,211,238,0.25)] ring-1 ring-cyan-400/40 scale-[1.01]'

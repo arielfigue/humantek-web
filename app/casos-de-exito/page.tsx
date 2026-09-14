@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import CasosClient from './CasosClient';
+import CasosConParametro from './CasosConParametro';
 import { cargarCasos } from '@/lib/casos';
 import JsonLd from '@/components/JsonLd';
 import { pageMetadata } from '@/lib/seo';
@@ -34,7 +36,12 @@ export default function CasosDeExitoPage() {
 
   return (
     <>
-      <CasosClient initialCases={cases} />
+      {/* useSearchParams necesita un límite de Suspense en una ruta
+          prerenderizada: el HTML estático se sirve igual y el parámetro ?caso
+          se resuelve en el cliente. */}
+      <Suspense fallback={<CasosClient initialCases={cases} />}>
+        <CasosConParametro initialCases={cases} />
+      </Suspense>
       <JsonLd
         data={[
           itemListSchema(videos, 'Casos de éxito de Humanytek'),

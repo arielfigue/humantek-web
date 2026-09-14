@@ -3,6 +3,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+/**
+ * ORDEN INTENCIONAL. No reordenar alfabéticamente ni agregar al final.
+ *
+ * Los logos con caso publicado (marcados `// caso`) van repartidos de forma
+ * pareja entre los que no lo tienen, para que no se formen bloques de
+ * encendidos ni de apagados. Hoy son 19 con caso y 17 sin caso, así que la
+ * alternancia es casi perfecta: nunca hay dos apagados seguidos y solo dos
+ * pares de casos consecutivos en todo el ciclo.
+ *
+ * El reparto también cierra el bucle: el último enlaza con el primero sin
+ * formar una zona densa en la costura, que es justo donde más se nota porque
+ * el ojo la ve pasar en cada vuelta.
+ *
+ * Al agregar un logo, insértalo respetando el patrón. Si lo pones al final se
+ * acumulan en el cierre del ciclo y se ve.
+ */
 const LOGOS = [
   { src: '/logos/inoquos_logo.jpg',              alt: 'Inoquos' },
   { src: '/logos/logo-121.png',                  alt: '121' },  // caso
@@ -14,7 +30,6 @@ const LOGOS = [
   { src: '/logos/logo-empaques-nova.png',        alt: 'Empaques Nova' },  // caso
   { src: '/logos/logo-borderi.jpg',              alt: 'Borderi' },
   { src: '/logos/logo-felisa.png',               alt: 'Felisa' },  // caso
-  { src: '/logos/logo-agrobolder.jpg',           alt: 'AgroBolder' },
   { src: '/logos/logo-ferremayoreo-150x150.jpg', alt: 'Ferremayoreo' },  // caso
   { src: '/logos/logo-axtech.png',               alt: 'AXTech' },
   { src: '/logos/logo-inmeza-copia_244x.avif',   alt: 'Inmeza' },  // caso
@@ -31,18 +46,16 @@ const LOGOS = [
   { src: '/logos/logo-interjoya.jpg',            alt: 'Interjoya' },
   { src: '/logos/logo-mdhbikes.png',             alt: 'MDH Bikes' },  // caso
   { src: '/logos/logo-melotraes.jpg',            alt: 'Melotraes' },
-  { src: '/logos/logo-noe.png',                  alt: 'Almacen de Noe' },  // caso
-  { src: '/logos/logo-trabis.png',               alt: 'Trabis' },
+  { src: '/logos/logo-noe.png',                  alt: 'Noe' },  // caso
   { src: '/logos/logo-paomx.png',                alt: 'PaoMx' },  // caso
   { src: '/logos/logo-pare.jpg',                 alt: 'Pare' },
-  { src: '/logos/logo-pp-300x150.png',           alt: 'Pollo Pepe' },  // caso
+  { src: '/logos/logo-pp-300x150.png',           alt: 'PP' },  // caso
   { src: '/logos/logo-elja.png',                 alt: 'Elja' },
   { src: '/logos/logo-requiez.png',              alt: 'Requiez' },  // caso
   { src: '/logos/logo-teknova.jpg',              alt: 'Teknova' },
   { src: '/logos/logo-wholies.jpg',              alt: 'Wholies' },  // caso
   { src: '/logos/logo-valan.jpg',                alt: 'Valan' },
   { src: '/logos/rizer_logo-300x104.jpg',        alt: 'Rizer' },  // caso
-  { src: '/logos/logo-lanix.png',        alt: 'Lanix' },  // caso
 ];
 
 /** logoUrl -> caso publicado. Lo arma la home desde el CSV (ver lib/casos.ts). */
@@ -93,7 +106,7 @@ export default function LogoCarousel({ casos = {} }: LogoCarouselProps) {
             return (
               <Link
                 key={index}
-                href={`/casos-de-exito#caso-${caso.id}`}
+                href={`/casos-de-exito?caso=${caso.id}`}
                 // La copia duplicada existe solo para el bucle visual: sin esto
                 // el teclado recorrería 19 enlaces repetidos.
                 tabIndex={esCopia ? -1 : undefined}

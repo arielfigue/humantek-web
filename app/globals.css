@@ -88,3 +88,9 @@ body {
   animation: mapa-latido 3s ease-in-out infinite;
   animation-delay: var(--retraso, 0s);
 }
+
+/* Tarjeta a la que apuntaba el enlace del carrusel de logos. */
+[data-destacado] {
+  outline: 2px solid rgb(34 211 238 / 0.55);
+  outline-offset: 6px;
+}
