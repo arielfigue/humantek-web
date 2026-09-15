@@ -1,6 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+
+/**
+ * useLayoutEffect avisa en consola cuando el componente se renderiza en el
+ * servidor, y este se prerenderiza. Se resuelve una vez, fuera del componente,
+ * así que la llamada de abajo sigue siendo incondicional.
+ */
+const useLayoutEffectSeguro =
+  typeof document === 'undefined' ? useEffect : useLayoutEffect;
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
 import YouTubeFacade from '@/components/YouTubeFacade';
@@ -151,6 +159,64 @@ export default function CasosClient({
       if (b.item.id === idAnclado) return 1;
       return b.score - a.score;
     });
+
+  /**
+   * Reacomodo animado de la lista (técnica FLIP).
+   *
+   * React reordena los nodos de golpe: sin esto las tarjetas aparecen ya en su
+   * sitio nuevo, de un salto. Aquí se mide dónde quedó cada una, se la devuelve
+   * con un transform a donde estaba, y se suelta en el cuadro siguiente. El
+   * navegador interpola y el resultado es que las tarjetas se deslizan.
+   *
+   * Se anima el envoltorio y no la tarjeta porque esta ya usa transform para su
+   * `scale` al coincidir con los criterios, y ambos se pisarían.
+   */
+  const listaRef = useRef<HTMLDivElement>(null);
+  const posicionesRef = useRef<Map<string, number>>(new Map());
+  const ordenActual = sortedCases.map(({ item }) => item.id).join('|');
+
+  useLayoutEffectSeguro(() => {
+    const contenedor = listaRef.current;
+    if (!contenedor) return;
+
+    const nodos = Array.from(
+      contenedor.querySelectorAll<HTMLElement>('[data-caso]')
+    );
+    const previas = posicionesRef.current;
+    const nuevas = new Map<string, number>();
+    const movimientoReducido = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    let huboCambio = false;
+    for (const nodo of nodos) {
+      const id = nodo.dataset.caso;
+      if (!id) continue;
+      const actual = nodo.offsetTop;
+      nuevas.set(id, actual);
+
+      const anterior = previas.get(id);
+      if (movimientoReducido || anterior === undefined || anterior === actual) {
+        continue;
+      }
+      // Invertir: dejarla visualmente donde estaba, sin transición.
+      nodo.style.transition = 'none';
+      nodo.style.transform = `translateY(${anterior - actual}px)`;
+      huboCambio = true;
+    }
+
+    posicionesRef.current = nuevas;
+    if (!huboCambio) return;
+
+    // Soltar en el cuadro siguiente: el navegador anima el regreso a cero.
+    const marco = requestAnimationFrame(() => {
+      for (const nodo of nodos) {
+        nodo.style.transition = 'transform 500ms cubic-bezier(0.22, 1, 0.36, 1)';
+        nodo.style.transform = '';
+      }
+    });
+    return () => cancelAnimationFrame(marco);
+  }, [ordenActual]);
 
   const toggleSingleFilter = (current: string | null, setter: (val: string | null) => void, value: string) => {
     setAnclado(false);
@@ -311,7 +377,7 @@ export default function CasosClient({
           </p>
         )}
 
-        <div className="space-y-8">
+        <div ref={listaRef} className="space-y-8">
           {sortedCases.map(({ item, score }, index) => {
             const matches = hasActiveFilters && score > 0;
             const validLogoUrl = getValidLogoUrl(item.logoUrl);
@@ -329,8 +395,8 @@ export default function CasosClient({
               : [];
 
             return (
+              <div key={item.id} data-caso={item.id} className="will-change-transform">
               <div
-                key={item.id}
                 id={`caso-${item.id}`}
                 data-destacado={item.id === idAnclado || undefined}
                 className={`transition-all duration-500 rounded-2xl p-6 sm:p-8 backdrop-blur-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border ${
@@ -392,6 +458,7 @@ export default function CasosClient({
                     ))}
                   </div>
                 </div>
+              </div>
               </div>
             );
           })}
