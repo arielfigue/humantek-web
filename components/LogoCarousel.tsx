@@ -56,7 +56,6 @@ const LOGOS = [
   { src: '/logos/logo-pp-300x150.png',           alt: 'PP' },  // caso
   { src: '/logos/logo-elja.png',                 alt: 'Elja' },
   { src: '/logos/logo-requiez.png',              alt: 'Requiez' },  // caso
-  { src: '/logos/logo-agrobolder.jpg',           alt: 'AgroBolder' },
   { src: '/logos/logo-teknova.jpg',              alt: 'Teknova' },
   { src: '/logos/logo-wholies.jpg',              alt: 'Wholies' },  // caso
   { src: '/logos/logo-valan.jpg',                alt: 'Valan' },
