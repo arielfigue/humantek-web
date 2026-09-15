@@ -26,6 +26,7 @@ export const SITE = {
   },
   geo: { lat: 20.642141, lng: -103.3997716 },
   sameAs: [
+    'https://click2deploy.com',
     'https://www.youtube.com/@humanytek',
     'https://www.linkedin.com/company/humanytek/',
   ],

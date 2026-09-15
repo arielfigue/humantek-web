@@ -119,6 +119,8 @@ export function softwareSchema(input: {
   path: string;
   categoria?: string;
   sistemaOperativo?: string;
+  /** Sitio propio del producto, si lo tiene. Evita que las dos URL compitan. */
+  sitioOficial?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -129,6 +131,7 @@ export function softwareSchema(input: {
     applicationCategory: input.categoria ?? 'BusinessApplication',
     operatingSystem: input.sistemaOperativo ?? 'Web',
     publisher: { '@id': ORG_ID },
+    ...(input.sitioOficial ? { sameAs: [input.sitioOficial] } : {}),
   };
 }
 

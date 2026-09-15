@@ -1,137 +1,172 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
-import VideoPlayer from '@/components/VideoPlayer';
 import JsonLd from '@/components/JsonLd';
 import { pageMetadata } from '@/lib/seo';
-import { breadcrumbSchema, serviceSchema } from '@/lib/schema';
+import { breadcrumbSchema, softwareSchema } from '@/lib/schema';
 
 /**
- * Página de Retail.
+ * Página de Click2Deploy.
  *
- * El argumento central es la disponibilidad: el cliente llega a la tienda y el
- * producto no está. Por eso el h1 nombra el problema en vez de nombrar la
- * herramienta; "ERP para retail" describe lo que vendemos, "la disponibilidad"
- * describe lo que le duele a quien está leyendo.
- *
- * La animación abre la página: arranca sola, silenciada y en bucle, como
- * ilustración del problema. Si llegara a llevar narración, hay que quitarle
- * `autoPlay` y `loop` para que se reproduzca al primer clic y con sonido.
+ * A diferencia del resto del sitio, esta usa `softwareSchema` y no
+ * `serviceSchema`: Click2Deploy es una plataforma que el cliente usa, no un
+ * servicio que presta un equipo. Google distingue ambas cosas.
  */
 export const metadata: Metadata = pageMetadata({
-  title: 'Retail',
+  title: 'Click2Deploy',
   description:
-    'En unas tiendas sobra lo que no se vende y en otras falta lo que piden. El gran dolor de cabeza del retail es la disponibilidad, y tiene solución.',
-  path: '/retail',
+    'Odoo administrado sobre servidor dedicado: monitoreo con IA, pruebas de estrés, afinación de más de 20 parámetros y expertos DevOps incluidos.',
+  path: '/click2deploy',
   keywords: [
-    'disponibilidad de inventario retail',
-    'ventas perdidas por faltantes',
-    'ERP para retail México',
-    'reposición entre tiendas',
+    'Odoo supervisado por IA administrado por expertos',
+    'hosting Odoo dedicado',
+    'Odoo en Kubernetes',
+    'monitoreo y afinación de Odoo',
+    'Click2Deploy',
   ],
 });
 
-export default function RetailPage() {
+/**
+ * Las capacidades de la plataforma. Viven en una constante y no dispersas en el
+ * marcado para poder agregar, quitar o reordenar sin tocar estilos.
+ */
+const CAPACIDADES = [
+  {
+    titulo: 'Monitoreo asistido por IA',
+    texto:
+      'Monitoreo continuo y pruebas de estrés automáticas que detectan los cuellos de botella antes de que tu operación los sufra.',
+  },
+  {
+    titulo: 'Expertos DevOps de verdad',
+    texto:
+      'Recomendaciones de aumento o reducción de recursos hechas por especialistas humanos, no por un algoritmo. Incluidas en el costo del servicio.',
+    destacar: true,
+  },
+  {
+    titulo: 'Más de 20 parámetros afinados',
+    texto:
+      'Configuración personalizada para optimizar el desempeño de tu sistema. Cada cliente tiene necesidades distintas y ninguna instalación se configura igual.',
+  },
+  {
+    titulo: 'Servidor dedicado desde el día uno',
+    texto: 'Tu proyecto nace en un servidor dedicado, no compartido.',
+  },
+  {
+    titulo: 'Orquestación con Kubernetes',
+    texto:
+      'Mueve tu sistema automáticamente al servidor más adecuado cuando hace falta, sin que tengas que intervenir.',
+  },
+  {
+    titulo: 'Respaldos con tu estrategia',
+    texto:
+      'Configuración de la estrategia de respaldos y del tiempo de permanencia de tus copias, según lo que tu operación necesite.',
+  },
+];
+
+/** Clases de los botones, fuera del marcado para que las líneas no sean enormes. */
+const BOTON_PRIMARIO =
+  'inline-block rounded-full bg-cyan-500 px-9 py-4 text-sm font-extrabold uppercase tracking-wider text-slate-950 shadow-xl shadow-cyan-500/20 transition-all hover:scale-105 hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400';
+
+const BOTON_SECUNDARIO =
+  'inline-block rounded-full border border-slate-700 bg-slate-900/60 px-9 py-4 text-sm font-semibold uppercase tracking-wider text-slate-200 transition-colors hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400';
+
+export default function Click2DeployPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 pb-24 px-6 lg:px-12 relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.18),rgba(255,255,255,0))]"></div>
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-cyan-600/10 blur-[140px] rounded-full pointer-events-none -z-10"></div>
 
-      <div className="mx-auto max-w-5xl space-y-14">
+      <div className="mx-auto max-w-6xl space-y-14">
 
         {/* --- ENCABEZADO --- */}
         <ScrollReveal>
-          <div className="text-center max-w-4xl mx-auto space-y-5">
-            <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-              Sector Retail
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              El gran dolor de cabeza del retail es la{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
-                disponibilidad
-              </span>
+          <div className="text-center max-w-3xl mx-auto space-y-6">
+            {/* El logo va DENTRO del h1, no en lugar del h1: la etiqueta sigue
+                siendo el encabezado de la página y el `alt` aporta el texto que
+                leen los buscadores y los lectores de pantalla. Un h1 sustituido
+                por una imagen pierde esa señal por completo.
+
+                `unoptimized` porque un SVG no necesita pasar por el optimizador
+                de imágenes: ya es vectorial y se sirve tal cual. */}
+            <h1 className="flex justify-center">
+              <Image
+                src="/click2deploy-logo.svg"
+                alt="Click2Deploy"
+                width={524}
+                height={68}
+                priority
+                unoptimized
+                className="h-auto w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px]"
+              />
             </h1>
-          </div>
-        </ScrollReveal>
-
-        {/* --- ANIMACIÓN --- */}
-        <ScrollReveal>
-          <div className="relative mx-auto max-w-4xl">
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-500 opacity-20 blur-2xl -z-10"></div>
-            <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-2 sm:p-3 shadow-2xl backdrop-blur-xl">
-              <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950">
-                <VideoPlayer
-                  src="/animacion_retail.mp4"
-                  poster="/posters/animacion_retail.jpg"
-                  label="Animación: el cliente pide un producto y la tienda no lo tiene"
-                  controlsList="novolume nodownload"
-                  autoPlay
-                  loop
-                  className="h-full w-full object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* --- EL PLANTEAMIENTO --- */}
-        <ScrollReveal>
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-8 sm:p-12 backdrop-blur-xl space-y-8">
-            <p className="text-lg sm:text-xl lg:text-2xl text-slate-200 font-light leading-relaxed">
-              Inviertes en publicidad, redes sociales, marketing, software,
-              capacitación. Todo para lograr que un cliente entre a tu tienda. Y
-              cuando por fin te pide un producto,{' '}
-              <strong className="font-semibold text-white">no lo tienes</strong>.
+            <p className="text-lg sm:text-xl text-slate-300 font-light leading-relaxed">
+              Tu Odoo desplegado, monitoreado y afinado. Sin que tu equipo tenga
+              que administrar servidores.
             </p>
+          </div>
+        </ScrollReveal>
 
-            <div className="border-l-4 border-cyan-500 pl-6 py-2 bg-cyan-500/5 rounded-r-xl">
-              <p className="text-xl sm:text-2xl font-bold text-cyan-300">
-                Eso es una venta perdida.
-              </p>
-            </div>
+        {/* --- CAPACIDADES --- */}
+        <ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {CAPACIDADES.map((c) => (
+              <div
+                key={c.titulo}
+                className={`rounded-2xl border p-6 sm:p-7 backdrop-blur-xl space-y-3 transition-colors ${
+                  c.destacar
+                    ? 'border-cyan-500/40 bg-cyan-500/[0.07] hover:border-cyan-400/60'
+                    : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
+                }`}
+              >
+                <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                  {c.titulo}
+                </h2>
+                <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+                  {c.texto}
+                </p>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
 
-            <p className="text-lg sm:text-xl text-slate-200 font-light leading-relaxed">
-              Y rara vez es un problema de falta de mercancía. En ciertas tiendas
-              tienes{' '}
-              <strong className="font-semibold text-white">
-                lo que no se vende
-              </strong>
-              , mientras que en otras te falta{' '}
-              <strong className="font-semibold text-white">
-                lo que te están pidiendo
-              </strong>
-              .
+        {/* --- AGENTE DE DESARROLLO --- */}
+        <ScrollReveal>
+          <div className="rounded-2xl border border-blue-500/30 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-blue-950/30 p-8 sm:p-10 backdrop-blur-xl space-y-4">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-400">
+              Incluido
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Agente de desarrollo integrado
+            </h2>
+            <p className="text-base sm:text-lg text-slate-200 font-light leading-relaxed">
+              Funciona con OpenAI, Claude, Gemini y DeepSeek. Puedes usar{' '}
+              <strong className="font-semibold text-white">tus propios tokens</strong>{' '}
+              y trabajar con el agente sin costo adicional.
             </p>
           </div>
         </ScrollReveal>
 
         {/* --- LLAMADO A LA ACCIÓN --- */}
         <ScrollReveal>
-          <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-cyan-950/30 p-8 sm:p-12 backdrop-blur-xl text-center space-y-6">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-snug">
-              ¿Quieres resolver el problema que tanto dolor le causa a tu negocio?
-            </h2>
-
-            <div className="pt-2">
-              <Link
-                href="/contacto"
-                className="inline-block rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold px-9 py-4 text-sm uppercase tracking-wider transition-all shadow-xl shadow-cyan-500/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-              >
-                Hablemos de tu operación
-              </Link>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-8 sm:p-10 backdrop-blur-xl text-center space-y-6">
+            <div className="space-y-2">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Conoce la plataforma
+              </h2>
+              <p className="text-slate-300 font-light">
+                Planes, características completas y alta en click2deploy.com
+              </p>
             </div>
 
-            <p className="text-sm text-slate-400 font-light">
-              También puedes conocer el modelo de{' '}
-              <Link
-                href="/vendor-managed-inventory"
-                className="rounded text-cyan-400 underline transition-colors hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-              >
-                Vendor Managed Inventory
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a href="https://click2deploy.com" target="_blank" rel="noopener" className={BOTON_PRIMARIO}>
+                Ir a Click2Deploy
+              </a>
+              <Link href="/contacto" className={BOTON_SECUNDARIO}>
+                Hablar con un consultor
               </Link>
-              , con el que atacamos este mismo problema desde la cadena de
-              suministro.
-            </p>
+            </div>
           </div>
         </ScrollReveal>
 
@@ -139,16 +174,16 @@ export default function RetailPage() {
 
       <JsonLd
         data={[
-          serviceSchema({
-            name: 'Disponibilidad de inventario para Retail',
+          softwareSchema({
+            name: 'Click2Deploy',
             description:
-              'Implementación de ERP y modelos de reposición para eliminar faltantes y sobreinventario entre tiendas.',
-            path: '/retail',
-            serviceType: 'Implementación de ERP',
+              'Plataforma de Odoo administrado sobre servidor dedicado, con orquestación en Kubernetes, monitoreo asistido por IA, afinación de parámetros y respaldos configurables.',
+            path: '/click2deploy',
+            sitioOficial: 'https://click2deploy.com',
           }),
           breadcrumbSchema([
             { name: 'Inicio', path: '/' },
-            { name: 'Retail', path: '/retail' },
+            { name: 'Click2Deploy', path: '/click2deploy' },
           ]),
         ]}
       />

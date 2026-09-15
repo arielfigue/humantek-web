@@ -14,12 +14,12 @@ export default function Navbar() {
   const navLinks = [
     { name: "Inicio", href: "/" },
     { name: "ERP's", href: "/erps" },
-    { name: "Click2Deploy", href: "/click2deploy" },
     { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "Retail", href: "/retail" },
     { name: "VMI", href: "/vendor-managed-inventory" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
+    { name: "Click2Deploy", href: "/click2deploy" },
     { name: "Nosotros", href: "/nosotros" },
     { name: "Contacto", href: "/contacto" },
   ];
