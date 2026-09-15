@@ -21,6 +21,7 @@ const ROUTES: {
   { path: '/retail', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/vendor-managed-inventory', priority: 0.8, changeFrequency: 'yearly' },
   { path: '/inteligencia-artificial', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/click2deploy', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/nosotros', priority: 0.7, changeFrequency: 'yearly' },
   { path: '/contacto', priority: 0.7, changeFrequency: 'yearly' },
   { path: '/aviso-de-privacidad', priority: 0.2, changeFrequency: 'yearly' },
