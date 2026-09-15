@@ -91,12 +91,11 @@ export default function Click2DeployPage() {
                 de imágenes: ya es vectorial y se sirve tal cual. */}
             <h1 className="flex justify-center">
               <Image
-                src="/click2deploy-logo.svg"
+                src="/click2deploy-logo.png"
                 alt="Click2Deploy"
                 width={524}
                 height={68}
                 priority
-                unoptimized
                 className="h-auto w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px]"
               />
             </h1>
