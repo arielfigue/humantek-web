@@ -218,6 +218,35 @@ export default function CasosClient({
     return () => cancelAnimationFrame(marco);
   }, [ordenActual]);
 
+  const GRUPOS_DE_CRITERIOS = [
+    {
+      etiqueta: 'Tamaño',
+      opciones: ['Grande', 'Medianas', 'Pequeñas'],
+      estaActivo: (v: string) => selectedTamano === v,
+      alternar: (v: string) =>
+        toggleSingleFilter(selectedTamano, setSelectedTamano, v),
+    },
+    {
+      etiqueta: 'Giro',
+      opciones: [
+        'Servicios',
+        'Manufactura',
+        'Comercialización',
+        'Retail',
+        'Distribución',
+        'Metalmecánica',
+      ],
+      estaActivo: (v: string) => selectedGiro.includes(v),
+      alternar: (v: string) => toggleGiroFilter(v),
+    },
+    {
+      etiqueta: 'Tipo',
+      opciones: ['Implementación', 'Rescatado', 'Mejora de Resultados'],
+      estaActivo: (v: string) => selectedTipo.includes(v),
+      alternar: (v: string) => toggleTipoFilter(v),
+    },
+  ];
+
   const toggleSingleFilter = (current: string | null, setter: (val: string | null) => void, value: string) => {
     setAnclado(false);
     setter(current === value ? null : value);
@@ -245,121 +274,81 @@ export default function CasosClient({
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 pb-24 px-6 lg:px-12 relative overflow-hidden">
+    <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 pb-24 px-6 lg:px-12 relative">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.18),rgba(255,255,255,0))]"></div>
 
       <div className="mx-auto max-w-7xl space-y-12">
-        {/* --- ENCABEZADO + SELECTOR DE CRITERIOS --- */}
+        {/* --- ENCABEZADO --- */}
         <ScrollReveal>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-slate-800/80 pb-10">
-            
-            {/* LADO IZQUIERDO: TEXTO */}
-            <div className="lg:col-span-5 space-y-4 text-left">
-              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-                Casos de{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
-                  Éxito
-                </span>
-              </h1>
-              <p className="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
-                Conozca la experiencia directa de nuestros clientes y seleccione los criterios de su interés para destacar casos similares.
-              </p>
-            </div>
-
-            {/* LADO DERECHO: SELECTOR DE CRITERIOS */}
-            <div className="lg:col-span-7 flex flex-col items-start lg:items-end w-full">
-              <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 backdrop-blur-xl shadow-2xl w-full space-y-4">
-                
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                      <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
-                    </svg>
-                    Selecciona los que te interese ver
-                  </h2>
-                  {hasActiveFilters && (
-                    <button
-                      onClick={clearAllFilters}
-                      className="text-xs text-slate-400 hover:text-white underline transition-colors"
-                    >
-                      Limpiar selección
-                    </button>
-                  )}
-                </div>
-
-                <div className="space-y-3">
-                  {/* Categoría: Tamaño */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
-                      Tamaño:
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['Grande', 'Medianas', 'Pequeñas'].map((item) => (
-                        <button
-                          key={item}
-                          onClick={() => toggleSingleFilter(selectedTamano, setSelectedTamano, item)}
-                          className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all duration-200 ${
-                            selectedTamano === item
-                              ? 'bg-blue-600 border-blue-400 text-white shadow-lg shadow-blue-500/30 scale-105'
-                              : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
-                          }`}
-                        >
-                          {item}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Categoría: Giro */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
-                      Giro:
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['Servicios', 'Manufactura', 'Comercialización', 'Retail', 'Distribución', 'Metalmecánica'].map((item) => (
-                        <button
-                          key={item}
-                          onClick={() => toggleGiroFilter(item)}
-                          className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all duration-200 ${
-                            selectedGiro.includes(item)
-                              ? 'bg-blue-600 border-blue-400 text-white shadow-lg shadow-blue-500/30 scale-105'
-                              : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
-                          }`}
-                        >
-                          {item}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Categoría: Tipo */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
-                      Tipo:
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['Implementación', 'Rescatado', 'Mejora de Resultados'].map((item) => (
-                        <button
-                          key={item}
-                          onClick={() => toggleTipoFilter(item)}
-                          className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all duration-200 ${
-                            selectedTipo.includes(item)
-                              ? 'bg-blue-600 border-blue-400 text-white shadow-lg shadow-blue-500/30 scale-105'
-                              : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
-                          }`}
-                        >
-                          {item}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
+          <div className="max-w-3xl space-y-4 text-left">
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+              Casos de{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
+                Éxito
+              </span>
+            </h1>
+            <p className="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
+              Conozca la experiencia directa de nuestros clientes y seleccione los criterios de su interés para destacar casos similares.
+            </p>
           </div>
         </ScrollReveal>
+
+        {/* --- SELECTOR DE CRITERIOS --- */}
+        {/*
+          Barra pegada bajo el navbar: permite cambiar de criterio sin volver
+          arriba mientras se recorre la lista.
+
+          Va fuera de ScrollReveal a propósito: ese componente envuelve su
+          contenido en un div de la altura justa, y un elemento sticky solo
+          puede desplazarse dentro de su contenedor. Envuelto ahí no se
+          despegaría nunca.
+
+          Todo en una sola fila que se envuelve, sin encabezado y sin una fila
+          por categoría: al quedar fija, cada píxel de alto es espacio que le
+          quita a los casos. Sticky solo desde lg, porque en pantallas
+          estrechas los chips ocupan varias líneas.
+        */}
+        <div className="lg:sticky lg:top-24 z-30 lg:-mx-2 lg:px-2 lg:py-2">
+          <div className="w-full rounded-xl border border-slate-800 bg-slate-900/90 px-4 py-3 backdrop-blur-xl shadow-2xl">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              {GRUPOS_DE_CRITERIOS.map((grupo) => (
+                <div key={grupo.etiqueta} className="flex flex-wrap items-center gap-1.5">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                    {grupo.etiqueta}
+                  </span>
+                  {grupo.opciones.map((opcion) => {
+                    const activo = grupo.estaActivo(opcion);
+                    return (
+                      <button
+                        key={opcion}
+                        type="button"
+                        onClick={() => grupo.alternar(opcion)}
+                        aria-pressed={activo}
+                        className={`rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
+                          activo
+                            ? 'border-blue-400 bg-blue-600 text-white'
+                            : 'border-slate-800 bg-slate-950/60 text-slate-300 hover:border-slate-700 hover:text-white'
+                        }`}
+                      >
+                        {opcion}
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={clearAllFilters}
+                  className="ml-auto rounded text-[11px] text-slate-400 underline transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                >
+                  Limpiar
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* --- LISTADO DE CASOS DE ÉXITO --- */}
         {anclado && casoDestacado && (
