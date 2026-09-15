@@ -72,6 +72,15 @@ export default function CasosClient({
     ? initialCases.find((c) => c.id === casoDestacadoId)
     : undefined;
 
+  /**
+   * El caso que llegó por ?caso=N encabeza la lista, pero solo hasta que el
+   * visitante toca el selector. A partir de ahí manda él: si el ancla no se
+   * soltara, ese caso quedaría clavado arriba para siempre y ningún criterio
+   * podría subir otro, que es justo lo que uno espera del selector.
+   */
+  const [anclado, setAnclado] = useState(() => Boolean(casoDestacado));
+  const idAnclado = anclado ? casoDestacadoId : null;
+
   const [selectedTamano, setSelectedTamano] = useState<string | null>(null);
   // Inicialización perezosa: se resuelve en el primer render, sin efectos ni
   // un segundo pintado con la lista en el orden equivocado.
@@ -138,28 +147,32 @@ export default function CasosClient({
     .sort((a, b) => {
       // El caso al que apuntaba el enlace encabeza la lista pase lo que pase;
       // el resto se ordena por coincidencia con los criterios.
-      if (a.item.id === casoDestacadoId) return -1;
-      if (b.item.id === casoDestacadoId) return 1;
+      if (a.item.id === idAnclado) return -1;
+      if (b.item.id === idAnclado) return 1;
       return b.score - a.score;
     });
 
   const toggleSingleFilter = (current: string | null, setter: (val: string | null) => void, value: string) => {
+    setAnclado(false);
     setter(current === value ? null : value);
   };
 
   const toggleGiroFilter = (value: string) => {
+    setAnclado(false);
     setSelectedGiro((prev) =>
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
 
   const toggleTipoFilter = (value: string) => {
+    setAnclado(false);
     setSelectedTipo((prev) =>
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
 
   const clearAllFilters = () => {
+    setAnclado(false);
     setSelectedTamano(null);
     setSelectedGiro([]);
     setSelectedTipo([]);
@@ -283,7 +296,7 @@ export default function CasosClient({
         </ScrollReveal>
 
         {/* --- LISTADO DE CASOS DE ÉXITO --- */}
-        {casoDestacado && (
+        {anclado && casoDestacado && (
           <p className="-mt-6 text-sm text-slate-400">
             Mostrando primero el caso de{' '}
             <strong className="font-semibold text-white">{casoDestacado.title}</strong>
@@ -319,7 +332,7 @@ export default function CasosClient({
               <div
                 key={item.id}
                 id={`caso-${item.id}`}
-                data-destacado={item.id === casoDestacadoId || undefined}
+                data-destacado={item.id === idAnclado || undefined}
                 className={`transition-all duration-500 rounded-2xl p-6 sm:p-8 backdrop-blur-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border ${
                   matches
                     ? 'border-cyan-400/80 bg-slate-900/90 shadow-[0_0_35px_rgba(34,211,238,0.25)] ring-1 ring-cyan-400/40 scale-[1.01]'
