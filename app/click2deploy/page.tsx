@@ -9,9 +9,13 @@ import { breadcrumbSchema, softwareSchema } from '@/lib/schema';
 /**
  * Página de Click2Deploy.
  *
- * A diferencia del resto del sitio, esta usa `softwareSchema` y no
- * `serviceSchema`: Click2Deploy es una plataforma que el cliente usa, no un
- * servicio que presta un equipo. Google distingue ambas cosas.
+ * Usa `softwareSchema` y no `serviceSchema`: Click2Deploy es una plataforma que
+ * el cliente usa, no un servicio que presta un equipo. Google los distingue.
+ *
+ * La página NO repite el catálogo de click2deploy.com. Ese sitio describe la
+ * plataforma en autoservicio; esta describe lo que se suma cuando el proyecto
+ * lo lleva Humanytek. Es una distinción que hay que decir en voz alta: sin
+ * ella, un visitante que compare ambas listas concluye que se contradicen.
  */
 export const metadata: Metadata = pageMetadata({
   title: 'Click2Deploy',
@@ -28,8 +32,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 /**
- * Las capacidades de la plataforma. Viven en una constante y no dispersas en el
- * marcado para poder agregar, quitar o reordenar sin tocar estilos.
+ * Las capacidades. Viven en una constante y no dispersas en el marcado para
+ * poder agregar, quitar o reordenar sin tocar estilos.
  */
 const CAPACIDADES = [
   {
@@ -77,18 +81,14 @@ export default function Click2DeployPage() {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.18),rgba(255,255,255,0))]"></div>
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-cyan-600/10 blur-[140px] rounded-full pointer-events-none -z-10"></div>
 
-      <div className="mx-auto max-w-6xl space-y-14">
+      <div className="mx-auto max-w-6xl space-y-16">
 
-        {/* --- ENCABEZADO --- */}
+        {/* --- ENCABEZADO ---
+            El logo va DENTRO del h1, no en lugar del h1: así la página conserva
+            su encabezado y el `alt` aporta el texto que leen los buscadores y
+            los lectores de pantalla. */}
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto space-y-6">
-            {/* El logo va DENTRO del h1, no en lugar del h1: la etiqueta sigue
-                siendo el encabezado de la página y el `alt` aporta el texto que
-                leen los buscadores y los lectores de pantalla. Un h1 sustituido
-                por una imagen pierde esa señal por completo.
-
-                `unoptimized` porque un SVG no necesita pasar por el optimizador
-                de imágenes: ya es vectorial y se sirve tal cual. */}
             <h1 className="flex justify-center">
               <Image
                 src="/click2deploy-logo.png"
@@ -108,28 +108,47 @@ export default function Click2DeployPage() {
 
         {/* --- CAPACIDADES --- */}
         <ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {CAPACIDADES.map((c) => (
-              <div
-                key={c.titulo}
-                className={`rounded-2xl border p-6 sm:p-7 backdrop-blur-xl space-y-3 transition-colors ${
-                  c.destacar
-                    ? 'border-cyan-500/40 bg-cyan-500/[0.07] hover:border-cyan-400/60'
-                    : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
-                }`}
-              >
-                <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
-                  {c.titulo}
-                </h2>
-                <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
-                  {c.texto}
-                </p>
-              </div>
-            ))}
+          <div className="space-y-8">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-snug">
+                Lo que obtienes cuando el proyecto{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
+                  lo llevamos nosotros
+                </span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+                La plataforma la puedes contratar por tu cuenta y va a funcionar.
+                Pero si algo se complica, sin nosotros dentro no hay manera de
+                que te podamos ayudar.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {CAPACIDADES.map((c) => (
+                <div
+                  key={c.titulo}
+                  className={`rounded-2xl border p-6 sm:p-7 backdrop-blur-xl space-y-3 transition-colors ${
+                    c.destacar
+                      ? 'border-cyan-500/40 bg-cyan-500/[0.07] hover:border-cyan-400/60'
+                      : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
+                  }`}
+                >
+                  <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                    {c.titulo}
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+                    {c.texto}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
 
-        {/* --- AGENTE DE DESARROLLO --- */}
+        {/* --- AGENTE DE DESARROLLO ---
+            Va aparte y a todo lo ancho porque es el diferenciador más difícil
+            de copiar: usar tus propios tokens elimina el margen que cobra
+            cualquier competidor por revender inferencia. */}
         <ScrollReveal>
           <div className="rounded-2xl border border-blue-500/30 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-blue-950/30 p-8 sm:p-10 backdrop-blur-xl space-y-4">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-400">
@@ -146,26 +165,30 @@ export default function Click2DeployPage() {
           </div>
         </ScrollReveal>
 
-        {/* --- LLAMADO A LA ACCIÓN --- */}
+        {/* --- LLAMADO A LA ACCIÓN ---
+            El botón principal es hablar con nosotros, no ir a la plataforma:
+            todo lo de arriba existe únicamente por esa vía. El enlace a
+            click2deploy.com queda como la opción de autoservicio, que también
+            es legítima pero es otra cosa. */}
         <ScrollReveal>
           <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-8 sm:p-10 backdrop-blur-xl text-center space-y-6">
-            <div className="space-y-2">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Conoce la plataforma
-              </h2>
-              <p className="text-slate-300 font-light">
-                Planes, características completas y alta en click2deploy.com
-              </p>
-            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              ¿Cómo quieres empezar?
+            </h2>
 
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <a href="https://click2deploy.com" target="_blank" rel="noopener" className={BOTON_PRIMARIO}>
-                Ir a Click2Deploy
-              </a>
-              <Link href="/contacto" className={BOTON_SECUNDARIO}>
-                Hablar con un consultor
+              <Link href="/contacto" className={BOTON_PRIMARIO}>
+                Quiero que lo lleven ustedes
               </Link>
+              <a href="https://click2deploy.com" target="_blank" rel="noopener" className={BOTON_SECUNDARIO}>
+                Ver la plataforma por mi cuenta
+              </a>
             </div>
+
+            <p className="text-sm text-slate-400 font-light">
+              En click2deploy.com están los planes, el catálogo completo de
+              características y el alta.
+            </p>
           </div>
         </ScrollReveal>
 
