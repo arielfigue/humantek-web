@@ -111,7 +111,7 @@ export default function Click2DeployPage() {
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-snug">
-                Como cliente de humanytek{' '}
+                Como cliente de Humanytek{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
                   nos encargamos de customizar el rendimiento de tu sistema al nivel mas optimo.
                 </span>
