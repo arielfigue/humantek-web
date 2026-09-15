@@ -106,6 +106,33 @@ export function serviceSchema(input: {
 }
 
 /**
+ * Producto de software propio.
+ *
+ * Distinto de serviceSchema: `Service` describe algo que presta un equipo de
+ * personas; Click2Deploy es una plataforma que el cliente usa. Google trata
+ * ambas cosas de forma distinta y marcar un producto como servicio debilita
+ * las dos señales.
+ */
+export function softwareSchema(input: {
+  name: string;
+  description: string;
+  path: string;
+  categoria?: string;
+  sistemaOperativo?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: input.name,
+    description: input.description,
+    url: `${SITE_URL}${input.path}`,
+    applicationCategory: input.categoria ?? 'BusinessApplication',
+    operatingSystem: input.sistemaOperativo ?? 'Web',
+    publisher: { '@id': ORG_ID },
+  };
+}
+
+/**
  * VideoObject para los testimoniales de YouTube. Sin esto los 21 videos de
  * /casos-de-exito son invisibles para Google Video y para el carrusel de video
  * en resultados de búsqueda.
