@@ -47,9 +47,6 @@ export default function ErpsPage() {
               </div>
 
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-wider">
-                  Odoo
-                </div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-snug">
                   SOMOS EL PRIMER PARTNER DE ODOO PARA MÉXICO
                 </h2>
@@ -74,9 +71,6 @@ export default function ErpsPage() {
               </div>
 
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-                  SAP
-                </div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-snug">
                   SAP BUSINESS BYDESIGN
                 </h2>
