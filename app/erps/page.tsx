@@ -46,11 +46,13 @@ export default function ErpsPage() {
                 />
               </div>
 
-              <div className="space-y-3">
-                <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-snug">
-                  SOMOS EL PRIMER PARTNER DE ODOO PARA MÉXICO
-                </h2>
-                <div className="text-sm text-slate-300 font-light leading-relaxed space-y-2">
+              <div className="mt-6 flex h-full flex-col">
+                <div className="min-h-[78px]">
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-snug">
+                    SOMOS EL PRIMER PARTNER DE ODOO PARA MÉXICO
+                  </h2>
+                </div>
+                <div className="mt-3 text-sm text-slate-300 font-light leading-relaxed space-y-2">
                   <p>Hemos hecho proyectos en las empresas más grandes de México.</p>
                   <p className="font-medium text-white">Esto solo significa una cosa, tenemos la mayor experiencia.</p>
                 </div>
@@ -70,11 +72,13 @@ export default function ErpsPage() {
                 />
               </div>
 
-              <div className="space-y-3">
-                <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-snug">
-                  SAP BUSINESS BYDESIGN
-                </h2>
-                <p className="text-sm text-slate-300 font-light leading-relaxed">
+              <div className="mt-6 flex h-full flex-col">
+                <div className="min-h-[78px]">
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-snug">
+                    SAP BUSINESS BYDESIGN
+                  </h2>
+                </div>
+                <p className="mt-3 text-sm text-slate-300 font-light leading-relaxed">
                   ERP en la nube para el mercado medio con el respaldo de la marca que hizo nacer este tipo de herramientas.
                 </p>
               </div>
