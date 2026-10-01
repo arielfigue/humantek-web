@@ -117,6 +117,70 @@ export default function InteligenciaArtificialPage() {
             </div>
           </div>
         </ScrollReveal>
+
+        <ScrollReveal>
+          <section className="relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-slate-900/70 p-6 sm:p-8 lg:p-10 backdrop-blur-xl">
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.18),transparent_45%),radial-gradient(circle_at_80%_15%,rgba(59,130,246,0.2),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(14,116,144,0.2),transparent_45%)]"></div>
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(56,189,248,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(56,189,248,0.08)_1px,transparent_1px)] bg-[size:30px_30px]"></div>
+
+            <div className="max-w-5xl mx-auto space-y-8">
+              <div className="space-y-4">
+                <span className="inline-flex items-center rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
+                  Nuevo Servicio
+                </span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+                  MCP HiperProductividad
+                </h2>
+              </div>
+
+              <div className="space-y-4 text-slate-200">
+                <p className="rounded-2xl border border-cyan-300/15 bg-cyan-500/5 px-5 py-4 text-sm sm:text-base leading-relaxed transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/50 hover:bg-cyan-400/15 hover:text-cyan-50 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]">
+                  En Humanytek ofrecemos el servicio de conexión vía Protocolo MCP:
+                  conectamos su ERP a los modelos de IA más potentes del mercado para
+                  convertir su suscripción con estos proveedores en un bot que interactúa
+                  directamente con sus procesos de negocio.
+                </p>
+                <p className="rounded-2xl border border-blue-300/15 bg-blue-500/5 px-5 py-4 text-sm sm:text-base leading-relaxed transition-all duration-300 hover:-translate-y-1 hover:border-blue-300/50 hover:bg-blue-400/15 hover:text-blue-50 hover:shadow-[0_0_30px_rgba(59,130,246,0.25)]">
+                  No importa la versión de su sistema: nuestro servicio es compatible
+                  incluso con versiones obsoletas, permitiendo modernizar operaciones
+                  sin forzar migraciones costosas ni detener la operación diaria.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Casos de uso comunes
+                </h3>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm sm:text-base text-slate-100">
+                  <li className="rounded-xl border border-slate-700/80 bg-slate-800/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:bg-slate-800/90 hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]">
+                    Conciliaciones bancarias tediosas: un bot las resuelve en minutos y
+                    con altísima precisión.
+                  </li>
+                  <li className="rounded-xl border border-slate-700/80 bg-slate-800/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:bg-slate-800/90 hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]">
+                    Precaptura de documentos para revisión: los usuarios solo validan y
+                    confirman en lugar de capturar manualmente.
+                  </li>
+                  <li className="rounded-xl border border-slate-700/80 bg-slate-800/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:bg-slate-800/90 hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]">
+                    Unión de información de diferentes orígenes para entregar datos al ERP
+                    de forma organizada y homogénea.
+                  </li>
+                  <li className="rounded-xl border border-slate-700/80 bg-slate-800/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:bg-slate-800/90 hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]">
+                    Generación automática de órdenes de compra sugeridas según consumo,
+                    inventario y tiempos de entrega.
+                  </li>
+                  <li className="rounded-xl border border-slate-700/80 bg-slate-800/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:bg-slate-800/90 hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]">
+                    Detección de anomalías en facturas y pólizas antes de su registro para
+                    reducir errores y retrabajo administrativo.
+                  </li>
+                  <li className="rounded-xl border border-slate-700/80 bg-slate-800/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:bg-slate-800/90 hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]">
+                    Respuestas operativas en lenguaje natural para consultar estatus de
+                    pedidos, cuentas por cobrar y KPIs en segundos.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
       </div>
 
       <JsonLd
