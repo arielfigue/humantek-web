@@ -241,6 +241,16 @@ export default function AdministratiBOTPage() {
                 Generamos el reporte y cargamos la información, previa autorización tuya.
               </p>
             </div>
+
+            <div className="mx-auto max-w-3xl space-y-3 text-center">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Después del primer ciclo</span>
+              <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+                Una vez validado el primer ciclo completo creamos la automatización para que tú solamente le entregues a AdministratiBOT la información que tiene que procesar para ti.
+              </p>
+              <p className="text-lg sm:text-xl font-semibold text-white leading-snug">
+                A partir de ahí tú solamente enfócate en tu negocio, nosotros hacemos <span className="text-cyan-300">lo tedioso y aburrido</span>.
+              </p>
+            </div>
           </div>
         </ScrollReveal>
 
