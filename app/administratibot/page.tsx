@@ -56,6 +56,12 @@ const CASOS_DE_USO = [
     texto:
       'Información de inventarios, compras y órdenes actualizada para planear la producción con datos confiables.',
   },
+  {
+    etiqueta: 'Combinado',
+    titulo: 'Cierre administrativo integral',
+    texto:
+      'Varios casos de uso corriendo al mismo tiempo: estados de cuenta, facturación vs pagos, comisiones y compras vs entradas se concilian en conjunto para tener cifras confiables en tiempo real.',
+  },
 ];
 
 export default function AdministratiBotPage() {
@@ -108,7 +114,7 @@ export default function AdministratiBotPage() {
                 </article>
               ))}
 
-              <article className="rounded-2xl border border-dashed border-cyan-500/45 bg-gradient-to-br from-slate-900/90 to-cyan-950/30 p-6 backdrop-blur-xl flex flex-col gap-3">
+              <article className="lg:col-span-2 rounded-2xl border border-dashed border-cyan-500/45 bg-gradient-to-br from-slate-900/90 to-cyan-950/30 p-6 backdrop-blur-xl flex flex-col gap-3">
                 <span className="self-start text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-md border border-cyan-500/30">
                   Entre otros
                 </span>
