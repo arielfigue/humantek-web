@@ -10,7 +10,7 @@ export default function Footer() {
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "Retail", href: "/retail" },
     { name: "VMI", href: "/vendor-managed-inventory" },
-    { name: "AdministratiBot", href: "/administratibot" },
+    { name: "AdministratiBOT", href: "/administratibot" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
     { name: "Click2Deploy", href: "/click2deploy" },
     { name: "Nosotros", href: "/nosotros" },
