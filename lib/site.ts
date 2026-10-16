@@ -45,4 +45,4 @@ export const SITE = {
  * Se actualiza a mano al publicar cambios: usar `new Date()` haría que
  * lastModified cambiara en cada build sin que el contenido cambie.
  */
-export const CONTENT_LAST_MODIFIED = '2026-09-14';
+export const CONTENT_LAST_MODIFIED = '2026-10-16';

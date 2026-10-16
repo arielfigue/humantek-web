@@ -18,6 +18,7 @@ export default function Navbar() {
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "Retail", href: "/retail" },
     { name: "VMI", href: "/vendor-managed-inventory" },
+    { name: "AdministratiBot", href: "/administratibot" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
     { name: "Click2Deploy", href: "/click2deploy" },
     { name: "Nosotros", href: "/nosotros" },
@@ -114,16 +115,17 @@ export default function Navbar() {
                 `ml-auto` + `w-fit` empujan el bloque al borde derecho, alineado
                 con el botón del menú.
 
-                Con 9 enlaces hacen falta 5 columnas para mantener dos filas.
-                A 210px solo caben desde `xl` (5x210 + 4x10 = 1090, hay 1216);
-                entre `lg` y `xl` el ancho baja a 184px (5x184 + 40 = 960, justo
-                el disponible). A 184px la etiqueta más larga, "Inteligencia
-                Artificial", se parte en dos líneas: por eso las tarjetas llevan
-                `min-h`, que iguala la altura de todas aunque una envuelva.
+                Con 11 enlaces bastan 6 columnas para mantener dos filas
+                (6 + 5). A 190px caben desde `xl` (6x190 + 5x10 = 1190, hay
+                1216); entre `lg` y `xl` el ancho baja a 150px (6x150 + 50 = 950,
+                dentro de los 960 disponibles). A 150px las etiquetas largas,
+                "Inteligencia Artificial" y "AdministratiBot", pueden partirse
+                en dos líneas: por eso las tarjetas llevan `min-h`, que iguala
+                la altura de todas.
 
-                Al llegar a 11 enlaces habrá que pasar a 6 columnas en `xl`
-                (6x210 + 50 = 1310 > 1216, así que tocará bajar a 190px). */}
-            <div className="grid w-full grid-cols-2 gap-2.5 sm:ml-auto sm:w-fit sm:grid-cols-[repeat(2,210px)] md:grid-cols-[repeat(3,210px)] lg:grid-cols-[repeat(5,184px)] xl:grid-cols-[repeat(5,210px)]">
+                Al llegar a 13 enlaces habrá que pasar a 7 columnas o aceptar
+                tres filas. */}
+            <div className="grid w-full grid-cols-2 gap-2.5 sm:ml-auto sm:w-fit sm:grid-cols-[repeat(2,210px)] md:grid-cols-[repeat(3,210px)] lg:grid-cols-[repeat(6,150px)] xl:grid-cols-[repeat(6,190px)]">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
