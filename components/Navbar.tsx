@@ -18,7 +18,7 @@ export default function Navbar() {
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "Retail", href: "/retail" },
     { name: "VMI", href: "/vendor-managed-inventory" },
-    { name: "AdministratiBot", href: "/administratibot" },
+    { name: "AdministratiBOT", href: "/administratibot" },
     { name: "Inteligencia Artificial", href: "/inteligencia-artificial" },
     { name: "Click2Deploy", href: "/click2deploy" },
     { name: "Nosotros", href: "/nosotros" },
@@ -119,7 +119,7 @@ export default function Navbar() {
                 (6 + 5). A 190px caben desde `xl` (6x190 + 5x10 = 1190, hay
                 1216); entre `lg` y `xl` el ancho baja a 150px (6x150 + 50 = 950,
                 dentro de los 960 disponibles). A 150px las etiquetas largas,
-                "Inteligencia Artificial" y "AdministratiBot", pueden partirse
+                "Inteligencia Artificial" y "AdministratiBOT", pueden partirse
                 en dos líneas: por eso las tarjetas llevan `min-h`, que iguala
                 la altura de todas.
 

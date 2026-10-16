@@ -6,7 +6,7 @@ import { pageMetadata } from '@/lib/seo';
 import { breadcrumbSchema, serviceSchema } from '@/lib/schema';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AdministratiBot: Soporte Administrativo',
+  title: 'AdministratiBOT: Soporte Administrativo',
   description:
     'Servicio semi-automatizado de soporte administrativo que mantiene al día la información de tu sistema: estados de cuenta, facturación vs pagos, comisiones de venta y compras vs entradas de mercancía.',
   path: '/administratibot',
@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
     'conciliación bancaria Odoo',
     'cruce de facturas y pagos',
     'información financiera en tiempo real',
-    'AdministratiBot',
+    'AdministratiBOT',
   ],
 });
 
@@ -64,7 +64,7 @@ const CASOS_DE_USO = [
   },
 ];
 
-export default function AdministratiBotPage() {
+export default function AdministratiBOTPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 pb-24 px-6 lg:px-12 relative overflow-hidden">
       {/* Luces y degradados de fondo */}
@@ -77,14 +77,11 @@ export default function AdministratiBotPage() {
         {/* --- HERO --- */}
         <ScrollReveal>
           <div className="text-center max-w-4xl mx-auto space-y-6">
-            <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-              Soporte Administrativo
-            </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              Administrati<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">Bot</span>
+              Administrati<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">BOT</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 font-light leading-relaxed max-w-3xl mx-auto">
-              Un servicio semi-automatizado que mantiene la información de tu sistema al día y con mucha precisión, para generar información financiera en tiempo real con muy alta confiabilidad.
+              Un servicio semi-automatizado que mantiene la información de tu sistema al día con precisión absoluta, para generar información financiera en tiempo real con una confiabilidad inmejorable.
             </p>
             <p className="inline-block rounded-2xl border border-cyan-500/40 bg-cyan-500/10 px-6 py-3 text-base sm:text-lg font-semibold text-cyan-300 shadow-[0_0_30px_rgba(6,182,212,0.15)]">
               No requiere contrataciones ni plazos forzosos
@@ -175,7 +172,7 @@ export default function AdministratiBotPage() {
       <JsonLd
         data={[
           serviceSchema({
-            name: 'AdministratiBot: Soporte Administrativo',
+            name: 'AdministratiBOT: Soporte Administrativo',
             description:
               'Servicio semi-automatizado que mantiene al día la información del sistema ERP: captura de estados de cuenta, cruces de facturación contra pagos, comisiones de venta y compras contra entradas de mercancía.',
             path: '/administratibot',
@@ -183,7 +180,7 @@ export default function AdministratiBotPage() {
           }),
           breadcrumbSchema([
             { name: 'Inicio', path: '/' },
-            { name: 'AdministratiBot', path: '/administratibot' },
+            { name: 'AdministratiBOT', path: '/administratibot' },
           ]),
         ]}
       />
