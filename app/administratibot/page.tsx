@@ -80,6 +80,9 @@ export default function AdministratiBotPage() {
             <p className="text-lg sm:text-xl text-slate-300 font-light leading-relaxed max-w-3xl mx-auto">
               Un servicio semi-automatizado que mantiene la información de tu sistema al día y con mucha precisión, para generar información financiera en tiempo real con muy alta confiabilidad.
             </p>
+            <p className="inline-block rounded-2xl border border-cyan-500/40 bg-cyan-500/10 px-6 py-3 text-base sm:text-lg font-semibold text-cyan-300 shadow-[0_0_30px_rgba(6,182,212,0.15)]">
+              No requiere contrataciones ni plazos forzosos
+            </p>
           </div>
         </ScrollReveal>
 
