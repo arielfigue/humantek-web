@@ -152,6 +152,38 @@ export default function AdministratiBOTPage() {
           </div>
         </ScrollReveal>
 
+        {/* --- PRUEBA SIN COSTO --- */}
+        <ScrollReveal>
+          <section
+            aria-labelledby="prueba-sin-costo"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-cyan-400 via-emerald-400 to-lime-300 p-8 sm:p-12 text-center shadow-[0_0_70px_rgba(52,211,153,0.35)]"
+          >
+            <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/30 blur-3xl"></div>
+            <div className="pointer-events-none absolute -bottom-28 -right-20 h-80 w-80 rounded-full bg-fuchsia-400/30 blur-3xl"></div>
+
+            <div className="relative mx-auto max-w-3xl space-y-5">
+              <span className="inline-block rounded-full bg-slate-950 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-lime-300">
+                Sin costo · Sin compromiso
+              </span>
+              <h2
+                id="prueba-sin-costo"
+                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-950 leading-tight"
+              >
+                Pruébalo sin ningún costo y sin compromiso
+              </h2>
+              <p className="text-lg sm:text-xl font-semibold text-slate-900 leading-snug">
+                Te ordenamos una semana de atrasos para que valides la potencia del servicio.
+              </p>
+              <Link
+                href="/contacto"
+                className="inline-block rounded-xl bg-slate-950 px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-xl transition-all hover:bg-slate-800 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-300"
+              >
+                Quiero mi semana de prueba
+              </Link>
+            </div>
+          </section>
+        </ScrollReveal>
+
         {/* --- CTA --- */}
         <ScrollReveal>
           <div className="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6 sm:p-8 flex flex-wrap items-center justify-between gap-4">
