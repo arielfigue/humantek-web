@@ -140,8 +140,8 @@ export default function AdministratiBOTPage() {
           <div className="max-w-4xl mx-auto rounded-2xl border border-slate-800 bg-slate-900/50 p-4 sm:p-6 backdrop-blur-xl shadow-2xl">
             <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950">
               <VideoPlayer
-                src="/cambio-vs-innova.mp4"
-                poster="/posters/cambio-vs-innova.jpg"
+                src="/cambio-vs-innova-v2.mp4"
+                poster="/posters/cambio-vs-innova-v2.jpg"
                 label="Video de presentación de AdministratiBOT"
                 autoPlay
                 loop
