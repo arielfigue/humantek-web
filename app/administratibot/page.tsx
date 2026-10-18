@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import JsonLd from '@/components/JsonLd';
+import VideoPlayer from '@/components/VideoPlayer';
 import { pageMetadata } from '@/lib/seo';
 import { breadcrumbSchema, serviceSchema } from '@/lib/schema';
 
@@ -131,6 +132,23 @@ export default function AdministratiBOTPage() {
             <p className="inline-block rounded-2xl border border-cyan-500/40 bg-cyan-500/10 px-6 py-3 text-base sm:text-lg font-semibold text-cyan-300 shadow-[0_0_30px_rgba(6,182,212,0.15)]">
               No requiere contrataciones ni plazos forzosos
             </p>
+          </div>
+        </ScrollReveal>
+
+        {/* --- VIDEO --- */}
+        <ScrollReveal>
+          <div className="max-w-4xl mx-auto rounded-2xl border border-slate-800 bg-slate-900/50 p-4 sm:p-6 backdrop-blur-xl shadow-2xl">
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950">
+              <VideoPlayer
+                src="/cambio-vs-innova.mp4"
+                poster="/posters/cambio-vs-innova.jpg"
+                label="Video de presentación de AdministratiBOT"
+                autoPlay
+                loop
+                controlsList="nodownload noplaybackrate"
+                className="h-full w-full object-contain"
+              />
+            </div>
           </div>
         </ScrollReveal>
 
