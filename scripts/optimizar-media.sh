@@ -47,6 +47,7 @@ encode odoo_es_video          26 sin-audio
 encode sap_Business_ByDesign  26 con-audio
 encode humanytek-video        26 con-audio
 encode Institucional          27 con-audio
+encode cambio-vs-innova       26 sin-audio
 
 echo "Listo. Revisa el peso final:"
 du -h "$DEST"/*.mp4
