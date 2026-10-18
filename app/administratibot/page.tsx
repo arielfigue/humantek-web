@@ -145,8 +145,8 @@ export default function AdministratiBOTPage() {
                 label="Video de presentación de AdministratiBOT"
                 autoPlay
                 loop
-                controlsList="nodownload noplaybackrate"
-                className="h-full w-full object-contain"
+                controlsList="novolume nodownload noplaybackrate"
+                className="h-full w-full object-contain [&::-webkit-media-controls-volume-slider]:hidden [&::-webkit-media-controls-mute-button]:hidden"
               />
             </div>
           </div>
