@@ -15,6 +15,7 @@ const ROUTES: {
 }[] = [
   { path: '', priority: 1.0, changeFrequency: 'monthly' },
   { path: '/erps', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/plataformas', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/click2deploy', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/metodologia', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/casos-de-exito', priority: 0.9, changeFrequency: 'monthly' },

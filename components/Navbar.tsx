@@ -14,6 +14,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Inicio", href: "/" },
     { name: "ERP's", href: "/erps" },
+    { name: "Plataformas", href: "/plataformas" },
     { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "Retail", href: "/retail" },
@@ -115,8 +116,8 @@ export default function Navbar() {
                 `ml-auto` + `w-fit` empujan el bloque al borde derecho, alineado
                 con el botón del menú.
 
-                Con 11 enlaces bastan 6 columnas para mantener dos filas
-                (6 + 5). A 190px caben desde `xl` (6x190 + 5x10 = 1190, hay
+                Con 12 enlaces bastan 6 columnas para mantener dos filas
+                (6 + 6). A 190px caben desde `xl` (6x190 + 5x10 = 1190, hay
                 1216); entre `lg` y `xl` el ancho baja a 150px (6x150 + 50 = 950,
                 dentro de los 960 disponibles). A 150px las etiquetas largas,
                 "Inteligencia Artificial" y "AdministratiBOT", pueden partirse
