@@ -179,10 +179,6 @@ export default function PlataformasPage() {
 
         <ScrollReveal>
           <div className="mx-auto max-w-4xl text-center space-y-6">
-            <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-              Plataformas a la medida
-            </span>
-
             {/* `text-balance` reparte las líneas del titular: sin él, "web."
                 caía sola en una tercera línea. */}
             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
@@ -264,9 +260,6 @@ export default function PlataformasPage() {
         <ScrollReveal>
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl space-y-5">
-              <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-                Casos de uso
-              </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-snug">
                 Soluciones típicas
               </h2>
@@ -307,9 +300,6 @@ export default function PlataformasPage() {
         <ScrollReveal>
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl space-y-5">
-              <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-                El retorno de inversión
-              </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-snug">
                 Beneficios tangibles
               </h2>
