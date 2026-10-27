@@ -8,9 +8,16 @@ import Link from 'next/link';
  *
  * Los logos con caso publicado (marcados `// caso`) van repartidos de forma
  * pareja entre los que no lo tienen, para que no se formen bloques de
- * encendidos ni de apagados. Hoy son 19 con caso y 17 sin caso, así que la
- * alternancia es casi perfecta: nunca hay dos apagados seguidos y solo dos
- * pares de casos consecutivos en todo el ciclo.
+ * encendidos ni de apagados. Con Le Paté son 41: 20 con caso enlazado, 20
+ * apagados y Le Paté, que se ve a color pero no enlaza. La alternancia se
+ * rompe en un solo punto, entre ITC (caso) y Le Paté, que son los dos únicos
+ * encendidos consecutivos del ciclo.
+ *
+ * Le Paté es el caso raro: tiene su propio caso publicado, pero en
+ * /plataformas/le-pate y no en /casos-de-exito, por decisión del cliente. Por
+ * eso va con `sinEnlace`: se ve a color (es un cliente real) pero no lleva a
+ * ninguna parte ni muestra el rótulo "Ver caso", que prometería un destino que
+ * no existe.
  *
  * El reparto también cierra el bucle: el último enlaza con el primero sin
  * formar una zona densa en la costura, que es justo donde más se nota porque
@@ -19,7 +26,7 @@ import Link from 'next/link';
  * Al agregar un logo, insértalo respetando el patrón. Si lo pones al final se
  * acumulan en el cierre del ciclo y se ve.
  */
-const LOGOS = [
+const LOGOS: { src: string; alt: string; sinEnlace?: boolean }[] = [
   { src: '/logos/inoquos_logo.jpg',              alt: 'Inoquos' },
   { src: '/logos/logo-121.png',                  alt: '121' },  // caso
   { src: '/logos/logo-afamjal.jpg',              alt: 'Afamjal' },
@@ -40,6 +47,7 @@ const LOGOS = [
   { src: '/logos/logo-intarlix.jpg',             alt: 'Intarlix' },  // caso
   { src: '/logos/logo-quipron.jpg',              alt: 'Quipron' },
   { src: '/logos/logo-itc.jpg',                  alt: 'ITC' },  // caso
+  { src: '/logos/logo-lepate.png',               alt: 'Le Paté', sinEnlace: true },
   { src: '/logos/logo-jaguen.jpg',               alt: 'Jaguen' },
   { src: '/logos/logo-jacona.png',               alt: 'Jacona' },  // caso
   { src: '/logos/logo-Joya_De_Nicaragua.png',    alt: 'Joya De Nicaragua' },
@@ -81,6 +89,9 @@ export default function LogoCarousel({ casos = {} }: LogoCarouselProps) {
         {[...LOGOS, ...LOGOS].map((logo, index) => {
           const esCopia = index >= LOGOS.length;
           const caso = casos[logo.src];
+          // A color: los que tienen caso enlazado y los que son cliente real
+          // sin caso publicado (Le Paté). El resto se apaga en gris.
+          const aColor = Boolean(caso) || Boolean(logo.sinEnlace);
 
           const imagen = (
             <div className="relative w-full h-full">
@@ -94,7 +105,7 @@ export default function LogoCarousel({ casos = {} }: LogoCarouselProps) {
                 quality={70}
                 loading="lazy"
                 className={
-                  caso
+                  aColor
                     ? 'object-contain'
                     : 'object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100'
                 }
@@ -128,6 +139,21 @@ export default function LogoCarousel({ casos = {} }: LogoCarouselProps) {
             );
           }
 
+          // Cliente real sin caso en /casos-de-exito (Le Paté): a color, pero
+          // sin enlace ni marco encendido. Un logo que parece clicable y no lo
+          // es cuesta más que un logo apagado.
+          if (logo.sinEnlace) {
+            return (
+              <div
+                key={index}
+                aria-hidden={esCopia || undefined}
+                className={`${caja} bg-slate-900/40 border border-slate-800/60 hover:border-cyan-500/40`}
+              >
+                {imagen}
+              </div>
+            );
+          }
+
           // Sin caso: exactamente como estaba antes.
           return (
             <div
@@ -151,7 +177,7 @@ export default function LogoCarousel({ casos = {} }: LogoCarouselProps) {
           }
         }
         .animate-carousel {
-          /* Duración ajustada a 75s para dar fluidez continua a los 30 logos */
+          /* Duración ajustada a 75s para dar fluidez continua a los 41 logos */
           animation: carousel 75s linear infinite;
         }
         .animate-carousel:hover,
