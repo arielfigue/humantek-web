@@ -8,20 +8,21 @@ import { breadcrumbSchema, serviceSchema } from '@/lib/schema';
 /**
  * Página de Plataformas.
  *
- * El argumento es el techo de las herramientas genéricas: Excel deja de
- * sostener la operación y el software empaquetado obliga a cambiar la forma de
- * trabajar. Por eso el h1 nombra el resultado (digitalizar y centralizar) y no
- * la tecnología; "plataforma web" es cómo se entrega, no lo que se vende.
+ * El copy habla de la operación del cliente, no de la tecnología: pedidos que
+ * se pierden, datos que nadie sabe cuál es la buena, horas capturando. Las
+ * palabras del oficio ("plataforma", "dashboard", "KPI") quedan fuera a
+ * propósito; "plataforma web a la medida" solo aparece donde hace falta para
+ * búsqueda (title, description y JSON-LD).
  *
- * El orden de las secciones sigue el del visitante que ya se reconoció en el
- * problema: dolor → casos de uso → retorno → cómo trabajamos → cierre.
+ * El orden sigue al visitante que ya se reconoció en el problema:
+ * dolor → qué se resuelve → qué gana → cómo trabajamos → caso real → cierre.
  */
 
 const DOLORES = [
   {
-    titulo: 'Información dispersa',
+    titulo: 'Cada área tiene su versión de la verdad',
     texto:
-      'Datos críticos repartidos en hojas de cálculo, correos y chats sin control central.',
+      'Los datos viven en hojas de cálculo, correos y chats. Nadie sabe cuál cifra es la buena y las decisiones se toman con información de la semana pasada.',
     icono: (
       // Carpeta abierta con documentos sueltos: el expediente que nadie sabe
       // dónde quedó.
@@ -42,9 +43,9 @@ const DOLORES = [
     ),
   },
   {
-    titulo: 'Software comercial rígido',
+    titulo: 'Pagas por un sistema que no es tuyo',
     texto:
-      'Programas empaquetados que cobran licencias costosas por funciones que no usas o que exigen cambiar tu forma de trabajar.',
+      'Licencias caras por funciones que nadie usa, y un sistema que te obliga a trabajar como él quiere, no como trabaja tu empresa.',
     icono: (
       // Candado: la caja cerrada a la que solo se le puede pedir lo que ya trae.
       <svg
@@ -64,9 +65,9 @@ const DOLORES = [
     ),
   },
   {
-    titulo: 'Errores operativos manuales',
+    titulo: 'Los errores cuestan clientes',
     texto:
-      'Doble captura de información, pérdida de pedidos y falta de trazabilidad.',
+      'Doble captura, pedidos que se pierden y nadie sabe en qué paso se quedó. El cliente reclama y hay que reconstruir la historia a mano.',
     icono: (
       <svg
         aria-hidden="true"
@@ -88,84 +89,93 @@ const DOLORES = [
 
 const CASOS_DE_USO = [
   {
-    titulo: 'Portales de clientes y proveedores',
+    titulo: 'Tus clientes se atienden solos',
     texto:
-      'Plataformas seguras para cotizaciones, seguimiento de pedidos, descarga de facturas y soporte 24/7 sin saturar a tu equipo de atención.',
+      'Cotizan, revisan su pedido, descargan su factura y dan seguimiento sin llamar a tu equipo. Menos llamadas, menos errores y respuesta a cualquier hora.',
   },
   {
-    titulo: 'Paneles de gestión interna (dashboards)',
+    titulo: 'Sabes cómo va el negocio sin pedir reportes',
     texto:
-      'Visualización en tiempo real del inventario, ventas, operaciones y métricas clave de rendimiento (KPIs).',
+      'Inventario, ventas y márgenes del día en una pantalla. No en un archivo que alguien arma cada viernes.',
   },
   {
-    titulo: 'Automatización de flujos de trabajo',
+    titulo: 'Las aprobaciones dejan de vivir en el correo',
     texto:
-      'Formularios inteligentes, generación automática de reportes y aprobaciones internas digitales.',
+      'Solicitudes, autorizaciones y reportes con un solo camino y el registro de quién aprobó qué y cuándo.',
   },
   {
-    titulo: 'Sistemas de reservas y cotización avanzada',
+    titulo: 'Cotas en minutos y al precio correcto',
     texto:
-      'Herramientas que calculan precios dinámicos según reglas específicas de tu modelo comercial.',
+      'El sistema aplica tus reglas de precio, descuentos y volúmenes. Sin errores de cálculo y sin depender de la memoria de un vendedor.',
   },
 ];
 
 const BENEFICIOS = [
   {
-    titulo: 'Accesibilidad total',
-    texto:
-      'Tu equipo accede desde cualquier navegador, tableta o dispositivo sin instalar programas locales.',
+    titulo: 'Tu equipo trabaja desde donde esté',
+    texto: 'Desde la computadora, la tableta o el celular. Sin instalar nada.',
   },
   {
-    titulo: 'Ahorro de horas hombre',
+    titulo: 'Recuperas horas cada semana',
     texto:
-      'Reducción drástica del tiempo invertido en tareas repetitivas de captura y consolidación de datos.',
+      'Lo que hoy se captura y se consolida a mano se hace solo. Esas horas se van a vender, no a copiar datos.',
   },
   {
-    titulo: 'Propiedad y control',
+    titulo: 'Es tuyo, no una renta permanente',
     texto:
-      'La plataforma evoluciona al ritmo de tu negocio; no dependes de las restricciones de un software de terceros.',
+      'La plataforma crece al ritmo de tu negocio. Nadie te sube la licencia ni te obliga a migrar de sistema.',
   },
   {
-    titulo: 'Seguridad y roles',
+    titulo: 'Cada quien ve solo lo suyo',
     texto:
-      'Cada usuario (empleado, cliente o directivo) ve únicamente la información autorizada para su perfil.',
+      'Tu cliente ve su pedido, el vendedor su cartera, el director todo. La información sensible no se filtra.',
   },
 ];
 
 const PASOS = [
   {
-    titulo: 'Diagnóstico del flujo de trabajo',
+    titulo: 'Entendemos cómo trabajas hoy',
     texto:
-      'Analizamos cómo opera tu empresa hoy, dónde están los cuellos de botella y qué objetivos se buscan.',
+      'Vemos dónde se pierde tiempo y dinero, y qué vale la pena cambiar primero.',
   },
   {
-    titulo: 'Diseño y validación visual',
+    titulo: 'Lo pruebas antes de que exista',
     texto:
-      'Creamos las pantallas y la interacción para asegurar que sea intuitivo antes de construirlo.',
+      'Ves y usas las pantallas antes de que se construyan. Si algo no es claro, se corrige en ese momento.',
   },
   {
-    titulo: 'Puesta en marcha e integración',
+    titulo: 'Lo ponemos a funcionar',
     texto:
-      'Implementamos la solución y capacitamos a tu equipo en el uso diario.',
+      'Sale a producción y entrenamos a tu gente en su trabajo diario, no en teoría.',
   },
   {
-    titulo: 'Soporte y escalamiento',
+    titulo: 'Seguimos ahí',
     texto:
-      'Acompañamiento continuo conforme surgen nuevas necesidades en la operación.',
+      'Ajustes y nuevas necesidades conforme cambia la operación, con un solo responsable.',
   },
 ];
 
+/** Lo que ya opera sin intervención humana en Le Paté. */
+const AUTOMATIZADO_LEPATE = [
+  'Cobros y confirmación de pago',
+  'Pedidos y notas de venta',
+  'Reposición por suscripción',
+  'Guías de envío',
+  'Correos al cliente',
+  'Cupones con reglas',
+];
+
 export const metadata: Metadata = pageMetadata({
-  title: 'Plataformas web a la medida',
+  title: 'Plataformas a la medida',
   description:
-    'Digitalizamos y centralizamos la operación de tu empresa en una sola plataforma web: portales de clientes, dashboards y automatización de procesos.',
+    'Unificamos la operación de tu empresa en una sola plataforma, con tus reglas de negocio. Entre 2 y 6 meses según la complejidad.',
   path: '/plataformas',
   keywords: [
     'plataforma web a la medida',
+    'software a la medida México',
     'portal de clientes y proveedores',
-    'dashboard de gestión interna',
-    'automatización de procesos México',
-    'desarrollo de software a la medida',
+    'automatizar procesos de negocio',
+    'sustituir hojas de cálculo',
   ],
 });
 
@@ -179,20 +189,18 @@ export default function PlataformasPage() {
 
         <ScrollReveal>
           <div className="mx-auto max-w-4xl text-center space-y-6">
-            {/* `text-balance` reparte las líneas del titular: sin él, "web."
-                caía sola en una tercera línea. */}
             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
-              Digitaliza y centraliza la operación de tu empresa en{' '}
+              Deja de perseguir información:{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
-                una sola plataforma web
+                tu operación completa en un solo lugar
               </span>
               .
             </h1>
 
             <p className="mx-auto max-w-3xl text-base sm:text-lg text-slate-300 font-light leading-relaxed">
-              Diseñamos herramientas en la nube a la medida de tus procesos:
-              desde portales para clientes hasta paneles de control interno que
-              sustituyen hojas de cálculo desordenadas.
+              Tus clientes cotizan y consultan solos, tu equipo deja de copiar
+              datos de un lado a otro y la dirección ve los números del día sin
+              pedir un reporte.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-4 items-center justify-center">
@@ -200,13 +208,13 @@ export default function PlataformasPage() {
                 href="/contacto"
                 className="rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold px-8 py-4 text-sm uppercase tracking-wider transition-all shadow-xl shadow-cyan-500/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
-                Solicitar diagnóstico de procesos
+                Agendar diagnóstico de procesos
               </Link>
               <Link
                 href="#casos-de-uso"
                 className="rounded-full border border-slate-700 bg-slate-900/60 px-8 py-4 text-sm font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
-                Ver casos de aplicación →
+                Ver ejemplos por tipo de negocio →
               </Link>
             </div>
           </div>
@@ -219,12 +227,11 @@ export default function PlataformasPage() {
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl space-y-5">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-snug">
-                ¿Tu empresa ya superó la capacidad de Excel y las soluciones
-                estándar?
+                ¿Excel ya no alcanza para operar tu empresa?
               </h2>
               <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
-                Muchas organizaciones enfrentan cuellos de botella cuando sus
-                procesos crecen más rápido que sus herramientas.
+                Cuando el negocio crece más rápido que las herramientas, los
+                síntomas son siempre los mismos.
               </p>
             </div>
 
@@ -384,6 +391,54 @@ export default function PlataformasPage() {
                 </li>
               ))}
             </ol>
+
+            <div className="mt-12 rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6 sm:p-8">
+              <p className="text-base sm:text-lg text-slate-200 font-light leading-relaxed">
+                <strong className="font-semibold text-white">
+                  Tiempo típico:
+                </strong>{' '}
+                entre 2 y 6 meses, según el tipo y la complejidad del proyecto.
+              </p>
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* --- CASO REAL --- */}
+      <section className="py-20 lg:py-28 px-6 lg:px-12 border-t border-slate-800/80">
+        <ScrollReveal>
+          <div className="mx-auto max-w-7xl rounded-2xl border border-slate-800 bg-slate-900/60 p-8 sm:p-10 lg:p-12 backdrop-blur-xl shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-7 space-y-5">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-snug">
+                Le Paté: la tienda que se opera casi sola
+              </h2>
+              <p className="text-base text-slate-300 font-light leading-relaxed">
+                Una marca de patés y caldos para perros y gatos que vende en
+                línea. Reconstruimos su tienda para que el pedido se cobre, se
+                registre, se confirme y se reponga sin que nadie capture nada
+                dos veces.
+              </p>
+              <Link
+                href="/plataformas/le-pate"
+                className="inline-block rounded-full border border-cyan-500/40 bg-cyan-500/10 px-6 py-3 text-sm font-semibold text-cyan-300 transition-colors hover:bg-cyan-500/20 hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+              >
+                Ver el caso completo →
+              </Link>
+            </div>
+
+            <ul className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+              {AUTOMATIZADO_LEPATE.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2.5 text-sm text-slate-300"
+                >
+                  <span aria-hidden="true" className="mt-0.5 text-cyan-400">
+                    ✓
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </ScrollReveal>
       </section>
@@ -393,13 +448,12 @@ export default function PlataformasPage() {
         <ScrollReveal>
           <div className="mx-auto max-w-4xl rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-cyan-950/30 p-8 sm:p-12 backdrop-blur-xl text-center space-y-6">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-snug">
-              Convirtamos tus procesos manuales en una herramienta digital
-              eficiente.
+              ¿Qué proceso te está costando más tiempo y dinero?
             </h2>
 
             <p className="mx-auto max-w-2xl text-base text-slate-300 font-light leading-relaxed">
-              Cuéntanos qué proceso consume más tiempo en tu operación y te
-              mostraremos cómo automatizarlo con una plataforma web.
+              Cuéntanoslo en una llamada de 15 minutos. Te decimos qué se puede
+              resolver, qué no, y por dónde empezarías.
             </p>
 
             <div className="pt-2">
@@ -407,7 +461,7 @@ export default function PlataformasPage() {
                 href="/contacto"
                 className="inline-block rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold px-9 py-4 text-sm uppercase tracking-wider transition-all shadow-xl shadow-cyan-500/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
-                Agendar llamada de diagnóstico (15 min)
+                Agendar llamada de 15 min
               </Link>
             </div>
           </div>
@@ -419,7 +473,7 @@ export default function PlataformasPage() {
           serviceSchema({
             name: 'Plataformas web a la medida',
             description:
-              'Desarrollo de plataformas web en la nube: portales de clientes y proveedores, paneles de gestión interna, automatización de flujos y sistemas de cotización avanzada.',
+              'Diseño y construcción de plataformas a la medida para centralizar la operación de una empresa: pedidos, cobros, inventario, reportes y atención a clientes en un solo lugar.',
             path: '/plataformas',
             serviceType: 'Desarrollo de software a la medida',
           }),
