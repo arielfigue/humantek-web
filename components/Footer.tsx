@@ -6,6 +6,7 @@ export default function Footer() {
   const menuItems = [
     { name: "Inicio", href: "/" },
     { name: "ERP's", href: "/erps" },
+    { name: "Plataformas", href: "/plataformas" },
     { name: "Metodología", href: "/metodologia" },
     { name: "Casos de éxito", href: "/casos-de-exito" },
     { name: "Retail", href: "/retail" },
