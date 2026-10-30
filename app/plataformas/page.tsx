@@ -130,6 +130,11 @@ const BENEFICIOS = [
     texto:
       'Tu cliente ve su pedido, el vendedor su cartera, el director todo. La información sensible no se filtra.',
   },
+  {
+    titulo: 'Se integra con lo que ya tienes',
+    texto:
+      'Integramos la plataforma de tu negocio al sistema que ya tengas implementado si operas con algún backoffice (ERP).',
+  },
 ];
 
 const PASOS = [
@@ -151,7 +156,7 @@ const PASOS = [
   {
     titulo: 'Seguimos ahí',
     texto:
-      'Ajustes y nuevas necesidades conforme cambia la operación, con un solo responsable.',
+      'Ajustes y nuevas necesidades conforme cambia la operación, con un solo responsable. (Solicita los cambios que necesites como parte del servicio)',
   },
 ];
 
@@ -314,8 +319,17 @@ export default function PlataformasPage() {
 
             <div className="mt-12 rounded-2xl border border-slate-800 bg-slate-900/60 p-8 sm:p-10 backdrop-blur-xl shadow-2xl">
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                {BENEFICIOS.map((beneficio) => (
-                  <li key={beneficio.titulo} className="flex gap-4">
+                {BENEFICIOS.map((beneficio, indice) => {
+                  // Con un número impar de beneficios el último ocupa las dos
+                  // columnas: si no, queda un hueco vacío a su derecha.
+                  const ocupaFilaCompleta =
+                    BENEFICIOS.length % 2 === 1 && indice === BENEFICIOS.length - 1;
+
+                  return (
+                    <li
+                      key={beneficio.titulo}
+                      className={`flex gap-4${ocupaFilaCompleta ? ' md:col-span-2' : ''}`}
+                    >
                     <span className="mt-0.5 shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-cyan-500/15 border border-cyan-500/40 text-cyan-400">
                       <svg
                         aria-hidden="true"
@@ -332,7 +346,7 @@ export default function PlataformasPage() {
                         />
                       </svg>
                     </span>
-                    <div className="space-y-1">
+                    <div className={`space-y-1${ocupaFilaCompleta ? ' max-w-2xl' : ''}`}>
                       <h3 className="text-base font-bold text-white">
                         {beneficio.titulo}
                       </h3>
@@ -341,7 +355,8 @@ export default function PlataformasPage() {
                       </p>
                     </div>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -454,6 +469,10 @@ export default function PlataformasPage() {
             <p className="mx-auto max-w-2xl text-base text-slate-300 font-light leading-relaxed">
               Cuéntanoslo en una llamada de 15 minutos. Te decimos qué se puede
               resolver, qué no, y por dónde empezarías.
+            </p>
+
+            <p className="mx-auto max-w-2xl text-sm text-slate-400 font-light leading-relaxed">
+              Se puede manejar como servicio periódico o proyecto de única vez.
             </p>
 
             <div className="pt-2">
